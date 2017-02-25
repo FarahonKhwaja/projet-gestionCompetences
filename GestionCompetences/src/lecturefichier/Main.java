@@ -20,13 +20,9 @@ public class Main {
     public static void main(String[] args) {
         String chemin = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
         String chemin2 = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
-        try {
-            ArrayList<Personne> liste_personnel = lecteur.lireFichierPersonnes(chemin);
-            for (Personne unePers : liste_personnel) {
-                System.out.println(unePers.getNom());
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        ArrayList<Personne> liste_personnel = lecteur.lireFichierPersonnes(chemin);
+        for (Personne unePers : liste_personnel) {
+            System.out.println(unePers.getNom());
         }
     }
 }

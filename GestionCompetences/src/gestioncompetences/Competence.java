@@ -9,13 +9,13 @@ package gestioncompetences;
  *
  * @author phili
  */
-class Competence {
+public class Competence {
 
-    private int idCompetence;
+    private String idCompetence;
     private String nomEN;
     private String nomFR;
 
-    Competence(int idComp, String nomAnglais, String nomFrancais) {
+    public Competence(String idComp, String nomAnglais, String nomFrancais) {
         idCompetence = idComp;
         nomEN = nomAnglais;
         nomFR = nomFrancais;
@@ -24,14 +24,14 @@ class Competence {
     /**
      * @return the idCompetence
      */
-    public int getIdCompetence() {
+    public String getIdCompetence() {
         return idCompetence;
     }
 
     /**
      * @param idCompetence the idCompetence to set
      */
-    public void setIdCompetence(int idCompetence) {
+    public void setIdCompetence(String idCompetence) {
         this.idCompetence = idCompetence;
     }
 

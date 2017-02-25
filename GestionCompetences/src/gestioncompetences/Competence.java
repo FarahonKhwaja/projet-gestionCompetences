@@ -62,4 +62,9 @@ public class Competence {
     public void setNomFR(String nomFR) {
         this.nomFR = nomFR;
     }
+    
+    @Override
+    public String toString(){
+        return idCompetence + " - " + nomEN + " - " + nomFR;
+    }
 }

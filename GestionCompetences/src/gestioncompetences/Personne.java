@@ -67,4 +67,9 @@ public class Personne {
     public void removeCompetence(Competence competence) {
         this.Competences.remove(competence);
     }
+    
+    @Override
+    public String toString(){
+        return id + " - " + prenom + " " + nom;
+    }
 }

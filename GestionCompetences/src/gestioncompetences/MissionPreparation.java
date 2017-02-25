@@ -17,6 +17,10 @@ class MissionPreparation extends Mission {
     int nbRequis;
     HashMap<Competence, Integer> personelRequis = new HashMap<>();
 
+    /**
+     * @param dateDebut the dateDebut to set
+     * @param duree the duree to set
+     */
     public MissionPreparation(Date dateDebut, int duree, int nbRequis) {
         super(dateDebut, duree);
         this.nbRequis = nbRequis;

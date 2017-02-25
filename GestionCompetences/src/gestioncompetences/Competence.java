@@ -11,10 +11,16 @@ package gestioncompetences;
  */
 public class Competence {
 
-    private String idCompetence;
-    private String nomEN;
-    private String nomFR;
+    String idCompetence;
+    String nomEN;
+    String nomFR;
 
+    /**
+     *
+     * @param idComp
+     * @param nomAnglais
+     * @param nomFrancais
+     */
     public Competence(String idComp, String nomAnglais, String nomFrancais) {
         idCompetence = idComp;
         nomEN = nomAnglais;
@@ -62,9 +68,9 @@ public class Competence {
     public void setNomFR(String nomFR) {
         this.nomFR = nomFR;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return idCompetence + " - " + nomEN + " - " + nomFR;
     }
 }

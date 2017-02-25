@@ -17,6 +17,9 @@ class Mission {
     int duree;
     String etat;
 
+    /**
+     *
+     */
     public Mission(Date dateDebut, int duree) {
         this.dateDebut = dateDebut;
         this.duree = duree;

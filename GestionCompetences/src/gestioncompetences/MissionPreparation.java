@@ -18,8 +18,10 @@ class MissionPreparation extends Mission {
     HashMap<Competence, Integer> personelRequis = new HashMap<>();
 
     /**
+     *
      * @param dateDebut the dateDebut to set
      * @param duree the duree to set
+     * @param nbRequis the nbRequis to set
      */
     public MissionPreparation(Date dateDebut, int duree, int nbRequis) {
         super(dateDebut, duree);

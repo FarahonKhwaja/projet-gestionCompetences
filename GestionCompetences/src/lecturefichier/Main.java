@@ -5,11 +5,9 @@
  */
 package lecturefichier;
 
+import gestioncompetences.Competence;
 import gestioncompetences.Personne;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,13 +18,14 @@ public class Main {
     public static void main(String[] args) {
         String chemin = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
         String chemin2 = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
-        try {
-            ArrayList<Personne> liste_personnel = lecteur.lireFichierPersonnes(chemin);
-            for (Personne unePers : liste_personnel) {
-                System.out.println(unePers.getNom());
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        ArrayList<Personne> liste_personnel = lecteur.lireFichierPersonnes(chemin);
+        ArrayList<Competence> liste_competences = lecteur.lireFichierCompetences(chemin2);
+        /*for (Personne unePers : liste_personnel) {
+            System.out.println(unePers.getNom());
+        }*/
+        for(Competence uneComp : liste_competences)
+        {
+            System.out.println(uneComp.getNomFR());
         }
     }
 }

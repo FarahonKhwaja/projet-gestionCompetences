@@ -10,13 +10,34 @@ package gestioncompetences;
  * @author phili
  */
 public class Competence {
-    int idCompetence;
-    String nomEN;
-    String nomFR;
+    private String idCompetence;
+    private String nomEN;
+    private String nomFR;
     
-    Competence(int idComp, String nomAnglais, String nomFrancais) {
+    public Competence(String idComp, String nomAnglais, String nomFrancais) {
         idCompetence = idComp;
         nomEN = nomAnglais;
         nomFR = nomFrancais;
+    }
+
+    /**
+     * @return the idCompetence
+     */
+    public String getIdCompetence() {
+        return idCompetence;
+    }
+
+    /**
+     * @return the nomEN
+     */
+    public String getNomEN() {
+        return nomEN;
+    }
+
+    /**
+     * @return the nomFR
+     */
+    public String getNomFR() {
+        return nomFR;
     }
 }

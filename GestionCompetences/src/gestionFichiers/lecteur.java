@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lecturefichier;
+package gestionFichiers;
 
 import gestioncompetences.Competence;
 import gestioncompetences.Personne;

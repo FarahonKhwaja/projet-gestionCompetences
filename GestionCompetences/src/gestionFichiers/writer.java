@@ -1,7 +1,7 @@
 /**
  * Permet d'écrire les fichiers CSV
  */
-package lecturefichier;
+package gestionFichiers;
 
 import gestioncompetences.Competence;
 import gestioncompetences.Personne;

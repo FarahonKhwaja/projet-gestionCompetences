@@ -5,10 +5,28 @@
  */
 package gestioncompetences;
 
+import java.util.Date;
+import java.util.HashMap;
+
 /**
  *
  * @author phili
  */
 public class MissionEnCours extends MissionPlanifiee {
-    
+
+    protected HashMap<Competence, Personne> affectationDefinitive;
+
+    public MissionEnCours(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, Personne> personelAffecte) {
+        super(dateDebut, duree, nbRequis, personelRequis);
+        this.etat = "En Cours";
+        this.affectationDefinitive = personelAffecte;
+    }
+
+    /**
+     * @return the affectationDefinitive
+     */
+    public HashMap<Competence, Personne> getAffectationDefinitive() {
+        return affectationDefinitive;
+    }
+
 }

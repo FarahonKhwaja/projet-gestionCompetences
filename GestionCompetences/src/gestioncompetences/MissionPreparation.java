@@ -14,28 +14,13 @@ import java.util.HashMap;
  */
 class MissionPreparation extends Mission {
 
-    protected HashMap<Competence, Integer> personelRequis;
-    protected int nbRequis;
+    int nbRequis;
+    HashMap<Competence, Integer> personelRequis = new HashMap<>();
 
     public MissionPreparation(Date dateDebut, int duree, int nbRequis) {
         super(dateDebut, duree);
         this.nbRequis = nbRequis;
-        this.personelRequis = new HashMap<>();
         this.etat = "Preparation";
-    }
-
-    /**
-     * @return the personelRequis
-     */
-    public HashMap<Competence, Integer> getPersonelRequis() {
-        return personelRequis;
-    }
-
-    /**
-     * @param personelRequis the personelRequis to set
-     */
-    public void setPersonelRequis(HashMap<Competence, Integer> personelRequis) {
-        this.personelRequis = personelRequis;
     }
 
     /**
@@ -50,6 +35,13 @@ class MissionPreparation extends Mission {
      */
     public void setNbRequis(int nbRequis) {
         this.nbRequis = nbRequis;
+    }
+
+    /**
+     * @return the personelRequis
+     */
+    public HashMap<Competence, Integer> getPersonelRequis() {
+        return personelRequis;
     }
 
     /**

@@ -14,11 +14,12 @@ import java.util.HashMap;
  */
 class MissionPlanifiee extends MissionPreparation {
 
-    protected HashMap<Competence, Personne> personelAffecte;
+    HashMap<Competence, Personne> personelAffecte = new HashMap<>();
 
-    public MissionPlanifiee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Personne> personelAffecte) {
+    public MissionPlanifiee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis) {
         super(dateDebut, duree, nbRequis);
-        this.personelAffecte = personelAffecte;
+        this.etat = "Planifiee";
+        this.personelRequis = personelRequis;
     }
 
     /**
@@ -29,24 +30,17 @@ class MissionPlanifiee extends MissionPreparation {
     }
 
     /**
-     * @param personelAffecte the personelAffecte to set
-     */
-    public void setPersonelAffecte(HashMap<Competence, Personne> personelAffecte) {
-        this.personelAffecte = personelAffecte;
-    }
-
-    /**
      * @param competence the competence to add
      * @param nbPersonne the nbPersonne to set
      */
-    public void addCompetence(Competence competence, Personne personne) {
+    public void addPersonne(Competence competence, Personne personne) {
         this.personelAffecte.put(competence, personne);
     }
 
     /**
      * @param competence the competence to remove
      */
-    public void removeCompetence(Competence competence) {
+    public void removePersonne(Competence competence) {
         this.personelAffecte.remove(competence);
     }
 

@@ -5,6 +5,7 @@
  */
 package gestioncompetences;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,12 +13,13 @@ import java.util.Date;
  * @author phili
  */
 public class Personne {
+
     private String nom, prenom;
     private Date dateEntree;
     private int id;
-    
-    public Personne(String nom, String prenom, Date dateEntree, int id)
-    {
+    private ArrayList<Competence> Competences = new ArrayList<>();
+
+    public Personne(String nom, String prenom, Date dateEntree, int id) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateEntree = dateEntree;
@@ -50,5 +52,19 @@ public class Personne {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * @param competence the competence to add
+     */
+    public void addCompetence(Competence competence) {
+        this.Competences.add(competence);
+    }
+
+    /**
+     * @param competence the competence to remove
+     */
+    public void removeCompetence(Competence competence) {
+        this.Competences.remove(competence);
     }
 }

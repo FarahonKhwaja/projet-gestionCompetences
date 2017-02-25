@@ -11,30 +11,31 @@ import java.util.Date;
  *
  * @author phili
  */
-abstract class Mission {
+class Mission {
 
-    protected Date dateDebut;
-    protected int duree;
-    protected String etat;
+    Date dateDebut;
+    int duree;
+    String etat;
 
     public Mission(Date dateDebut, int duree) {
         this.dateDebut = dateDebut;
         this.duree = duree;
-        this.etat = "";
     }
 
-    /**
-     * @return the dateDebut
-     */
     public Date getDateDebut() {
         return dateDebut;
     }
 
-    /**
-     * @return the duree
-     */
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
     public int getDuree() {
         return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
     }
 
 }

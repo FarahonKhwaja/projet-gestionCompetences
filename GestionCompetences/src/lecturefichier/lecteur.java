@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Cette classe permet de lire des fichiers .CSV
@@ -72,5 +73,18 @@ public class lecteur {
             i++;
         }
         return competences;
+    }
+
+    public static void lireFichierCompetencesParPersonne(String chemin) throws IOException {
+        HashMap<Integer, ArrayList<Competence>> competencesPersonne;
+        String chaine;
+        int i = 0;
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) {
+            if (i > 0) {
+                String[] infos = chaine.split(";");
+                
+            }
+        }
     }
 }

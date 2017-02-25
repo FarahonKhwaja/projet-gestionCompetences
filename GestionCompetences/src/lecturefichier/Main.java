@@ -17,10 +17,19 @@ import java.util.logging.Logger;
 public class Main {
     public static void main(String[] args)
     {
-        String chemin = "C:\\Users\\phili\\Documents\\projetaoc\\fichiers_projet\\liste_personnel.csv";
+        String chemin = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
+        String chemin2 = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
         try {
             ArrayList<String> liste_personnel = lecteur.lireFichier(chemin);
-            System.out.println(liste_personnel.toString());
+            ArrayList<String> liste_competences = lecteur.lireFichier(chemin2);
+            for(String str : liste_personnel)
+            {
+                System.out.println(str);
+            }
+            for(String str : liste_competences)
+            {
+                System.out.println(str);
+            }
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -12,10 +12,18 @@ import java.util.HashMap;
  *
  * @author phili
  */
-public class MissionEnCours extends MissionPlanifiee {
+class MissionEnCours extends MissionPlanifiee {
 
-    protected HashMap<Competence, Personne> affectationDefinitive;
+    HashMap<Competence, Personne> affectationDefinitive;
 
+    /**
+     *
+     * @param dateDebut the dateDebut to set
+     * @param duree the duree to set
+     * @param nbRequis the nbRequis to set
+     * @param personelRequis the personelRequis to set
+     * @param personelAffecte the personelAffecte to set
+     */
     public MissionEnCours(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, Personne> personelAffecte) {
         super(dateDebut, duree, nbRequis, personelRequis);
         this.etat = "En Cours";

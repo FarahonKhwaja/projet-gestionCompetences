@@ -17,6 +17,11 @@ class Mission {
     int duree;
     String etat;
 
+    /**
+     *
+     * @param dateDebut the dateDebut to set
+     * @param duree the duree to set
+     */
     public Mission(Date dateDebut, int duree) {
         this.dateDebut = dateDebut;
         this.duree = duree;

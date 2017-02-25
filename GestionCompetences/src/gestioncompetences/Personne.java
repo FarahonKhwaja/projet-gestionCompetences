@@ -14,11 +14,18 @@ import java.util.Date;
  */
 public class Personne {
 
-    private String nom, prenom;
-    private Date dateEntree;
-    private int id;
-    private ArrayList<Competence> Competences = new ArrayList<>();
+    String nom, prenom;
+    Date dateEntree;
+    int id;
+    ArrayList<Competence> Competences = new ArrayList<>();
 
+    /**
+     *
+     * @param nom
+     * @param prenom
+     * @param dateEntree
+     * @param id
+     */
     public Personne(String nom, String prenom, Date dateEntree, int id) {
         this.nom = nom;
         this.prenom = prenom;
@@ -67,9 +74,9 @@ public class Personne {
     public void removeCompetence(Competence competence) {
         this.Competences.remove(competence);
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return id + " - " + prenom + " " + nom;
     }
 }

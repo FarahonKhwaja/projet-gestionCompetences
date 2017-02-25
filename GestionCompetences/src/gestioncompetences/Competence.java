@@ -9,14 +9,6 @@ package gestioncompetences;
  *
  * @author phili
  */
-<<<<<<< HEAD
-public class Competence {
-    private String idCompetence;
-    private String nomEN;
-    private String nomFR;
-    
-    public Competence(String idComp, String nomAnglais, String nomFrancais) {
-=======
 class Competence {
 
     private int idCompetence;
@@ -24,7 +16,6 @@ class Competence {
     private String nomFR;
 
     Competence(int idComp, String nomAnglais, String nomFrancais) {
->>>>>>> origin/master
         idCompetence = idComp;
         nomEN = nomAnglais;
         nomFR = nomFrancais;
@@ -33,17 +24,11 @@ class Competence {
     /**
      * @return the idCompetence
      */
-<<<<<<< HEAD
-    public String getIdCompetence() {
-=======
     public int getIdCompetence() {
->>>>>>> origin/master
         return idCompetence;
     }
 
     /**
-<<<<<<< HEAD
-=======
      * @param idCompetence the idCompetence to set
      */
     public void setIdCompetence(int idCompetence) {
@@ -51,7 +36,6 @@ class Competence {
     }
 
     /**
->>>>>>> origin/master
      * @return the nomEN
      */
     public String getNomEN() {
@@ -59,8 +43,6 @@ class Competence {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * @param nomEN the nomEN to set
      */
     public void setNomEN(String nomEN) {
@@ -68,14 +50,11 @@ class Competence {
     }
 
     /**
->>>>>>> origin/master
      * @return the nomFR
      */
     public String getNomFR() {
         return nomFR;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @param nomFR the nomFR to set
@@ -83,5 +62,4 @@ class Competence {
     public void setNomFR(String nomFR) {
         this.nomFR = nomFR;
     }
->>>>>>> origin/master
 }

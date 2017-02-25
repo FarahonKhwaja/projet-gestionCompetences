@@ -5,10 +5,37 @@
  */
 package gestioncompetences;
 
+import java.util.Date;
+
 /**
  *
  * @author phili
  */
-public interface Mission {
+abstract class Mission {
+    
+    Date dateDebut;
+    int duree;
+    String etat;
+
+    public Mission(Date dateDebut, int duree) {
+        this.dateDebut = dateDebut;
+        this.duree = duree;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }   
     
 }

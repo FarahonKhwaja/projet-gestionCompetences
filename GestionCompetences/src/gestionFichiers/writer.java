@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Cette classe permet d'écrire dans des fichiers .CSV
  * @author phili
  */
-public class writer {
+public class Writer {
 
     /**
      * 

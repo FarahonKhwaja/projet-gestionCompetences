@@ -8,7 +8,6 @@ package gestionFichiers;
 import gestioncompetences.Competence;
 import gestioncompetences.Personne;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.HashMap;
  *
  * @author phili
  */
-public class lecteur {
+public class Lecteur {
 
     /**
      * Lit un fichier de {@link Personne}.
@@ -75,16 +74,26 @@ public class lecteur {
         return competences;
     }
 
-    public static void lireFichierCompetencesParPersonne(String chemin) throws IOException {
-        HashMap<Integer, ArrayList<Competence>> competencesPersonne;
+    public static HashMap<Integer, ArrayList<String>> lireFichierCompetencesParPersonne(String chemin) throws IOException {
+        HashMap<Integer, ArrayList<String>> competencesPersonne = null;
         String chaine;
         int i = 0;
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) {
             if (i > 0) {
                 String[] infos = chaine.split(";");
-                
+                ArrayList<String> competences = new ArrayList<>();
+                System.out.print(i + " ");
+                for(int j = 1; j < infos.length; j++)
+                {
+                    competences.add(infos[j]);
+                }
+                Integer idPersonne = Integer.parseInt(infos[0]);
+                System.out.println(competences.toString());
+                competencesPersonne.put(i, competences);
             }
+            i++;
         }
+        return competencesPersonne;
     }
 }

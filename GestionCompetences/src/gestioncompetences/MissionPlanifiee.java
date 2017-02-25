@@ -14,25 +14,38 @@ import java.util.HashMap;
  */
 class MissionPlanifiee extends MissionPreparation {
 
-    HashMap<Competence, Integer> personelAffecte;
+    protected HashMap<Competence, Personne> personelAffecte;
 
-    public MissionPlanifiee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelAffecte) {
+    public MissionPlanifiee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Personne> personelAffecte) {
         super(dateDebut, duree, nbRequis);
         this.personelAffecte = personelAffecte;
     }
 
-    public HashMap<Competence, Integer> getPersonelAffecte() {
+    /**
+     * @return the personelAffecte
+     */
+    public HashMap<Competence, Personne> getPersonelAffecte() {
         return personelAffecte;
     }
 
-    public void setPersonelAffecte(HashMap<Competence, Integer> personelAffecte) {
+    /**
+     * @param personelAffecte the personelAffecte to set
+     */
+    public void setPersonelAffecte(HashMap<Competence, Personne> personelAffecte) {
         this.personelAffecte = personelAffecte;
     }
 
-    public void addCompetence(Competence competence, int nbPersonne) {
-        this.personelAffecte.put(competence, nbPersonne);
+    /**
+     * @param competence the competence to add
+     * @param nbPersonne the nbPersonne to set
+     */
+    public void addCompetence(Competence competence, Personne personne) {
+        this.personelAffecte.put(competence, personne);
     }
 
+    /**
+     * @param competence the competence to remove
+     */
     public void removeCompetence(Competence competence) {
         this.personelAffecte.remove(competence);
     }

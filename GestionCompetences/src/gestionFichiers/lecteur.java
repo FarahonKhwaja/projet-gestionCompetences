@@ -31,6 +31,9 @@ public class Lecteur {
      * @throws IOException Si le fichier ciblé n'existe pas, retourne une erreur
      * IOException.
      */
+    public static ArrayList<Personne> liste_personnel = new ArrayList<>();
+    public static ArrayList<Competence> liste_competences = new ArrayList<>();
+    
     public static ArrayList<Personne> lireFichierPersonnes(String chemin) throws IOException {
         String chaine;
         int i = 0;
@@ -45,6 +48,7 @@ public class Lecteur {
             }
             i++;
         }
+        liste_personnel = personnes;
         return personnes;
     }
 
@@ -71,6 +75,7 @@ public class Lecteur {
             }
             i++;
         }
+        liste_competences = competences;
         return competences;
     }
 

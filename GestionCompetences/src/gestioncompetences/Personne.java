@@ -5,8 +5,11 @@
  */
 package gestioncompetences;
 
+import gestionFichiers.lecteur;
+import static gestionFichiers.lecteur.lireFichierPersonnes;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -66,6 +69,21 @@ public class Personne {
      */
     public void addCompetence(Competence competence) {
         this.Competences.add(competence);
+    }
+
+    /**
+     * @param competences
+     */
+    public void addCompetence(HashMap<Integer, ArrayList<String>> competences) {
+
+        ArrayList<String> idCompetencesPerso = competences.get(this.id);
+
+        idCompetencesPerso.forEach((competenceperso) -> {
+            Competence competence = getCompetenceByID(competenceperso);
+            if (!Competences.contains(competence)) {
+                this.Competences.add(competence);
+            }
+        });
     }
 
     /**

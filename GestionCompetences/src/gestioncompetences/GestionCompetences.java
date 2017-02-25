@@ -24,7 +24,6 @@ public class GestionCompetences {
         Competence devWeb = new Competence("3", "Aucune idée", "Développement Web");
         Competence reseau = new Competence("4", "Aucune idée", "Réseaux");
 
-
         Personne jean = new Personne("Peuplus", "Jean", new Date(), 1);
         Personne beth = new Personne("Rave", "Beth", new Date(), 2);
         Personne carry = new Personne("Bout", "Carry", new Date(), 3);

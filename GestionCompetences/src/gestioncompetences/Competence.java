@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public class Competence {
 
-    String idCompetence;
-    String nomEN;
-    String nomFR;
+    protected String idCompetence;
+    protected String nomEN;
+    protected String nomFR;
 
     /**
      *
@@ -75,7 +75,7 @@ public class Competence {
 
     @Override
     public String toString() {
-        return idCompetence + " - " + nomEN + " - " + nomFR;
+        return getIdCompetence() + " - " + getNomEN() + " - " + getNomFR();
     }
 
     public static Competence getCompetenceById(String id) throws IOException {

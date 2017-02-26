@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class Personne {
 
-    String nom;
-    String prenom;
-    Date dateEntree;
-    int id;
-    ArrayList<Competence> Competences = new ArrayList<>();
+    protected String nom;
+    protected String prenom;
+    protected Date dateEntree;
+    protected int id;
+    protected ArrayList<Competence> Competences = new ArrayList<>();
 
     /**
      *
@@ -115,7 +115,7 @@ public class Personne {
     public static Personne getPersonneById(int id) throws IOException {
         ArrayList<Personne> personnes = Lecteur.lireFichierPersonnes("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_personnel.csv");
         for (Personne personne : personnes) {
-            if (personne.getId() ==  id) {
+            if (personne.getId() == id) {
                 return personne;
             }
         }

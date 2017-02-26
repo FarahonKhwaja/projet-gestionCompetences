@@ -51,7 +51,6 @@ public class GestionCompetences {
         missionPrep2.addCompetence(competences.get(1), 1);
         missionPrep2.addCompetence(competences.get(2), 4);
         missionPrep2.addCompetence(competences.get(3), 1);
-        
 
         MissionPlanifiee missionPlanifiee = missionPrep.planifier();
         MissionPlanifiee missionPlanifiee2 = missionPrep2.planifier();

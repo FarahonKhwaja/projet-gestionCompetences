@@ -84,7 +84,7 @@ class MissionPlanifiee extends MissionPreparation {
             //System.out.println(personne.getCompetences());
             for (Competence competencePersonne : personne.getCompetences()) {
                 //System.out.println("B" + competencePersonne);
-                for (Competence key : this.personelRequis.keySet()) {
+                for (Competence key : this.getPersonelRequis().keySet()) {
                     if (key.getIdCompetence().equals(competencePersonne.getIdCompetence())) {
                         i++;
                     }
@@ -108,7 +108,7 @@ class MissionPlanifiee extends MissionPreparation {
                     //System.out.println(key.getCompetences());
                     for (Competence competencePersonne : key.getCompetences()) {
                         //System.out.println("B" + competencePersonne);
-                        for (Competence competence : this.personelRequis.keySet()) {
+                        for (Competence competence : this.getPersonelRequis().keySet()) {
                             if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
                                 addPersonne(competence, key);
                             }
@@ -145,14 +145,14 @@ class MissionPlanifiee extends MissionPreparation {
                 j = personneAffinites.get(key);
             }
         }
-        
+
         if (j != 0) {
             for (Personne key : personneAffinites.keySet()) {
                 if (personneAffinites.get(key).compareTo(j) == 0) {
                     //System.out.println(key.getCompetences());
                     for (Competence competencePersonne : key.getCompetences()) {
                         //System.out.println("B" + competencePersonne);
-                        for (Competence competence : this.personelRequis.keySet()) {
+                        for (Competence competence : this.getPersonelRequis().keySet()) {
                             if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
                                 addPersonne(competence, key);
                             }

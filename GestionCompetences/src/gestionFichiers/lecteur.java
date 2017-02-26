@@ -59,7 +59,7 @@ public class Lecteur {
     public static ArrayList<Competence> getCompetences(String chemin) throws IOException {
         return lireFichierCompetences(chemin);
     }
-    
+
     /**
      * Lit un fichier de {@link Personne}.
      *

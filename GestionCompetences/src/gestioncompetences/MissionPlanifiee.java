@@ -5,12 +5,10 @@
  */
 package gestioncompetences;
 
-import static gestionFichiers.Lecteur.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  *

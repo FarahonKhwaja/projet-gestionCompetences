@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/phili/Documents/projetaoc/GestionCompetences/src/gestioncompetences/GestionCompetences.java</file>
-            <file>file:/C:/Users/phili/Documents/projetaoc/GestionCompetences/src/lecturefichier/Main.java</file>
-            <file>file:/C:/Users/phili/Documents/projetaoc/GestionCompetences/src/lecturefichier/lecteur.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/GestionCompetences.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/Lecteur.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/Writer.java</file>
         </group>
     </open-files>
 </project-private>

@@ -33,7 +33,11 @@ public class Lecteur {
      */
     public static ArrayList<Personne> liste_personnel = new ArrayList<>();
     public static ArrayList<Competence> liste_competences = new ArrayList<>();
-    
+
+    public static ArrayList<Personne> getPersonnel(String chemin) throws IOException {
+        return lireFichierPersonnes(chemin);
+    }
+
     public static ArrayList<Personne> lireFichierPersonnes(String chemin) throws IOException {
         String chaine;
         int i = 0;
@@ -52,6 +56,10 @@ public class Lecteur {
         return personnes;
     }
 
+    public static ArrayList<Competence> getCompetences(String chemin) throws IOException {
+        return lireFichierCompetences(chemin);
+    }
+    
     /**
      * Lit un fichier de {@link Personne}.
      *
@@ -68,11 +76,9 @@ public class Lecteur {
         ArrayList<Competence> competences = new ArrayList<>();
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) {
-            if (i > 0) {
-                String[] infosUneCompetence = chaine.split(";");
-                Competence uneCompetence = new Competence(infosUneCompetence[0], infosUneCompetence[1], infosUneCompetence[2]);
-                competences.add(uneCompetence);
-            }
+            String[] infosUneCompetence = chaine.split(";");
+            Competence uneCompetence = new Competence(infosUneCompetence[0], infosUneCompetence[1], infosUneCompetence[2]);
+            competences.add(uneCompetence);
             i++;
         }
         liste_competences = competences;
@@ -80,7 +86,7 @@ public class Lecteur {
     }
 
     public static HashMap<Integer, ArrayList<String>> lireFichierCompetencesParPersonne(String chemin) throws IOException {
-        HashMap<Integer, ArrayList<String>> competencesPersonne = null;
+        HashMap<Integer, ArrayList<String>> competencesPersonne = new HashMap<>();
         String chaine;
         int i = 0;
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
@@ -88,13 +94,10 @@ public class Lecteur {
             if (i > 0) {
                 String[] infos = chaine.split(";");
                 ArrayList<String> competences = new ArrayList<>();
-                System.out.print(i + " ");
-                for(int j = 1; j < infos.length; j++)
-                {
+                for (int j = 1; j < infos.length; j++) {
                     competences.add(infos[j]);
                 }
                 Integer idPersonne = Integer.parseInt(infos[0]);
-                System.out.println(competences.toString());
                 competencesPersonne.put(i, competences);
             }
             i++;

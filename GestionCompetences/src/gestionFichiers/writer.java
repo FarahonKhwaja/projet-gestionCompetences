@@ -13,18 +13,18 @@ import java.util.ArrayList;
 
 /**
  * Cette classe permet d'écrire dans des fichiers .CSV
+ *
  * @author phili
  */
 public class Writer {
 
     /**
-     * 
-     * @param chemin
-     *      Correspond au chemin où se trouve le fichier à écrire. Il est créé si inexistant. Si existant, il est écrasé.
-     * @param personnes
-     *      Correspond à l'ArrayList de personnes à écrire.
-     * @throws IOException 
-     *      Si le chemin indiqué n'est pas atteignable, déclenche une exception.
+     *
+     * @param chemin Correspond au chemin où se trouve le fichier à écrire. Il
+     * est créé si inexistant. Si existant, il est écrasé.
+     * @param personnes Correspond à l'ArrayList de personnes à écrire.
+     * @throws IOException Si le chemin indiqué n'est pas atteignable, déclenche
+     * une exception.
      */
     public static void sauvegarderPersonnel(String chemin, ArrayList<Personne> personnes) throws IOException {
         String totalite = "";
@@ -40,13 +40,12 @@ public class Writer {
     }
 
     /**
-     * 
-     * @param chemin
-     *      Correspond au chemin où se trouve le fichier à écrire. Il est créé si inexistant. Si existant, il est écrasé.
-     * @param competences
-     *      Correspond à l'ArrayList de compétences à écrire.
-     * @throws IOException 
-     *      Si le chemin indiqué n'est pas atteignable, déclenche une exception.
+     *
+     * @param chemin Correspond au chemin où se trouve le fichier à écrire. Il
+     * est créé si inexistant. Si existant, il est écrasé.
+     * @param competences Correspond à l'ArrayList de compétences à écrire.
+     * @throws IOException Si le chemin indiqué n'est pas atteignable, déclenche
+     * une exception.
      */
     public static void sauvegarderCompetences(String chemin, ArrayList<Competence> competences) throws IOException {
         String totalite = "";

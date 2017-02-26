@@ -5,6 +5,10 @@
  */
 package gestioncompetences;
 
+import gestionFichiers.Lecteur;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * @author phili
@@ -72,5 +76,16 @@ public class Competence {
     @Override
     public String toString() {
         return idCompetence + " - " + nomEN + " - " + nomFR;
+    }
+
+    public static Competence getCompetenceById(String id) throws IOException {
+        ArrayList<Competence> competences = Lecteur.lireFichierCompetences("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_competences.csv");
+        for (Competence competence : competences) {
+            if (competence.getIdCompetence().equals(id)) {
+                return competence;
+            }
+        }
+        return null;
+
     }
 }

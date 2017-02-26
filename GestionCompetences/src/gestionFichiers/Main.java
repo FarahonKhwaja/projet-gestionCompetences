@@ -20,14 +20,18 @@ import java.util.logging.Logger;
  */
 public class Main {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         //lecture de CSV
         /*String chemin = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
         String chemin2 = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";*/
-        String chemin3 = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
+        String chemin3 = "C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
         /*ArrayList<Personne> liste_personnel = new ArrayList<>();
         ArrayList<Competence> liste_competences = new ArrayList<>();*/
-        HashMap<Integer, ArrayList<String>> hashmap;
+        HashMap<Integer, ArrayList<String>> hashmap = new HashMap<>();
         try {
             /*liste_personnel = Lecteur.lireFichierPersonnes(chemin);
             liste_competences = Lecteur.lireFichierCompetences(chemin2);*/

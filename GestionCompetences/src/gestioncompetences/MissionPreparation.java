@@ -14,14 +14,14 @@ import java.util.HashMap;
  */
 class MissionPreparation extends Mission {
 
-    int nbRequis;
-    HashMap<Competence, Integer> personelRequis = new HashMap<>();
+    protected int nbRequis;
+    protected HashMap<Competence, Integer> personelRequis = new HashMap<>();
 
     /**
      *
-     * @param dateDebut the dateDebut to set
-     * @param duree the duree to set
-     * @param nbRequis the nbRequis to set
+     * @param dateDebut
+     * @param duree
+     * @param nbRequis
      */
     public MissionPreparation(Date dateDebut, int duree, int nbRequis) {
         super(dateDebut, duree);
@@ -37,13 +37,6 @@ class MissionPreparation extends Mission {
     }
 
     /**
-     * @param nbRequis the nbRequis to set
-     */
-    public void setNbRequis(int nbRequis) {
-        this.nbRequis = nbRequis;
-    }
-
-    /**
      * @return the personelRequis
      */
     public HashMap<Competence, Integer> getPersonelRequis() {
@@ -55,14 +48,22 @@ class MissionPreparation extends Mission {
      * @param nbPersonne the nbPersonne to set
      */
     public void addCompetence(Competence competence, int nbPersonne) {
-        this.personelRequis.put(competence, nbPersonne);
+        this.getPersonelRequis().put(competence, nbPersonne);
     }
 
     /**
      * @param competence the competence to remove
      */
     public void removeCompetence(Competence competence) {
-        this.personelRequis.remove(competence);
+        this.getPersonelRequis().remove(competence);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public MissionPlanifiee planifier() {
+        return new MissionPlanifiee(getDateDebut(), getDuree(), getNbRequis(), getPersonelRequis());
     }
 
 }

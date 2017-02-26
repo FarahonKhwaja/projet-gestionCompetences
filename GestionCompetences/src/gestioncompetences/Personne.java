@@ -5,11 +5,13 @@
  */
 package gestioncompetences;
 
-import gestionFichiers.lecteur;
-import static gestionFichiers.lecteur.lireFichierPersonnes;
+import gestionFichiers.Lecteur;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,7 +19,8 @@ import java.util.HashMap;
  */
 public class Personne {
 
-    String nom, prenom;
+    String nom;
+    String prenom;
     Date dateEntree;
     int id;
     ArrayList<Competence> Competences = new ArrayList<>();
@@ -65,10 +68,17 @@ public class Personne {
     }
 
     /**
+     * @return the Competences
+     */
+    public ArrayList<Competence> getCompetences() {
+        return Competences;
+    }
+
+    /**
      * @param competence the competence to add
      */
     public void addCompetence(Competence competence) {
-        this.Competences.add(competence);
+        this.getCompetences().add(competence);
     }
 
     /**
@@ -76,12 +86,16 @@ public class Personne {
      */
     public void addCompetence(HashMap<Integer, ArrayList<String>> competences) {
 
-        ArrayList<String> idCompetencesPerso = competences.get(this.id);
-
+        ArrayList<String> idCompetencesPerso = competences.get(this.getId());
         idCompetencesPerso.forEach((competenceperso) -> {
-            Competence competence = getCompetenceByID(competenceperso);
-            if (!Competences.contains(competence)) {
-                this.Competences.add(competence);
+            Competence competence;
+            try {
+                competence = Competence.getCompetenceById(competenceperso);
+                if (!Competences.contains(competence)) {
+                    this.getCompetences().add(competence);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Personne.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -90,11 +104,22 @@ public class Personne {
      * @param competence the competence to remove
      */
     public void removeCompetence(Competence competence) {
-        this.Competences.remove(competence);
+        this.getCompetences().remove(competence);
     }
 
     @Override
     public String toString() {
-        return id + " - " + prenom + " " + nom;
+        return getId() + " - " + getPrenom() + " " + getNom();
+    }
+
+    public static Personne getPersonneById(int id) throws IOException {
+        ArrayList<Personne> personnes = Lecteur.lireFichierPersonnes("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_personnel.csv");
+        for (Personne personne : personnes) {
+            if (personne.getId() ==  id) {
+                return personne;
+            }
+        }
+        return null;
+
     }
 }

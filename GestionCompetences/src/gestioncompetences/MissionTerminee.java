@@ -5,6 +5,7 @@
  */
 package gestioncompetences;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -13,10 +14,18 @@ import java.util.HashMap;
  * @author phili
  */
 public class MissionTerminee extends MissionEnCours {
-    
+
     protected Date dateFin;
-    
-    public MissionTerminee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, Personne> personelAffecte) {
+
+    /**
+     *
+     * @param dateDebut
+     * @param duree
+     * @param nbRequis
+     * @param personelRequis
+     * @param personelAffecte
+     */
+    public MissionTerminee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
         super(dateDebut, duree, nbRequis, personelRequis, personelAffecte);
         this.etat = "Finie";
     }
@@ -28,11 +37,4 @@ public class MissionTerminee extends MissionEnCours {
         return dateFin;
     }
 
-    /**
-     * @param dateFin the dateFin to set
-     */
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
-    
 }

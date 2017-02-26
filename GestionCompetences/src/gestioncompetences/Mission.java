@@ -13,34 +13,39 @@ import java.util.Date;
  */
 class Mission {
 
-    Date dateDebut;
-    int duree;
-    String etat;
+    protected Date dateDebut;
+    protected int duree;
+    protected String etat;
 
     /**
      *
-     * @param dateDebut the dateDebut to set
-     * @param duree the duree to set
+     * @param dateDebut
+     * @param duree
      */
     public Mission(Date dateDebut, int duree) {
         this.dateDebut = dateDebut;
         this.duree = duree;
     }
 
+    /**
+     * @return the dateDebut
+     */
     public Date getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
+    /**
+     * @return the duree
+     */
     public int getDuree() {
         return duree;
     }
 
-    public void setDuree(int duree) {
-        this.duree = duree;
+    /**
+     * @return the etat
+     */
+    public String getEtat() {
+        return etat;
     }
 
 }

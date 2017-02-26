@@ -5,6 +5,7 @@
  */
 package gestioncompetences;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -14,17 +15,17 @@ import java.util.HashMap;
  */
 class MissionEnCours extends MissionPlanifiee {
 
-    HashMap<Competence, Personne> affectationDefinitive;
+    protected HashMap<Competence, ArrayList<Personne>> affectationDefinitive;
 
     /**
      *
-     * @param dateDebut the dateDebut to set
-     * @param duree the duree to set
-     * @param nbRequis the nbRequis to set
-     * @param personelRequis the personelRequis to set
-     * @param personelAffecte the personelAffecte to set
+     * @param dateDebut
+     * @param duree
+     * @param nbRequis
+     * @param personelRequis
+     * @param personelAffecte
      */
-    public MissionEnCours(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, Personne> personelAffecte) {
+    public MissionEnCours(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
         super(dateDebut, duree, nbRequis, personelRequis);
         this.etat = "En Cours";
         this.affectationDefinitive = personelAffecte;
@@ -33,8 +34,16 @@ class MissionEnCours extends MissionPlanifiee {
     /**
      * @return the affectationDefinitive
      */
-    public HashMap<Competence, Personne> getAffectationDefinitive() {
+    public HashMap<Competence, ArrayList<Personne>> getAffectationDefinitive() {
         return affectationDefinitive;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public MissionTerminee clore() {
+        return new MissionTerminee(getDateDebut(), getDuree(), getNbRequis(), getPersonelRequis(), getPersonelAffecte());
     }
 
 }

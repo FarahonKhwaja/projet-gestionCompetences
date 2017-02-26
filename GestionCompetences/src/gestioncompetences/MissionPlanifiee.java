@@ -5,8 +5,12 @@
  */
 package gestioncompetences;
 
+import static gestionFichiers.Lecteur.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *
@@ -14,41 +18,159 @@ import java.util.HashMap;
  */
 class MissionPlanifiee extends MissionPreparation {
 
-    HashMap<Competence, Personne> personelAffecte = new HashMap<>();
+    protected HashMap<Competence, ArrayList<Personne>> personelAffecte = new HashMap<>();
+    protected HashMap<Competence, Integer> personelRequisRestant = new HashMap<>();
 
     /**
      *
-     * @param dateDebut the dateDebut to set
-     * @param duree the duree to set
-     * @param nbRequis the nbRequis to set
-     * @param personelRequis the personelRequis to set
+     * @param dateDebut
+     * @param duree
+     * @param nbRequis
+     * @param personelRequis
      */
     public MissionPlanifiee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis) {
         super(dateDebut, duree, nbRequis);
         this.etat = "Planifiee";
         this.personelRequis = personelRequis;
+        this.personelRequisRestant = personelRequis;
     }
 
     /**
      * @return the personelAffecte
      */
-    public HashMap<Competence, Personne> getPersonelAffecte() {
+    public HashMap<Competence, ArrayList<Personne>> getPersonelAffecte() {
         return personelAffecte;
+    }
+
+    /**
+     * @return the personelRequisRestant
+     */
+    public HashMap<Competence, Integer> getPersonelRequisRestant() {
+        return personelRequisRestant;
     }
 
     /**
      * @param competence the competence to add
      * @param nbPersonne the nbPersonne to set
      */
+    // Note : Exception 0 restant !
     public void addPersonne(Competence competence, Personne personne) {
-        this.personelAffecte.put(competence, personne);
+        if (this.getPersonelRequisRestant().get(competence) > 0) {
+            ArrayList<Personne> personneArray = new ArrayList<>();
+            if (this.getPersonelAffecte().get(competence) != null) {
+                personneArray = this.getPersonelAffecte().get(competence);
+            }
+            personneArray.add(personne);
+            this.getPersonelAffecte().put(competence, personneArray);
+            this.getPersonelRequisRestant().put(competence, this.getPersonelRequisRestant().get(competence) - 1);
+        }
     }
 
     /**
      * @param competence the competence to remove
      */
     public void removePersonne(Competence competence) {
-        this.personelAffecte.remove(competence);
+        this.getPersonelAffecte().remove(competence);
+    }
+
+    /**
+     *
+     */
+    //Note pour plus tard : rajouter un check que la personne soit pas déjà sur une mission en cours
+    public HashMap<Personne, Integer> chercherAffinites(ArrayList<Personne> personnel) throws IOException {
+        HashMap<Personne, Integer> personneAffinites = new HashMap<>();
+        for (Personne personne : personnel) {
+            int i = 0;
+            //System.out.println(personne.getCompetences());
+            for (Competence competencePersonne : personne.getCompetences()) {
+                //System.out.println("B" + competencePersonne);
+                for (Competence key : this.personelRequis.keySet()) {
+                    if (key.getIdCompetence().equals(competencePersonne.getIdCompetence())) {
+                        i++;
+                    }
+                }
+            }
+            personneAffinites.put(personne, i);
+        }
+        return personneAffinites;
+    }
+
+    public void multiSelectionAuto(HashMap<Personne, Integer> personneAffinites) throws IOException {
+        int i = 0;
+        for (Personne key : personneAffinites.keySet()) {
+            if (personneAffinites.get(key).compareTo(i) > 0) {
+                i = personneAffinites.get(key);
+            }
+        }
+        while (i > 0) {
+            for (Personne key : personneAffinites.keySet()) {
+                if (personneAffinites.get(key).compareTo(i) == 0) {
+                    //System.out.println(key.getCompetences());
+                    for (Competence competencePersonne : key.getCompetences()) {
+                        //System.out.println("B" + competencePersonne);
+                        for (Competence competence : this.personelRequis.keySet()) {
+                            if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
+                                addPersonne(competence, key);
+                            }
+                        }
+                    }
+                }
+            }
+            i--;
+        }
+    }
+
+    /**
+     *
+     */
+    public void multiSelectionAutoSup(ArrayList<Personne> personnel) throws IOException {
+        HashMap<Personne, Integer> personneAffinites = new HashMap<>();
+        for (Personne personne : personnel) {
+            int i = 0;
+            //System.out.println(personne.getCompetences());
+            for (Competence competencePersonne : personne.getCompetences()) {
+                //System.out.println("B" + competencePersonne);
+                for (Competence competence : this.getPersonelRequisRestant().keySet()) {
+                    if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
+                        i++;
+                    }
+                }
+            }
+            personneAffinites.put(personne, i);
+        }
+
+        int j = 0;
+        for (Personne key : personneAffinites.keySet()) {
+            if (personneAffinites.get(key).compareTo(j) > 0) {
+                j = personneAffinites.get(key);
+            }
+        }
+        
+        if (j != 0) {
+            for (Personne key : personneAffinites.keySet()) {
+                if (personneAffinites.get(key).compareTo(j) == 0) {
+                    //System.out.println(key.getCompetences());
+                    for (Competence competencePersonne : key.getCompetences()) {
+                        //System.out.println("B" + competencePersonne);
+                        for (Competence competence : this.personelRequis.keySet()) {
+                            if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
+                                addPersonne(competence, key);
+                            }
+                        }
+                    }
+                }
+            }
+            multiSelectionAutoSup(personnel);
+        }
+
+    }
+
+    /**
+     *
+     * @return
+     */
+    public MissionEnCours commencer() {
+        return new MissionEnCours(getDateDebut(), getDuree(), getNbRequis(), getPersonelRequis(), getPersonelAffecte());
     }
 
 }

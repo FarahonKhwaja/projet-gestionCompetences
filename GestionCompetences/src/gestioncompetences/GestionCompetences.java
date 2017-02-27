@@ -49,8 +49,8 @@ public class GestionCompetences {
 
         MissionPreparation missionPrep2 = new MissionPreparation(new Date(21, 2, 1994), 10, 5);
         missionPrep2.addCompetence(competences.get(0), 1);
-        missionPrep2.addCompetence(competences.get(1), 1);
-        missionPrep2.addCompetence(competences.get(2), 4);
+        missionPrep2.addCompetence(competences.get(1), 2);
+        missionPrep2.addCompetence(competences.get(2), 2);
         missionPrep2.addCompetence(competences.get(3), 1);
 
         MissionPlanifiee missionPlanifiee = missionPrep.planifier();
@@ -66,7 +66,7 @@ public class GestionCompetences {
         missionPlanifiee.addPersonne(competences.get(3), personnel.get(3));*/
 
         MissionEnCours missionEnCours = missionPlanifiee.commencer();
-        System.out.println(missionEnCours.getAffectationDefinitive().toString());
+        //System.out.println(missionEnCours.getAffectationDefinitive().toString());
 
         MissionEnCours missionEnCours2 = missionPlanifiee2.commencer();
         System.out.println(missionEnCours2.getAffectationDefinitive().toString());

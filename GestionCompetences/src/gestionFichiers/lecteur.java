@@ -19,7 +19,7 @@ import java.util.HashMap;
  *
  * @author phili
  */
-public class Lecteur {
+public class lecteur {
 
     public static ArrayList<Personne> liste_personnel = new ArrayList<>();
     public static ArrayList<Competence> liste_competences = new ArrayList<>();

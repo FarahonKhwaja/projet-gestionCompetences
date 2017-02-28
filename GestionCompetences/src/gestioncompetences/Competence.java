@@ -5,7 +5,7 @@
  */
 package gestioncompetences;
 
-import gestionFichiers.Lecteur;
+import gestionFichiers.lecteur;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -79,7 +79,7 @@ public class Competence {
     }
 
     public static Competence getCompetenceById(String id) throws IOException {
-        ArrayList<Competence> competences = Lecteur.lireFichierCompetences("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_competences.csv");
+        ArrayList<Competence> competences = lecteur.lireFichierCompetences("C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv");
         for (Competence competence : competences) {
             if (competence.getIdCompetence().equals(id)) {
                 return competence;

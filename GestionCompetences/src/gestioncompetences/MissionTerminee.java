@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author phili
  */
-public class MissionTerminee extends MissionEnCours {
+public class MissionTerminee extends MissionNonmodifiable {
 
     protected Date dateFin;
 
@@ -21,13 +21,11 @@ public class MissionTerminee extends MissionEnCours {
      *
      * @param dateDebut
      * @param duree
-     * @param nbRequis
-     * @param personelRequis
      * @param personelAffecte
      */
-    public MissionTerminee(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
-        super(dateDebut, duree, nbRequis, personelRequis, personelAffecte);
-        this.etat = "Finie";
+    public MissionTerminee(Date dateDebut, int duree, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
+        super(dateDebut, duree, personelAffecte);
+        this.etat = "Terminee";
     }
 
     /**

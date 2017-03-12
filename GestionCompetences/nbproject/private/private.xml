@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/Personne.java</file>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/MissionPlanifiee.java</file>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/Lecteur.java</file>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/Competence.java</file>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/GestionCompetences.java</file>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/MissionEnCours.java</file>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/writer.java</file>
-            <file>file:/C:/Users/phili/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/Main.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/MissionPlanifiee.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/Mission.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/Writer.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/lecteur.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/Personne.java</file>
         </group>
     </open-files>
 </project-private>

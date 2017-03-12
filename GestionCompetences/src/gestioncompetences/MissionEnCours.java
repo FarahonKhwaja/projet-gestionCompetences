@@ -13,9 +13,8 @@ import java.util.HashMap;
  *
  * @author phili
  */
-class MissionEnCours extends MissionPlanifiee {
+class MissionEnCours extends MissionNonmodifiable {
 
-    protected HashMap<Competence, ArrayList<Personne>> affectationDefinitive;
 
     /**
      *
@@ -25,17 +24,9 @@ class MissionEnCours extends MissionPlanifiee {
      * @param personelRequis
      * @param personelAffecte
      */
-    public MissionEnCours(Date dateDebut, int duree, int nbRequis, HashMap<Competence, Integer> personelRequis, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
-        super(dateDebut, duree, nbRequis, personelRequis);
+    public MissionEnCours(Date dateDebut, int duree, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
+        super(dateDebut, duree, personelAffecte);
         this.etat = "En Cours";
-        this.affectationDefinitive = personelAffecte;
-    }
-
-    /**
-     * @return the affectationDefinitive
-     */
-    public HashMap<Competence, ArrayList<Personne>> getAffectationDefinitive() {
-        return affectationDefinitive;
     }
 
     /**
@@ -43,7 +34,7 @@ class MissionEnCours extends MissionPlanifiee {
      * @return
      */
     public MissionTerminee clore() {
-        return new MissionTerminee(getDateDebut(), getDuree(), getNbRequis(), getPersonelRequis(), getPersonelAffecte());
+        return new MissionTerminee(getDateDebut(), getDuree(), getAffectationDefinitive());
     }
 
 }

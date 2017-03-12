@@ -113,7 +113,7 @@ public class Personne {
     }
 
     public static Personne getPersonneById(int id) throws IOException {
-        ArrayList<Personne> personnes = lecteur.lireFichierPersonnes("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_personnel.csv");
+        ArrayList<Personne> personnes = lecteur.getPersonnel("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_personnel.csv");
         for (Personne personne : personnes) {
             if (personne.getId() == id) {
                 return personne;

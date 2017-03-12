@@ -19,6 +19,10 @@ import javax.swing.DefaultListModel;
  */
 public class MainMenu extends javax.swing.JFrame {
 
+    private AjouterCompetence ajouterCompetenceUI = new AjouterCompetence();
+    private AjouterPersonne ajouterPersonneUI = new AjouterPersonne();
+    private DetailsPersonne detailsPersonneUI = new DetailsPersonne();
+
     /**
      * Creates new form NewJFrame
      */
@@ -88,6 +92,11 @@ public class MainMenu extends javax.swing.JFrame {
         jScrollPane2.setViewportView(listPersonnel);
 
         supprimerPersonneButton.setText("Supprimer");
+        supprimerPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                supprimerPersonneButtonMouseClicked(evt);
+            }
+        });
 
         sauvegarderPersonneButton.setText("Sauvegarder");
 
@@ -174,8 +183,18 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         supprimerCompetenceButton.setText("Supprimer");
+        supprimerCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                supprimerCompetenceButtonMouseClicked(evt);
+            }
+        });
 
         sauvegarderCompetenceButton.setText("Sauvegarder");
+        sauvegarderCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sauvegarderCompetenceButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -229,18 +248,32 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void ajouterPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterPersonneButtonMouseClicked
         // TODO add your handling code here:
-        new AjouterPersonne().setVisible(true);
+        ajouterPersonneUI.setVisible(true);
     }//GEN-LAST:event_ajouterPersonneButtonMouseClicked
 
     private void detailsPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsPersonneButtonMouseClicked
         // TODO add your handling code here:
-        new DetailsPersonne().setVisible(true);
+        detailsPersonneUI.setVisible(true);
     }//GEN-LAST:event_detailsPersonneButtonMouseClicked
 
     private void ajouterCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterCompetenceButtonMouseClicked
         // TODO add your handling code here:
-        new AjouterCompetence().setVisible(true);
+        ajouterCompetenceUI.setVisible(true);
     }//GEN-LAST:event_ajouterCompetenceButtonMouseClicked
+
+    private void sauvegarderCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sauvegarderCompetenceButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sauvegarderCompetenceButtonMouseClicked
+
+    private void supprimerCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerCompetenceButtonMouseClicked
+        // TODO add your handling code here:
+        listCompetencesModele.removeElementAt(listCompetences.getSelectedIndex());
+    }//GEN-LAST:event_supprimerCompetenceButtonMouseClicked
+
+    private void supprimerPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerPersonneButtonMouseClicked
+        // TODO add your handling code here:
+        listPersonnelModele.removeElementAt(listPersonnel.getSelectedIndex());
+    }//GEN-LAST:event_supprimerPersonneButtonMouseClicked
 
     /**
      * @param args the command line arguments

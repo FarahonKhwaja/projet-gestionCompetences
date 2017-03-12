@@ -47,6 +47,11 @@ public class DetailsPersonne extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jListCompetencesPersonne);
 
         jButtonSaveCompetencesPersonne.setText("Enregister");
+        jButtonSaveCompetencesPersonne.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSaveCompetencesPersonneMouseClicked(evt);
+            }
+        });
 
         jButtonAddCompetencePersonne.setText("Ajouter");
 
@@ -109,6 +114,11 @@ public class DetailsPersonne extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSaveCompetencesPersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesPersonneMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonSaveCompetencesPersonneMouseClicked
 
     /**
      * @param args the command line arguments

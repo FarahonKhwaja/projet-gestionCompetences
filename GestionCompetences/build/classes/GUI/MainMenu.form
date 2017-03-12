@@ -121,6 +121,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Supprimer"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="supprimerPersonneButtonMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="sauvegarderPersonneButton">
               <Properties>
@@ -262,11 +265,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Supprimer"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="supprimerCompetenceButtonMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="sauvegarderCompetenceButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sauvegarder"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sauvegarderCompetenceButtonMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

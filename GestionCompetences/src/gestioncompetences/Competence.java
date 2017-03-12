@@ -79,7 +79,7 @@ public class Competence {
     }
 
     public static Competence getCompetenceById(String id) throws IOException {
-        ArrayList<Competence> competences = lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
+        ArrayList<Competence> competences = lecteur.getCompetences(lecteur.cheminCompetences);
         for (Competence competence : competences) {
             if (competence.getIdCompetence().equals(id)) {
                 return competence;

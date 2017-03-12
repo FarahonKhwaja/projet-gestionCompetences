@@ -92,13 +92,12 @@ public class Personne {
      * @param competences
      */
     public void addCompetence(HashMap<Integer, ArrayList<String>> competences) {
-
         ArrayList<String> idCompetencesPerso = competences.get(this.getId());
         idCompetencesPerso.forEach((competenceperso) -> {
             Competence competence;
             try {
                 competence = Competence.getCompetenceById(competenceperso);
-                if (!Competences.contains(competence)) {
+                if (!this.getCompetences().contains(competence)) {
                     this.getCompetences().add(competence);
                 }
             } catch (IOException ex) {

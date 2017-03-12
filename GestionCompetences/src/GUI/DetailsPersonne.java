@@ -33,7 +33,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
 
         jLabelNomPersonne.setText(this.personne.getNom());
         jLabelPrenomPersonne.setText(this.personne.getPrenom());
-        this.personne.addCompetence(lecteur.lireFichierCompetencesParPersonne("C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv"));
+        this.personne.addCompetence(lecteur.lireFichierCompetencesParPersonne(lecteur.cheminCompetencesPersonnel));
 
         ArrayList<Competence> competencePersonne = this.personne.getCompetences();
         for (Competence cp : competencePersonne) {

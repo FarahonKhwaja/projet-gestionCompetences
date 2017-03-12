@@ -117,7 +117,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
 
     private void jButtonSaveCompetencesPersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesPersonneMouseClicked
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButtonSaveCompetencesPersonneMouseClicked
 
     /**

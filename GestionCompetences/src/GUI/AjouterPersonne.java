@@ -114,7 +114,7 @@ public class AjouterPersonne extends javax.swing.JFrame {
         //date entrée non géré
         String nomPersonne = this.nom.getText();
         String prenomPersonne = this.prenom.getText();
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_ajouterPersonneMouseClicked
 
     /**

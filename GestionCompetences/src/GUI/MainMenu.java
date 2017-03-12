@@ -248,16 +248,19 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void ajouterPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterPersonneButtonMouseClicked
         // TODO add your handling code here:
+        ajouterPersonneUI = new AjouterPersonne();
         ajouterPersonneUI.setVisible(true);
     }//GEN-LAST:event_ajouterPersonneButtonMouseClicked
 
     private void detailsPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsPersonneButtonMouseClicked
         // TODO add your handling code here:
+        detailsPersonneUI = new DetailsPersonne();
         detailsPersonneUI.setVisible(true);
     }//GEN-LAST:event_detailsPersonneButtonMouseClicked
 
     private void ajouterCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterCompetenceButtonMouseClicked
         // TODO add your handling code here:
+        ajouterCompetenceUI = new AjouterCompetence();
         ajouterCompetenceUI.setVisible(true);
     }//GEN-LAST:event_ajouterCompetenceButtonMouseClicked
 

@@ -116,7 +116,7 @@ public class AjouterCompetence extends javax.swing.JFrame {
         //date entrée non géré
         String libEN = this.libEN.getText();
         String id = this.id.getText();
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_ajouteCompetenceMouseClicked
 
     /**

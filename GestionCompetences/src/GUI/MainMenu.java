@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,9 +19,9 @@ import javax.swing.DefaultListModel;
  */
 public class MainMenu extends javax.swing.JFrame {
 
-    private AjouterCompetence ajouterCompetenceUI = new AjouterCompetence();
-    private AjouterPersonne ajouterPersonneUI = new AjouterPersonne();
-    private DetailsPersonne detailsPersonneUI = new DetailsPersonne();
+    private AjouterCompetence ajouterCompetenceUI;
+    private AjouterPersonne ajouterPersonneUI;
+    private DetailsPersonne detailsPersonneUI;
 
     /**
      * Creates new form NewJFrame
@@ -37,10 +37,10 @@ public class MainMenu extends javax.swing.JFrame {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (Competence cp : competences) {
-            listCompetencesModele.addElement(cp.toString());
+            tableCompetencesModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
         }
         for (Personne pers : personnel) {
-            listPersonnelModele.addElement(pers.toString());
+            tablePersonneModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom()});
         }
 
     }
@@ -57,190 +57,198 @@ public class MainMenu extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         ajouterPersonneButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        listPersonnelModele = new DefaultListModel();
-        listPersonnel = new javax.swing.JList<>();
         supprimerPersonneButton = new javax.swing.JButton();
         sauvegarderPersonneButton = new javax.swing.JButton();
         detailsPersonneButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        paneMissions = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listCompetencesModele = new DefaultListModel();
-        listCompetences = new javax.swing.JList<>();
-        ajouterCompetenceButton = new javax.swing.JButton();
-        supprimerCompetenceButton = new javax.swing.JButton();
-        sauvegarderCompetenceButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tablePersonneModel = new DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Identifiant", "Nom", "Prénom"
+            });
+            jTablePersonne = new javax.swing.JTable();
+            jPanel1 = new javax.swing.JPanel();
+            paneMissions = new javax.swing.JPanel();
+            jPanel3 = new javax.swing.JPanel();
+            ajouterCompetenceButton = new javax.swing.JButton();
+            supprimerCompetenceButton = new javax.swing.JButton();
+            sauvegarderCompetenceButton = new javax.swing.JButton();
+            jScrollPane2 = new javax.swing.JScrollPane();
+            tableCompetencesModel = new DefaultTableModel(
+                new Object [][] {},
+                new String [] {
+                    "Identifiant", "Libellé EN", "Libellé FR"
+                });
+                jTableCompetences = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseClicked(evt);
-            }
-        });
+                jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        jTabbedPane1MouseClicked(evt);
+                    }
+                });
 
-        ajouterPersonneButton.setText("Ajouter");
-        ajouterPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ajouterPersonneButtonMouseClicked(evt);
-            }
-        });
+                ajouterPersonneButton.setText("Ajouter");
+                ajouterPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        ajouterPersonneButtonMouseClicked(evt);
+                    }
+                });
 
-        listPersonnel.setModel(listPersonnelModele);
-        jScrollPane2.setViewportView(listPersonnel);
+                supprimerPersonneButton.setText("Supprimer");
+                supprimerPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        supprimerPersonneButtonMouseClicked(evt);
+                    }
+                });
 
-        supprimerPersonneButton.setText("Supprimer");
-        supprimerPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                supprimerPersonneButtonMouseClicked(evt);
-            }
-        });
+                sauvegarderPersonneButton.setText("Sauvegarder");
 
-        sauvegarderPersonneButton.setText("Sauvegarder");
+                detailsPersonneButton.setText("Détails");
+                detailsPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        detailsPersonneButtonMouseClicked(evt);
+                    }
+                });
 
-        detailsPersonneButton.setText("Détails");
-        detailsPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                detailsPersonneButtonMouseClicked(evt);
-            }
-        });
+                jTablePersonne.setModel(tablePersonneModel);
+                jScrollPane3.setViewportView(jTablePersonne);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+                jPanel2.setLayout(jPanel2Layout);
+                jPanel2Layout.setHorizontalGroup(
+                    jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 270, Short.MAX_VALUE)
-                        .addComponent(detailsPersonneButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ajouterPersonneButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(supprimerPersonneButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sauvegarderPersonneButton))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(detailsPersonneButton)
-                    .addComponent(ajouterPersonneButton)
-                    .addComponent(supprimerPersonneButton)
-                    .addComponent(sauvegarderPersonneButton))
-                .addContainerGap())
-        );
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 132, Short.MAX_VALUE)
+                                .addComponent(detailsPersonneButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ajouterPersonneButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(supprimerPersonneButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(sauvegarderPersonneButton))
+                            .addComponent(jScrollPane3))
+                        .addContainerGap())
+                );
+                jPanel2Layout.setVerticalGroup(
+                    jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(detailsPersonneButton)
+                            .addComponent(ajouterPersonneButton)
+                            .addComponent(supprimerPersonneButton)
+                            .addComponent(sauvegarderPersonneButton))
+                        .addContainerGap())
+                );
 
-        jTabbedPane1.addTab("Personnel", jPanel2);
+                jTabbedPane1.addTab("Personnel", jPanel2);
 
-        javax.swing.GroupLayout paneMissionsLayout = new javax.swing.GroupLayout(paneMissions);
-        paneMissions.setLayout(paneMissionsLayout);
-        paneMissionsLayout.setHorizontalGroup(
-            paneMissionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-        );
-        paneMissionsLayout.setVerticalGroup(
-            paneMissionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
+                javax.swing.GroupLayout paneMissionsLayout = new javax.swing.GroupLayout(paneMissions);
+                paneMissions.setLayout(paneMissionsLayout);
+                paneMissionsLayout.setHorizontalGroup(
+                    paneMissionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGap(0, 472, Short.MAX_VALUE)
+                );
+                paneMissionsLayout.setVerticalGroup(
+                    paneMissionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGap(0, 274, Short.MAX_VALUE)
+                );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(paneMissions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(paneMissions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(201, Short.MAX_VALUE))
-        );
+                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+                jPanel1.setLayout(jPanel1Layout);
+                jPanel1Layout.setHorizontalGroup(
+                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(paneMissions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                );
+                jPanel1Layout.setVerticalGroup(
+                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(paneMissions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(109, Short.MAX_VALUE))
+                );
 
-        jTabbedPane1.addTab("Missions", jPanel1);
+                jTabbedPane1.addTab("Missions", jPanel1);
 
-        listCompetences.setModel(listCompetencesModele);
-        jScrollPane1.setViewportView(listCompetences);
+                ajouterCompetenceButton.setText("Ajouter");
+                ajouterCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        ajouterCompetenceButtonMouseClicked(evt);
+                    }
+                });
 
-        ajouterCompetenceButton.setText("Ajouter");
-        ajouterCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ajouterCompetenceButtonMouseClicked(evt);
-            }
-        });
+                supprimerCompetenceButton.setText("Supprimer");
+                supprimerCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        supprimerCompetenceButtonMouseClicked(evt);
+                    }
+                });
 
-        supprimerCompetenceButton.setText("Supprimer");
-        supprimerCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                supprimerCompetenceButtonMouseClicked(evt);
-            }
-        });
+                sauvegarderCompetenceButton.setText("Sauvegarder");
+                sauvegarderCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        sauvegarderCompetenceButtonMouseClicked(evt);
+                    }
+                });
 
-        sauvegarderCompetenceButton.setText("Sauvegarder");
-        sauvegarderCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sauvegarderCompetenceButtonMouseClicked(evt);
-            }
-        });
+                jTableCompetences.setModel(tableCompetencesModel);
+                jScrollPane2.setViewportView(jTableCompetences);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+                jPanel3.setLayout(jPanel3Layout);
+                jPanel3Layout.setHorizontalGroup(
+                    jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(ajouterCompetenceButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(supprimerCompetenceButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sauvegarderCompetenceButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sauvegarderCompetenceButton)
-                    .addComponent(supprimerCompetenceButton)
-                    .addComponent(ajouterCompetenceButton))
-                .addContainerGap())
-        );
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 207, Short.MAX_VALUE)
+                                .addComponent(ajouterCompetenceButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(supprimerCompetenceButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(sauvegarderCompetenceButton))
+                            .addComponent(jScrollPane2))
+                        .addContainerGap())
+                );
+                jPanel3Layout.setVerticalGroup(
+                    jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sauvegarderCompetenceButton)
+                            .addComponent(supprimerCompetenceButton)
+                            .addComponent(ajouterCompetenceButton))
+                        .addContainerGap())
+                );
 
-        jTabbedPane1.addTab("Compétences", jPanel3);
+                jTabbedPane1.addTab("Compétences", jPanel3);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-        );
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1)
+                );
+                layout.setVerticalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1)
+                );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+                pack();
+            }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         // TODO add your handling code here:
@@ -253,8 +261,12 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_ajouterPersonneButtonMouseClicked
 
     private void detailsPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsPersonneButtonMouseClicked
-        // TODO add your handling code here:
-        detailsPersonneUI = new DetailsPersonne();
+        try {
+            // TODO add your handling code here:
+            detailsPersonneUI = new DetailsPersonne(Integer.parseInt(tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(),0).toString()));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         detailsPersonneUI.setVisible(true);
     }//GEN-LAST:event_detailsPersonneButtonMouseClicked
 
@@ -270,12 +282,12 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void supprimerCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerCompetenceButtonMouseClicked
         // TODO add your handling code here:
-        listCompetencesModele.removeElementAt(listCompetences.getSelectedIndex());
+        tableCompetencesModel.removeRow(jTableCompetences.getSelectedRow());
     }//GEN-LAST:event_supprimerCompetenceButtonMouseClicked
 
     private void supprimerPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerPersonneButtonMouseClicked
         // TODO add your handling code here:
-        listPersonnelModele.removeElementAt(listPersonnel.getSelectedIndex());
+        tablePersonneModel.removeRow(jTablePersonne.getSelectedRow());
     }//GEN-LAST:event_supprimerPersonneButtonMouseClicked
 
     /**
@@ -324,17 +336,17 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JList<String> listCompetences;
-    private javax.swing.JList<String> listPersonnel;
+    private javax.swing.JTable jTableCompetences;
+    private javax.swing.JTable jTablePersonne;
     private javax.swing.JPanel paneMissions;
     private javax.swing.JButton sauvegarderCompetenceButton;
     private javax.swing.JButton sauvegarderPersonneButton;
     private javax.swing.JButton supprimerCompetenceButton;
     private javax.swing.JButton supprimerPersonneButton;
     // End of variables declaration//GEN-END:variables
-    DefaultListModel listCompetencesModele;
-    DefaultListModel listPersonnelModele;
+    DefaultTableModel tableCompetencesModel;
+    DefaultTableModel tablePersonneModel;
 }

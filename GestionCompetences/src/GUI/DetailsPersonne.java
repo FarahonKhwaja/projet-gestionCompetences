@@ -5,17 +5,40 @@
  */
 package GUI;
 
+import gestionFichiers.lecteur;
+import gestioncompetences.Competence;
+import gestioncompetences.Personne;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Entrax
  */
 public class DetailsPersonne extends javax.swing.JFrame {
 
+    private static int idPersonne;
+    private Personne personne;
+
     /**
      * Creates new form jFrameDetailsPersonne
      */
-    public DetailsPersonne() {
+    public DetailsPersonne(int idPersonne) throws IOException {
         initComponents();
+        DetailsPersonne.idPersonne = idPersonne;
+        this.personne = Personne.getPersonneById(idPersonne);
+
+        jLabelNomPersonne.setText(this.personne.getNom());
+        jLabelPrenomPersonne.setText(this.personne.getPrenom());
+        this.personne.addCompetence(lecteur.lireFichierCompetencesParPersonne("C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv"));
+
+        ArrayList<Competence> competencePersonne = this.personne.getCompetences();
+        for (Competence cp : competencePersonne) {
+            tableCompetencesPersonneModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
+        }
     }
 
     /**
@@ -28,97 +51,108 @@ public class DetailsPersonne extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jListCompetencesPersonne = new javax.swing.JList<>();
         jButtonSaveCompetencesPersonne = new javax.swing.JButton();
         jButtonAddCompetencePersonne = new javax.swing.JButton();
         jComboBoxCompetencesPersonne = new javax.swing.JComboBox<>();
         jButtonDeleteCompetencePersonne = new javax.swing.JButton();
         jLabelNomPersonne = new javax.swing.JLabel();
         jLabelPrenomPersonne = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableCompetencesPersonneModel = new DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Identifiant", "Libellé EN", "Libellé FR"
+            });
+            jTableCompetencesPersonne = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jListCompetencesPersonne.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jListCompetencesPersonne);
+            jButtonSaveCompetencesPersonne.setText("Enregister");
+            jButtonSaveCompetencesPersonne.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonSaveCompetencesPersonneMouseClicked(evt);
+                }
+            });
 
-        jButtonSaveCompetencesPersonne.setText("Enregister");
-        jButtonSaveCompetencesPersonne.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonSaveCompetencesPersonneMouseClicked(evt);
-            }
-        });
+            jButtonAddCompetencePersonne.setText("Ajouter");
 
-        jButtonAddCompetencePersonne.setText("Ajouter");
+            jComboBoxCompetencesPersonne.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBoxCompetencesPersonne.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+            jButtonDeleteCompetencePersonne.setText("Supprimer");
+            jButtonDeleteCompetencePersonne.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonDeleteCompetencePersonneMouseClicked(evt);
+                }
+            });
 
-        jButtonDeleteCompetencePersonne.setText("Supprimer");
+            jTableCompetencesPersonne.setModel(tableCompetencesPersonneModel);
+            jScrollPane2.setViewportView(jTableCompetencesPersonne);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 186, Short.MAX_VALUE)
-                        .addComponent(jButtonDeleteCompetencePersonne)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxCompetencesPersonne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAddCompetencePersonne)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSaveCompetencesPersonne))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGap(0, 222, Short.MAX_VALUE)
+                            .addComponent(jButtonDeleteCompetencePersonne)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBoxCompetencesPersonne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonAddCompetencePersonne)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonSaveCompetencesPersonne))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabelNomPersonne)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabelPrenomPersonne)
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap())
+            );
+            jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabelNomPersonne)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelPrenomPersonne)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelNomPersonne)
-                    .addComponent(jLabelPrenomPersonne))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonSaveCompetencesPersonne)
-                    .addComponent(jButtonAddCompetencePersonne)
-                    .addComponent(jComboBoxCompetencesPersonne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonDeleteCompetencePersonne))
-                .addContainerGap())
-        );
+                        .addComponent(jLabelPrenomPersonne))
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonSaveCompetencesPersonne)
+                        .addComponent(jButtonAddCompetencePersonne)
+                        .addComponent(jComboBoxCompetencesPersonne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonDeleteCompetencePersonne))
+                    .addContainerGap())
+            );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSaveCompetencesPersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesPersonneMouseClicked
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonSaveCompetencesPersonneMouseClicked
+
+    private void jButtonDeleteCompetencePersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeleteCompetencePersonneMouseClicked
+        // TODO add your handling code here:
+        tableCompetencesPersonneModel.removeRow(jTableCompetencesPersonne.getSelectedRow());
+    }//GEN-LAST:event_jButtonDeleteCompetencePersonneMouseClicked
 
     /**
      * @param args the command line arguments
@@ -151,7 +185,11 @@ public class DetailsPersonne extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DetailsPersonne().setVisible(true);
+                try {
+                    new DetailsPersonne(DetailsPersonne.idPersonne).setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(DetailsPersonne.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -163,8 +201,9 @@ public class DetailsPersonne extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxCompetencesPersonne;
     private javax.swing.JLabel jLabelNomPersonne;
     private javax.swing.JLabel jLabelPrenomPersonne;
-    private javax.swing.JList<String> jListCompetencesPersonne;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableCompetencesPersonne;
     // End of variables declaration//GEN-END:variables
+    DefaultTableModel tableCompetencesPersonneModel;
 }

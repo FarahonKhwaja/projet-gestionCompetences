@@ -5,17 +5,12 @@
  */
 package GUI;
 
-import gestioncompetences.Personne;
-import java.text.DateFormat;
-import java.util.Date;
-
 /**
  *
  * @author phili
  */
 public class AjouterPersonne extends javax.swing.JFrame {
 
-    private Personne personneCreee;
     /**
      * Creates new form AjouterPersonne
      */
@@ -119,7 +114,6 @@ public class AjouterPersonne extends javax.swing.JFrame {
         //date entrée non géré
         String nomPersonne = this.nom.getText();
         String prenomPersonne = this.prenom.getText();
-        personneCreee = new Personne(nomPersonne, prenomPersonne, new Date());
         this.dispose();
     }//GEN-LAST:event_ajouterPersonneMouseClicked
 

@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class MissionNonmodifiable extends Mission {
 
     protected HashMap<Competence, ArrayList<Personne>> affectationDefinitive;
-    
+
     public MissionNonmodifiable(Date dateDebut, int duree, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
         super(dateDebut, duree);
         this.affectationDefinitive = personelAffecte;
@@ -28,5 +28,5 @@ public class MissionNonmodifiable extends Mission {
     public HashMap<Competence, ArrayList<Personne>> getAffectationDefinitive() {
         return affectationDefinitive;
     }
-    
+
 }

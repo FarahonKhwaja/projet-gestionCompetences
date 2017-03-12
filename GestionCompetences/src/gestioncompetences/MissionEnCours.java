@@ -15,7 +15,6 @@ import java.util.HashMap;
  */
 class MissionEnCours extends MissionNonmodifiable {
 
-
     /**
      *
      * @param dateDebut

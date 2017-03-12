@@ -24,8 +24,8 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
-                ArrayList<Competence> competences = null;
-                ArrayList<Personne> personnel = null;
+        ArrayList<Competence> competences = null;
+        ArrayList<Personne> personnel = null;
         try {
             competences = gestionFichiers.lecteur.getCompetences("C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv");
             personnel = gestionFichiers.lecteur.getPersonnel("C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv");
@@ -35,10 +35,10 @@ public class MainMenu extends javax.swing.JFrame {
         for (Competence cp : competences) {
             listCompetencesModele.addElement(cp.toString());
         }
-        for(Personne pers : personnel) {
+        for (Personne pers : personnel) {
             listPersonnelModele.addElement(pers.toString());
         }
-        
+
     }
 
     /**
@@ -65,9 +65,9 @@ public class MainMenu extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listCompetencesModele = new DefaultListModel();
         listCompetences = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        ajouterCompetenceButton = new javax.swing.JButton();
+        supprimerCompetenceButton = new javax.swing.JButton();
+        sauvegarderCompetenceButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +92,11 @@ public class MainMenu extends javax.swing.JFrame {
         sauvegarderPersonneButton.setText("Sauvegarder");
 
         detailsPersonneButton.setText("Détails");
+        detailsPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                detailsPersonneButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -161,11 +166,16 @@ public class MainMenu extends javax.swing.JFrame {
         listCompetences.setModel(listCompetencesModele);
         jScrollPane1.setViewportView(listCompetences);
 
-        jButton1.setText("Ajouter");
+        ajouterCompetenceButton.setText("Ajouter");
+        ajouterCompetenceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ajouterCompetenceButtonMouseClicked(evt);
+            }
+        });
 
-        jButton2.setText("Supprimer");
+        supprimerCompetenceButton.setText("Supprimer");
 
-        jButton3.setText("Sauvegarder");
+        sauvegarderCompetenceButton.setText("Sauvegarder");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -176,11 +186,11 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(ajouterCompetenceButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(supprimerCompetenceButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
+                        .addComponent(sauvegarderCompetenceButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -191,9 +201,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(sauvegarderCompetenceButton)
+                    .addComponent(supprimerCompetenceButton)
+                    .addComponent(ajouterCompetenceButton))
                 .addContainerGap())
         );
 
@@ -221,6 +231,16 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         new AjouterPersonne().setVisible(true);
     }//GEN-LAST:event_ajouterPersonneButtonMouseClicked
+
+    private void detailsPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsPersonneButtonMouseClicked
+        // TODO add your handling code here:
+        new DetailsPersonne().setVisible(true);
+    }//GEN-LAST:event_detailsPersonneButtonMouseClicked
+
+    private void ajouterCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterCompetenceButtonMouseClicked
+        // TODO add your handling code here:
+        new AjouterCompetence().setVisible(true);
+    }//GEN-LAST:event_ajouterCompetenceButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -262,11 +282,9 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ajouterCompetenceButton;
     private javax.swing.JButton ajouterPersonneButton;
     private javax.swing.JButton detailsPersonneButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -276,7 +294,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JList<String> listCompetences;
     private javax.swing.JList<String> listPersonnel;
     private javax.swing.JPanel paneMissions;
+    private javax.swing.JButton sauvegarderCompetenceButton;
     private javax.swing.JButton sauvegarderPersonneButton;
+    private javax.swing.JButton supprimerCompetenceButton;
     private javax.swing.JButton supprimerPersonneButton;
     // End of variables declaration//GEN-END:variables
     DefaultListModel listCompetencesModele;

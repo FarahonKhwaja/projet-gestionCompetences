@@ -37,10 +37,13 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Ajouter une personne"/>
+            <TitledBorder title="Ajouter une competence"/>
           </Border>
         </Property>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Ajouter une competence"/>
+      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -50,20 +53,20 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelPrenom" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelNom" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelID" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelLibEN" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelLibFR" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="prenom" pref="114" max="32767" attributes="0"/>
-                              <Component id="nom" max="32767" attributes="0"/>
-                              <Component id="date" max="32767" attributes="0"/>
+                              <Component id="id" pref="114" max="32767" attributes="0"/>
+                              <Component id="libEN" max="32767" attributes="0"/>
+                              <Component id="libFR" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="ajouterPersonne" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="ajouteCompetence" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="78" max="32767" attributes="0"/>
+                  <EmptySpace pref="89" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -72,59 +75,59 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="prenom" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelID" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="id" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelNom" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nom" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLibEN" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="libEN" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="date" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelLibFR" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="libFR" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="ajouterPersonne" min="-2" max="-2" attributes="0"/>
+                  <Component id="ajouteCompetence" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="57" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="labelPrenom">
+        <Component class="javax.swing.JLabel" name="labelID">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pr&#xe9;nom : "/>
+            <Property name="text" type="java.lang.String" value="Identifiant :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="prenom">
+        <Component class="javax.swing.JTextField" name="id">
         </Component>
-        <Component class="javax.swing.JLabel" name="labelNom">
+        <Component class="javax.swing.JLabel" name="labelLibEN">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nom :"/>
+            <Property name="text" type="java.lang.String" value="Libell&#xe9; EN :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nom">
+        <Component class="javax.swing.JTextField" name="libEN">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="labelLibFR">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Date entr&#xe9;e : "/>
+            <Property name="text" type="java.lang.String" value="Libell&#xe9; FR :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="date">
+        <Component class="javax.swing.JFormattedTextField" name="libFR">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format subtype="1" type="1"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="ajouterPersonne">
+        <Component class="javax.swing.JButton" name="ajouteCompetence">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajouter"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ajouterPersonneMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ajouteCompetenceMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

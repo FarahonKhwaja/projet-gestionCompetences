@@ -43,5 +43,5 @@ public class MissionModifiable extends Mission {
     public void setPersonelAffecte(HashMap<Competence, ArrayList<Personne>> personelAffecte) {
         this.personelAffecte = personelAffecte;
     }
-    
+
 }

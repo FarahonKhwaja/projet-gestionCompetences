@@ -9,12 +9,12 @@ package GUI;
  *
  * @author phili
  */
-public class AjouterPersonne extends javax.swing.JFrame {
+public class AjouterCompetence extends javax.swing.JFrame {
 
     /**
      * Creates new form AjouterPersonne
      */
-    public AjouterPersonne() {
+    public AjouterCompetence() {
         initComponents();
     }
 
@@ -28,30 +28,30 @@ public class AjouterPersonne extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        labelPrenom = new javax.swing.JLabel();
-        prenom = new javax.swing.JTextField();
-        labelNom = new javax.swing.JLabel();
-        nom = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        date = new javax.swing.JFormattedTextField();
-        ajouterPersonne = new javax.swing.JButton();
+        labelID = new javax.swing.JLabel();
+        id = new javax.swing.JTextField();
+        labelLibEN = new javax.swing.JLabel();
+        libEN = new javax.swing.JTextField();
+        labelLibFR = new javax.swing.JLabel();
+        libFR = new javax.swing.JFormattedTextField();
+        ajouteCompetence = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajouter une personne"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ajouter une competence"));
 
-        labelPrenom.setText("Prénom : ");
+        labelID.setText("Identifiant :");
 
-        labelNom.setText("Nom :");
+        labelLibEN.setText("Libellé EN :");
 
-        jLabel1.setText("Date entrée : ");
+        labelLibFR.setText("Libellé FR :");
 
-        date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        libFR.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
-        ajouterPersonne.setText("Ajouter");
-        ajouterPersonne.addMouseListener(new java.awt.event.MouseAdapter() {
+        ajouteCompetence.setText("Ajouter");
+        ajouteCompetence.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ajouterPersonneMouseClicked(evt);
+                ajouteCompetenceMouseClicked(evt);
             }
         });
 
@@ -64,34 +64,34 @@ public class AjouterPersonne extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPrenom)
-                            .addComponent(labelNom)
-                            .addComponent(jLabel1))
+                            .addComponent(labelID)
+                            .addComponent(labelLibEN)
+                            .addComponent(labelLibFR))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(prenom, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                            .addComponent(nom)
-                            .addComponent(date)))
-                    .addComponent(ajouterPersonne))
-                .addContainerGap(78, Short.MAX_VALUE))
+                            .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                            .addComponent(libEN)
+                            .addComponent(libFR)))
+                    .addComponent(ajouteCompetence))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPrenom)
-                    .addComponent(prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelID)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNom)
-                    .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelLibEN)
+                    .addComponent(libEN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelLibFR)
+                    .addComponent(libFR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(ajouterPersonne)
+                .addComponent(ajouteCompetence)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
@@ -106,15 +106,17 @@ public class AjouterPersonne extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jPanel1.getAccessibleContext().setAccessibleName("Ajouter une competence");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ajouterPersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterPersonneMouseClicked
+    private void ajouteCompetenceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouteCompetenceMouseClicked
         // TODO add your handling code here:
         //date entrée non géré
-        String nomPersonne = this.nom.getText();
-        String prenomPersonne = this.prenom.getText();
-    }//GEN-LAST:event_ajouterPersonneMouseClicked
+        String libEN = this.libEN.getText();
+        String id = this.id.getText();
+    }//GEN-LAST:event_ajouteCompetenceMouseClicked
 
     /**
      * @param args the command line arguments
@@ -133,32 +135,33 @@ public class AjouterPersonne extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AjouterPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AjouterPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AjouterPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AjouterPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterCompetence.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AjouterPersonne().setVisible(true);
+                new AjouterCompetence().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ajouterPersonne;
-    private javax.swing.JFormattedTextField date;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton ajouteCompetence;
+    private javax.swing.JTextField id;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelNom;
-    private javax.swing.JLabel labelPrenom;
-    private javax.swing.JTextField nom;
-    private javax.swing.JTextField prenom;
+    private javax.swing.JLabel labelID;
+    private javax.swing.JLabel labelLibEN;
+    private javax.swing.JLabel labelLibFR;
+    private javax.swing.JTextField libEN;
+    private javax.swing.JFormattedTextField libFR;
     // End of variables declaration//GEN-END:variables
 }

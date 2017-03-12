@@ -24,7 +24,7 @@ public class lecteur {
     public static ArrayList<Personne> liste_personnel = new ArrayList<>();
     public static ArrayList<Competence> liste_competences = new ArrayList<>();
 
-    public static String yourName = "phili";
+    public static String yourName = "entrax";
     public static String cheminPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
     public static String cheminCompetences = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
     public static String cheminCompetencesPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
@@ -51,8 +51,7 @@ public class lecteur {
         while (((chaine = fichier.readLine()) != null)) {
             if (i > 0) {
                 String[] infosUnePersonne = chaine.split(";");
-                Date date = new Date(infosUnePersonne[2]);
-                Personne unePersonne = new Personne(infosUnePersonne[1], infosUnePersonne[0], date, Integer.parseInt(infosUnePersonne[3]));
+                Personne unePersonne = new Personne(infosUnePersonne[1], infosUnePersonne[0], infosUnePersonne[2], Integer.parseInt(infosUnePersonne[3]));
                 personnes.add(unePersonne);
             }
             i++;

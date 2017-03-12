@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,24 +22,33 @@ import javax.swing.table.DefaultTableModel;
 public class DetailsPersonne extends javax.swing.JFrame {
 
     private static int idPersonne;
+    private static String nom, prenom;
     private Personne personne;
 
     /**
      * Creates new form jFrameDetailsPersonne
      */
-    public DetailsPersonne(int idPersonne) throws IOException {
+    public DetailsPersonne(int idPersonne, String nom, String prenom) throws IOException {
         initComponents();
         DetailsPersonne.idPersonne = idPersonne;
+        jLabelNomPersonne.setText(nom);
+        jLabelPrenomPersonne.setText(prenom);
+
         this.personne = Personne.getPersonneById(idPersonne);
+        if (this.personne == null) {
+            this.personne = new Personne(nom, prenom, idPersonne);
+        }
 
-        jLabelNomPersonne.setText(this.personne.getNom());
-        jLabelPrenomPersonne.setText(this.personne.getPrenom());
         this.personne.addCompetence(lecteur.lireFichierCompetencesParPersonne(lecteur.cheminCompetencesPersonnel));
-
-        ArrayList<Competence> competencePersonne = this.personne.getCompetences();
+        ArrayList<Competence> competencePersonne = new ArrayList<>();
+        competencePersonne = this.personne.getCompetences();
         for (Competence cp : competencePersonne) {
             tableCompetencesPersonneModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
         }
+        for (Competence competence : lecteur.getCompetences(lecteur.cheminCompetences)) {
+            comboBoxCompetencesPersonneModel.addElement(competence.toString());
+        }
+
     }
 
     /**
@@ -53,6 +63,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButtonSaveCompetencesPersonne = new javax.swing.JButton();
         jButtonAddCompetencePersonne = new javax.swing.JButton();
+        comboBoxCompetencesPersonneModel = new DefaultComboBoxModel<String>(new String [] {});
         jComboBoxCompetencesPersonne = new javax.swing.JComboBox<>();
         jButtonDeleteCompetencePersonne = new javax.swing.JButton();
         jLabelNomPersonne = new javax.swing.JLabel();
@@ -66,6 +77,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
             jTableCompetencesPersonne = new javax.swing.JTable();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setTitle("Détails");
 
             jButtonSaveCompetencesPersonne.setText("Enregister");
             jButtonSaveCompetencesPersonne.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,8 +87,13 @@ public class DetailsPersonne extends javax.swing.JFrame {
             });
 
             jButtonAddCompetencePersonne.setText("Ajouter");
+            jButtonAddCompetencePersonne.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonAddCompetencePersonneMouseClicked(evt);
+                }
+            });
 
-            jComboBoxCompetencesPersonne.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+            jComboBoxCompetencesPersonne.setModel(comboBoxCompetencesPersonneModel);
 
             jButtonDeleteCompetencePersonne.setText("Supprimer");
             jButtonDeleteCompetencePersonne.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,7 +114,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane2)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGap(0, 222, Short.MAX_VALUE)
+                            .addGap(0, 652, Short.MAX_VALUE)
                             .addComponent(jButtonDeleteCompetencePersonne)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jComboBoxCompetencesPersonne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,7 +137,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
                         .addComponent(jLabelNomPersonne)
                         .addComponent(jLabelPrenomPersonne))
                     .addGap(18, 18, 18)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonSaveCompetencesPersonne)
@@ -146,13 +163,28 @@ public class DetailsPersonne extends javax.swing.JFrame {
 
     private void jButtonSaveCompetencesPersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesPersonneMouseClicked
         // TODO add your handling code here:
+        for (int i = 0; i < tableCompetencesPersonneModel.getRowCount(); i++) {
+            Competence cp = new Competence(tableCompetencesPersonneModel.getValueAt(i, 0).toString(), 
+                    tableCompetencesPersonneModel.getValueAt(i, 1).toString(), 
+                    tableCompetencesPersonneModel.getValueAt(i, 2).toString());
+            this.personne.addCompetence(cp);
+        }
+        System.out.println(this.personne.getCompetences());
         this.dispose();
     }//GEN-LAST:event_jButtonSaveCompetencesPersonneMouseClicked
 
     private void jButtonDeleteCompetencePersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeleteCompetencePersonneMouseClicked
         // TODO add your handling code here:
-        tableCompetencesPersonneModel.removeRow(jTableCompetencesPersonne.getSelectedRow());
+        if (jTableCompetencesPersonne.getSelectedRow() != -1) {
+            tableCompetencesPersonneModel.removeRow(jTableCompetencesPersonne.getSelectedRow());
+        }
     }//GEN-LAST:event_jButtonDeleteCompetencePersonneMouseClicked
+
+    private void jButtonAddCompetencePersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddCompetencePersonneMouseClicked
+        // TODO add your handling code here:
+        Competence cp = new Competence(comboBoxCompetencesPersonneModel.getSelectedItem().toString());
+        tableCompetencesPersonneModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
+    }//GEN-LAST:event_jButtonAddCompetencePersonneMouseClicked
 
     /**
      * @param args the command line arguments
@@ -186,7 +218,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new DetailsPersonne(DetailsPersonne.idPersonne).setVisible(true);
+                    new DetailsPersonne(DetailsPersonne.idPersonne, DetailsPersonne.nom, DetailsPersonne.prenom).setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(DetailsPersonne.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -206,4 +238,5 @@ public class DetailsPersonne extends javax.swing.JFrame {
     private javax.swing.JTable jTableCompetencesPersonne;
     // End of variables declaration//GEN-END:variables
     DefaultTableModel tableCompetencesPersonneModel;
+    DefaultComboBoxModel<String> comboBoxCompetencesPersonneModel;
 }

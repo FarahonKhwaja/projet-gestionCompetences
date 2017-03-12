@@ -30,6 +30,13 @@ public class Competence {
         nomEN = nomAnglais;
         nomFR = nomFrancais;
     }
+    
+    public Competence(String aString) {
+        String[] parts = aString.split(" - ");
+        idCompetence = parts[0];
+        nomEN = parts[1];
+        nomFR = parts[2];
+    }
 
     /**
      * @return the idCompetence

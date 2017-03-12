@@ -19,8 +19,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainMenu extends javax.swing.JFrame {
 
-    private AjouterCompetence ajouterCompetenceUI;
-    private AjouterPersonne ajouterPersonneUI;
     private DetailsPersonne detailsPersonneUI;
 
     /**
@@ -40,7 +38,7 @@ public class MainMenu extends javax.swing.JFrame {
             tableCompetencesModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
         }
         for (Personne pers : personnel) {
-            tablePersonneModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom()});
+            tablePersonneModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom(), pers.getDateEntree()});
         }
 
     }
@@ -64,7 +62,7 @@ public class MainMenu extends javax.swing.JFrame {
         tablePersonneModel = new DefaultTableModel(
             new Object [][] {},
             new String [] {
-                "Identifiant", "Nom", "Prénom"
+                "Identifiant", "Nom", "Prénom", "Date d'entrée"
             });
             jTablePersonne = new javax.swing.JTable();
             jPanel1 = new javax.swing.JPanel();
@@ -82,6 +80,7 @@ public class MainMenu extends javax.swing.JFrame {
                 jTableCompetences = new javax.swing.JTable();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setTitle("Gestion Personnel");
 
                 jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -261,24 +260,26 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void ajouterPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterPersonneButtonMouseClicked
         // TODO add your handling code here:
-        ajouterPersonneUI = new AjouterPersonne();
-        ajouterPersonneUI.setVisible(true);
+        tablePersonneModel.addRow(new Object[]{Integer.parseInt(tablePersonneModel.getValueAt(jTablePersonne.getRowCount() - 1, 0).toString()) + 1, "", ""});
     }//GEN-LAST:event_ajouterPersonneButtonMouseClicked
 
     private void detailsPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsPersonneButtonMouseClicked
         try {
             // TODO add your handling code here:
-            detailsPersonneUI = new DetailsPersonne(Integer.parseInt(tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(),0).toString()));
+            if (jTablePersonne.getSelectedRow() != -1) {
+                detailsPersonneUI = new DetailsPersonne(Integer.parseInt(tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 0).toString()),
+                        tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 1).toString(),
+                        tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 2).toString());
+                detailsPersonneUI.setVisible(true);
+            }
         } catch (IOException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        detailsPersonneUI.setVisible(true);
     }//GEN-LAST:event_detailsPersonneButtonMouseClicked
 
     private void ajouterCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterCompetenceButtonMouseClicked
         // TODO add your handling code here:
-        ajouterCompetenceUI = new AjouterCompetence();
-        ajouterCompetenceUI.setVisible(true);
+        tableCompetencesModel.addRow(new Object[]{"", "", ""});
     }//GEN-LAST:event_ajouterCompetenceButtonMouseClicked
 
     private void sauvegarderCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sauvegarderCompetenceButtonMouseClicked
@@ -305,12 +306,22 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void supprimerCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerCompetenceButtonMouseClicked
         // TODO add your handling code here:
-        tableCompetencesModel.removeRow(jTableCompetences.getSelectedRow());
+        if (jTableCompetences.getSelectedRow() != -1) {
+            tableCompetencesModel.removeRow(jTableCompetences.getSelectedRow());
+        }
+        /*for (int selectedRow : jTableCompetences.getSelectedRows()) {
+            tableCompetencesModel.removeRow(selectedRow);
+        }*/
     }//GEN-LAST:event_supprimerCompetenceButtonMouseClicked
 
     private void supprimerPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerPersonneButtonMouseClicked
         // TODO add your handling code here:
-        tablePersonneModel.removeRow(jTablePersonne.getSelectedRow());
+        if (jTablePersonne.getSelectedRow() != -1) {
+            tablePersonneModel.removeRow(jTablePersonne.getSelectedRow());
+        }
+        /*for (int selectedRow : jTablePersonne.getSelectedRows()) {
+            tablePersonneModel.removeRow(selectedRow);
+        }*/
     }//GEN-LAST:event_supprimerPersonneButtonMouseClicked
 
     private void sauvegarderPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sauvegarderPersonneButtonMouseClicked

@@ -19,9 +19,7 @@ import java.util.logging.Logger;
  */
 public class Personne {
 
-    protected String nom;
-    protected String prenom;
-    protected Date dateEntree;
+    protected String nom, prenom, dateEntree;
     protected int id;
     protected ArrayList<Competence> Competences = new ArrayList<>();
 
@@ -32,18 +30,18 @@ public class Personne {
      * @param dateEntree
      * @param id
      */
-    public Personne(String nom, String prenom, Date dateEntree, int id) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.dateEntree = dateEntree;
+    public Personne(String nom, String prenom, String dateEntree, int id) {
+        this(nom, prenom, id);
+    }
+
+    public Personne(String nom, String prenom, int id) {
+        this(nom, prenom);
         this.id = id;
     }
-    public Personne(String nom, String prenom, Date dateEntree)
-    {
+
+    public Personne(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
-        this.dateEntree = dateEntree;
-        
     }
 
     /**
@@ -63,7 +61,7 @@ public class Personne {
     /**
      * @return the dateEntree
      */
-    public Date getDateEntree() {
+    public String getDateEntree() {
         return dateEntree;
     }
 
@@ -85,7 +83,14 @@ public class Personne {
      * @param competence the competence to add
      */
     public void addCompetence(Competence competence) {
-        this.getCompetences().add(competence);
+        boolean bool = true;
+        for (Competence cp : this.getCompetences()) {
+            if (cp.getIdCompetence().equals(competence.getIdCompetence())) {
+                bool = false;
+            }
+        }
+        if(bool)
+            this.getCompetences().add(competence);
     }
 
     /**
@@ -93,17 +98,19 @@ public class Personne {
      */
     public void addCompetence(HashMap<Integer, ArrayList<String>> competences) {
         ArrayList<String> idCompetencesPerso = competences.get(this.getId());
-        idCompetencesPerso.forEach((competenceperso) -> {
-            Competence competence;
-            try {
-                competence = Competence.getCompetenceById(competenceperso);
-                if (!this.getCompetences().contains(competence)) {
-                    this.getCompetences().add(competence);
+        if (idCompetencesPerso != null) {
+            idCompetencesPerso.forEach((competenceperso) -> {
+                Competence competence;
+                try {
+                    competence = Competence.getCompetenceById(competenceperso);
+                    if (!this.getCompetences().contains(competence)) {
+                        this.getCompetences().add(competence);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Personne.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(Personne.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+            });
+        }
     }
 
     /**

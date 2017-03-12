@@ -80,7 +80,7 @@ public class MainMenu extends javax.swing.JFrame {
                 jTableCompetences = new javax.swing.JTable();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                setTitle("Title");
+                setTitle("Gestion Personnel");
 
                 jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {

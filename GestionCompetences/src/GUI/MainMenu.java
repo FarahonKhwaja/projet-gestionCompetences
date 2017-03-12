@@ -104,6 +104,11 @@ public class MainMenu extends javax.swing.JFrame {
                 });
 
                 sauvegarderPersonneButton.setText("Sauvegarder");
+                sauvegarderPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        sauvegarderPersonneButtonMouseClicked(evt);
+                    }
+                });
 
                 detailsPersonneButton.setText("Détails");
                 detailsPersonneButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -289,6 +294,24 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         tablePersonneModel.removeRow(jTablePersonne.getSelectedRow());
     }//GEN-LAST:event_supprimerPersonneButtonMouseClicked
+
+    private void sauvegarderPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sauvegarderPersonneButtonMouseClicked
+        // TODO add your handling code here:
+        ArrayList<Personne> personnel = new ArrayList<>();
+        for(int i = 0; i < tablePersonneModel.getRowCount(); i++)
+        {
+            int id = (int)tablePersonneModel.getValueAt(i, 0);
+            String nom = (String)tablePersonneModel.getValueAt(i, 1);
+            String prenom = (String)tablePersonneModel.getValueAt(i, 2);
+            
+            personnel.add(new Personne(nom, prenom, null, id));
+        }
+        try {
+            gestionFichiers.writer.sauvegarderPersonnel(personnel);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_sauvegarderPersonneButtonMouseClicked
 
     /**
      * @param args the command line arguments

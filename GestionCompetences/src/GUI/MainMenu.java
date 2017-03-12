@@ -283,6 +283,24 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void sauvegarderCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sauvegarderCompetenceButtonMouseClicked
         // TODO add your handling code here:
+        ArrayList<Competence> competences = new ArrayList<>();
+        
+        for(int i = 0; i < tableCompetencesModel.getRowCount(); i++)
+        {
+            String id = (String)tableCompetencesModel.getValueAt(i, 0);
+            String libEN = (String)tableCompetencesModel.getValueAt(i, 1);
+            String libFR = (String)tableCompetencesModel.getValueAt(i, 2);
+            
+            competences.add(new Competence(id, libEN, libFR));
+        }
+        try {
+            gestionFichiers.writer.sauvegarderCompetences(competences);
+        }
+        catch(IOException e)
+        {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
     }//GEN-LAST:event_sauvegarderCompetenceButtonMouseClicked
 
     private void supprimerCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerCompetenceButtonMouseClicked

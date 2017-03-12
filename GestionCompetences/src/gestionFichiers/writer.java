@@ -26,14 +26,14 @@ public class writer {
      * @throws IOException Si le chemin indiqué n'est pas atteignable, déclenche
      * une exception.
      */
-    public static void sauvegarderPersonnel(String chemin, ArrayList<Personne> personnes) throws IOException {
+    public static void sauvegarderPersonnel(ArrayList<Personne> personnes) throws IOException {
         String totalite = "";
         for (Personne p : personnes) {
             totalite += p.getPrenom() + ";" + p.getNom() + ";" + p.getDateEntree() + ";" + p.getId() + "\n";
         }
         System.out.println(totalite);
 
-        File fichier = new File(chemin);
+        File fichier = new File(gestionFichiers.lecteur.cheminPersonnel);
         BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();
@@ -47,14 +47,14 @@ public class writer {
      * @throws IOException Si le chemin indiqué n'est pas atteignable, déclenche
      * une exception.
      */
-    public static void sauvegarderCompetences(String chemin, ArrayList<Competence> competences) throws IOException {
+    public static void sauvegarderCompetences(ArrayList<Competence> competences) throws IOException {
         String totalite = "";
         for (Competence c : competences) {
             totalite += c.getIdCompetence() + ";" + c.getNomEN() + ";" + c.getNomFR() + "\n";
         }
         System.out.println(totalite);
 
-        File fichier = new File(chemin);
+        File fichier = new File(gestionFichiers.lecteur.cheminCompetences);
         BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();

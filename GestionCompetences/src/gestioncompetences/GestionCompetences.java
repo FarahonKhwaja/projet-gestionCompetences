@@ -37,13 +37,13 @@ public class GestionCompetences {
             //System.out.println("");
         }
 
-        MissionPreparation missionPrep = new MissionPreparation(new Date(21, 2, 1994), 10, 5);
+        MissionPreparation missionPrep = new MissionPreparation("Prep 1", "21/02/1994", "10", "Préparation", 5);
         missionPrep.addCompetence(competences.get(0), 5);
         missionPrep.addCompetence(competences.get(1), 1);
         missionPrep.addCompetence(competences.get(2), 1);
         missionPrep.addCompetence(competences.get(3), 1);
 
-        MissionPreparation missionPrep2 = new MissionPreparation(new Date(21, 2, 1994), 10, 5);
+        MissionPreparation missionPrep2 = new MissionPreparation("Prep 2", "21/02/1994", "10", "Préparation", 5);
         missionPrep2.addCompetence(competences.get(0), 1);
         missionPrep2.addCompetence(competences.get(1), 2);
         missionPrep2.addCompetence(competences.get(2), 2);

@@ -17,8 +17,16 @@ public class MissionNonmodifiable extends Mission {
 
     protected HashMap<Competence, ArrayList<Personne>> affectationDefinitive;
 
-    public MissionNonmodifiable(Date dateDebut, int duree, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
-        super(dateDebut, duree);
+    /**
+     *
+     * @param libelle
+     * @param dateDebut
+     * @param duree
+     * @param etat
+     * @param personelAffecte
+     */
+    public MissionNonmodifiable(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
+        super(libelle, dateDebut, duree, etat);
         this.affectationDefinitive = personelAffecte;
     }
 

@@ -3,13 +3,13 @@
  */
 package gestionFichiers;
 
-import gestioncompetences.Competence;
-import gestioncompetences.Personne;
+import gestioncompetences.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Cette classe permet d'écrire dans des fichiers .CSV
@@ -20,18 +20,15 @@ public class writer {
 
     /**
      *
-     * @param chemin Correspond au chemin où se trouve le fichier à écrire. Il
-     * est créé si inexistant. Si existant, il est écrasé.
      * @param personnes Correspond à l'ArrayList de personnes à écrire.
      * @throws IOException Si le chemin indiqué n'est pas atteignable, déclenche
      * une exception.
      */
     public static void sauvegarderPersonnel(ArrayList<Personne> personnes) throws IOException {
-        String totalite = "";
+        String totalite = "Prenom;Nom;date entrée entreprise;identifiant\n";
         for (Personne p : personnes) {
             totalite += p.getPrenom() + ";" + p.getNom() + ";" + p.getDateEntree() + ";" + p.getId() + "\n";
         }
-        System.out.println(totalite);
 
         File fichier = new File(gestionFichiers.lecteur.cheminPersonnel);
         BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
@@ -41,8 +38,6 @@ public class writer {
 
     /**
      *
-     * @param chemin Correspond au chemin où se trouve le fichier à écrire. Il
-     * est créé si inexistant. Si existant, il est écrasé.
      * @param competences Correspond à l'ArrayList de compétences à écrire.
      * @throws IOException Si le chemin indiqué n'est pas atteignable, déclenche
      * une exception.
@@ -52,9 +47,46 @@ public class writer {
         for (Competence c : competences) {
             totalite += c.getIdCompetence() + ";" + c.getNomEN() + ";" + c.getNomFR() + "\n";
         }
-        System.out.println(totalite);
 
         File fichier = new File(gestionFichiers.lecteur.cheminCompetences);
+        BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
+        buffer_ecriture.write(totalite);
+        buffer_ecriture.close();
+    }
+
+    /**
+     *
+     * @param competencesPersonnel
+     * @throws IOException
+     */
+    public static void sauvegarderCompetencesPersonnel(HashMap<Integer, ArrayList<String>> competencesPersonnel) throws IOException {
+        String totalite = "Employe;Liste Competences\n";
+        for (Integer key : competencesPersonnel.keySet()) {
+            totalite += key.toString() + ";";
+            for (String cp : competencesPersonnel.get(key)) {
+                totalite += cp + ";";
+            }
+            totalite += "\n";
+        }
+
+        File fichier = new File(gestionFichiers.lecteur.cheminCompetencesPersonnel);
+        BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
+        buffer_ecriture.write(totalite);
+        buffer_ecriture.close();
+    }
+
+    /**
+     *
+     * @param missions
+     * @throws IOException
+     */
+    public static void sauvegarderMissions(ArrayList<Mission> missions) throws IOException {
+        String totalite = "Libelle;Date de début;durée;état\n";
+        for (Mission m : missions) {
+            totalite += m.getLibelle() + ";" + m.getDateDebut() + ";" + m.getDuree() + ";" + m.getEtat() + "\n";
+        }
+
+        File fichier = new File(gestionFichiers.lecteur.cheminMissions);
         BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();

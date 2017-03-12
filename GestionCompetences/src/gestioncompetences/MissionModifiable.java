@@ -19,29 +19,38 @@ public class MissionModifiable extends Mission {
     protected HashMap<Competence, Integer> personelRequis = new HashMap<>();
     protected HashMap<Competence, ArrayList<Personne>> personelAffecte = new HashMap<>();
 
-    public MissionModifiable(int nbRequis, Date dateDebut, int duree) {
-        super(dateDebut, duree);
+    /**
+     *
+     * @param libelle
+     * @param dateDebut
+     * @param duree
+     * @param etat
+     * @param nbRequis
+     */
+    public MissionModifiable(String libelle, String dateDebut, String duree, String etat, int nbRequis) {
+        super(libelle, dateDebut, duree, etat);
         this.nbRequis = nbRequis;
     }
 
+    /**
+     * @return the nbRequis
+     */
     public int getNbRequis() {
         return nbRequis;
     }
 
+    /**
+     * @return the personelRequis
+     */
     public HashMap<Competence, Integer> getPersonelRequis() {
         return personelRequis;
     }
 
-    public void setPersonelRequis(HashMap<Competence, Integer> personelRequis) {
-        this.personelRequis = personelRequis;
-    }
-
+    /**
+     * @return the personelAffecte
+     */
     public HashMap<Competence, ArrayList<Personne>> getPersonelAffecte() {
         return personelAffecte;
-    }
-
-    public void setPersonelAffecte(HashMap<Competence, ArrayList<Personne>> personelAffecte) {
-        this.personelAffecte = personelAffecte;
     }
 
 }

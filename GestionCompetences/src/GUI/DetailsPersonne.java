@@ -10,6 +10,7 @@ import gestioncompetences.Competence;
 import gestioncompetences.Personne;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -24,6 +25,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
     private static int idPersonne;
     private static String nom, prenom;
     private Personne personne;
+    private final HashMap<Integer, ArrayList<String>> competencesPersonnel = lecteur.lireFichierCompetencesParPersonne(lecteur.cheminCompetencesPersonnel);
 
     /**
      * Creates new form jFrameDetailsPersonne
@@ -39,7 +41,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
             this.personne = new Personne(nom, prenom, idPersonne);
         }
 
-        this.personne.addCompetence(lecteur.lireFichierCompetencesParPersonne(lecteur.cheminCompetencesPersonnel));
+        this.personne.addCompetence(competencesPersonnel);
         ArrayList<Competence> competencePersonne = new ArrayList<>();
         competencePersonne = this.personne.getCompetences();
         for (Competence cp : competencePersonne) {
@@ -164,12 +166,23 @@ public class DetailsPersonne extends javax.swing.JFrame {
     private void jButtonSaveCompetencesPersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesPersonneMouseClicked
         // TODO add your handling code here:
         for (int i = 0; i < tableCompetencesPersonneModel.getRowCount(); i++) {
-            Competence cp = new Competence(tableCompetencesPersonneModel.getValueAt(i, 0).toString(), 
-                    tableCompetencesPersonneModel.getValueAt(i, 1).toString(), 
+            Competence cp = new Competence(tableCompetencesPersonneModel.getValueAt(i, 0).toString(),
+                    tableCompetencesPersonneModel.getValueAt(i, 1).toString(),
                     tableCompetencesPersonneModel.getValueAt(i, 2).toString());
             this.personne.addCompetence(cp);
         }
-        System.out.println(this.personne.getCompetences());
+        ArrayList<String> idCompetences = new ArrayList<>();
+        for (Competence cp : this.personne.getCompetences()) {
+            idCompetences.add(cp.getIdCompetence());
+        }
+        competencesPersonnel.put(this.personne.getId(), idCompetences);
+        
+        try {
+            gestionFichiers.writer.sauvegarderCompetencesPersonnel(competencesPersonnel);
+        } catch (IOException ex) {
+            Logger.getLogger(DetailsPersonne.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         this.dispose();
     }//GEN-LAST:event_jButtonSaveCompetencesPersonneMouseClicked
 
@@ -200,16 +213,24 @@ public class DetailsPersonne extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DetailsPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsPersonne.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DetailsPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsPersonne.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DetailsPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsPersonne.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DetailsPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailsPersonne.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -219,8 +240,10 @@ public class DetailsPersonne extends javax.swing.JFrame {
             public void run() {
                 try {
                     new DetailsPersonne(DetailsPersonne.idPersonne, DetailsPersonne.nom, DetailsPersonne.prenom).setVisible(true);
+
                 } catch (IOException ex) {
-                    Logger.getLogger(DetailsPersonne.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DetailsPersonne.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

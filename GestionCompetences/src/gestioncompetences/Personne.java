@@ -8,7 +8,6 @@ package gestioncompetences;
 import gestionFichiers.lecteur;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,13 +31,25 @@ public class Personne {
      */
     public Personne(String nom, String prenom, String dateEntree, int id) {
         this(nom, prenom, id);
+        this.dateEntree = dateEntree;
     }
 
+    /**
+     *
+     * @param nom
+     * @param prenom
+     * @param id
+     */
     public Personne(String nom, String prenom, int id) {
         this(nom, prenom);
         this.id = id;
     }
 
+    /**
+     *
+     * @param nom
+     * @param prenom
+     */
     public Personne(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
@@ -89,8 +100,9 @@ public class Personne {
                 bool = false;
             }
         }
-        if(bool)
+        if (bool) {
             this.getCompetences().add(competence);
+        }
     }
 
     /**

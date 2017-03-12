@@ -6,7 +6,6 @@
 package gestioncompetences;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -23,8 +22,8 @@ class MissionEnCours extends MissionNonmodifiable {
      * @param personelRequis
      * @param personelAffecte
      */
-    public MissionEnCours(Date dateDebut, int duree, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
-        super(dateDebut, duree, personelAffecte);
+    public MissionEnCours(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
+        super(libelle, dateDebut, duree, etat, personelAffecte);
         this.etat = "En Cours";
     }
 
@@ -33,7 +32,7 @@ class MissionEnCours extends MissionNonmodifiable {
      * @return
      */
     public MissionTerminee clore() {
-        return new MissionTerminee(getDateDebut(), getDuree(), getAffectationDefinitive());
+        return new MissionTerminee(getLibelle(), getDateDebut(), getDuree(), getEtat(), getAffectationDefinitive());
     }
 
 }

@@ -11,33 +11,35 @@ import java.util.Date;
  *
  * @author phili
  */
-class Mission {
+public class Mission {
 
-    protected Date dateDebut;
-    protected int duree;
-    protected String etat;
+    protected String libelle, dateDebut, duree, etat;
 
     /**
      *
+     * @param libelle
      * @param dateDebut
      * @param duree
+     * @param etat
      */
-    public Mission(Date dateDebut, int duree) {
+    public Mission(String libelle, String dateDebut, String duree, String etat) {
         this.dateDebut = dateDebut;
         this.duree = duree;
+        this.libelle = libelle;
+        this.etat = etat;
     }
 
     /**
      * @return the dateDebut
      */
-    public Date getDateDebut() {
+    public String getDateDebut() {
         return dateDebut;
     }
 
     /**
      * @return the duree
      */
-    public int getDuree() {
+    public String getDuree() {
         return duree;
     }
 
@@ -46,6 +48,13 @@ class Mission {
      */
     public String getEtat() {
         return etat;
+    }
+
+    /**
+     * @return the etat
+     */
+    public String getLibelle() {
+        return libelle;
     }
 
 }

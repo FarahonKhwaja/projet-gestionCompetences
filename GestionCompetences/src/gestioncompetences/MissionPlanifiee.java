@@ -25,8 +25,8 @@ class MissionPlanifiee extends MissionModifiable {
      * @param nbRequis
      * @param personelRequis
      */
-    public MissionPlanifiee(Date dateDebut, int duree, int nbRequis) {
-        super(nbRequis, dateDebut, duree);
+    public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat, int nbRequis) {
+        super(libelle, dateDebut, duree, etat, nbRequis);
         this.personelRequisRestant = this.personelRequis;
         this.etat = "Planifiee";
     }
@@ -84,6 +84,11 @@ class MissionPlanifiee extends MissionModifiable {
         return personneAffinites;
     }
 
+    /**
+     *
+     * @param personneAffinites
+     * @throws IOException
+     */
     public void multiSelectionAuto(HashMap<Personne, Integer> personneAffinites) throws IOException {
         int i = 0;
         for (Personne key : personneAffinites.keySet()) {
@@ -111,6 +116,8 @@ class MissionPlanifiee extends MissionModifiable {
 
     /**
      *
+     * @param personnel
+     * @throws IOException
      */
     public void multiSelectionAutoSup(ArrayList<Personne> personnel) throws IOException {
         HashMap<Personne, Integer> personneAffinites = new HashMap<>();
@@ -159,7 +166,7 @@ class MissionPlanifiee extends MissionModifiable {
      * @return
      */
     public MissionEnCours commencer() {
-        return new MissionEnCours(getDateDebut(), getDuree(), getPersonelAffecte());
+        return new MissionEnCours(getLibelle(), getDateDebut(), getDuree(), getEtat(), getPersonelAffecte());
     }
 
 }

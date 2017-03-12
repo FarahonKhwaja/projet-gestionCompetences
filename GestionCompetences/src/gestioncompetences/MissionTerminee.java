@@ -21,10 +21,11 @@ public class MissionTerminee extends MissionNonmodifiable {
      *
      * @param dateDebut
      * @param duree
+     * @param libelle
      * @param personelAffecte
      */
-    public MissionTerminee(Date dateDebut, int duree, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
-        super(dateDebut, duree, personelAffecte);
+    public MissionTerminee(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
+        super(libelle, dateDebut, duree, etat, personelAffecte);
         this.etat = "Terminee";
     }
 

@@ -19,8 +19,8 @@ class MissionPreparation extends MissionModifiable {
      * @param duree
      * @param nbRequis
      */
-    public MissionPreparation(Date dateDebut, int duree, int nbRequis) {
-        super(nbRequis, dateDebut, duree);
+    public MissionPreparation(String libelle, String dateDebut, String duree, String etat, int nbRequis) {
+        super(libelle, dateDebut, duree, etat, nbRequis);
         this.etat = "Preparation";
     }
 
@@ -44,7 +44,7 @@ class MissionPreparation extends MissionModifiable {
      * @return
      */
     public MissionPlanifiee planifier() {
-        return new MissionPlanifiee(getDateDebut(), getDuree(), getNbRequis());
+        return new MissionPlanifiee(getLibelle(), getDateDebut(), getDuree(), getEtat(), getNbRequis());
     }
 
 }

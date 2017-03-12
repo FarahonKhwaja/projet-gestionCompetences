@@ -24,16 +24,12 @@ public class GestionCompetences {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
 
-        String personnePath = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
-        String competencesPath = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
-        String competencePersonnesPath = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
-
-        ArrayList<Personne> personnel = getPersonnel(personnePath);
-        ArrayList<Competence> competences = getCompetences(competencesPath);
+        ArrayList<Personne> personnel = getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
+        ArrayList<Competence> competences = getCompetences(gestionFichiers.lecteur.cheminCompetences);
 
         for (Personne personne : personnel) {
             //System.out.println(personne.toString());
-            personne.addCompetence(lireFichierCompetencesParPersonne(competencePersonnesPath));
+            personne.addCompetence(lireFichierCompetencesParPersonne(gestionFichiers.lecteur.cheminCompetencesPersonnel));
             //System.out.println(personne.Competences);
             personne.getCompetences().forEach((comp) -> {
                 //System.out.println(comp.toString());

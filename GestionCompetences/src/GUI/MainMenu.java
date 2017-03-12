@@ -31,8 +31,8 @@ public class MainMenu extends javax.swing.JFrame {
         ArrayList<Competence> competences = null;
         ArrayList<Personne> personnel = null;
         try {
-            competences = gestionFichiers.lecteur.getCompetences("C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv");
-            personnel = gestionFichiers.lecteur.getPersonnel("C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv");
+            competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
+            personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
         } catch (IOException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -129,9 +129,9 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(detailsPersonneButton)
                     .addComponent(ajouterPersonneButton)

@@ -24,6 +24,10 @@ public class lecteur {
     public static ArrayList<Personne> liste_personnel = new ArrayList<>();
     public static ArrayList<Competence> liste_competences = new ArrayList<>();
 
+    public static String cheminPersonnel = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
+    public static String cheminCompetences = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
+    public static String cheminCompetencesPersonnel = "C:\\Users\\phili\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
+    
     public static ArrayList<Personne> getPersonnel(String chemin) throws IOException {
         return lireFichierPersonnes(chemin);
     }
@@ -102,5 +106,10 @@ public class lecteur {
             i++;
         }
         return competencesPersonne;
+    }
+
+    public static int getDernierIdPersonnel() throws IOException {
+        ArrayList<Personne> personnel = gestionFichiers.lecteur.getPersonnel(cheminPersonnel);
+        return personnel.size();
     }
 }

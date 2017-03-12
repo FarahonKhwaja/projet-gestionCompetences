@@ -38,6 +38,13 @@ public class Personne {
         this.dateEntree = dateEntree;
         this.id = id;
     }
+    public Personne(String nom, String prenom, Date dateEntree)
+    {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateEntree = dateEntree;
+        
+    }
 
     /**
      * @return the nom
@@ -113,7 +120,7 @@ public class Personne {
     }
 
     public static Personne getPersonneById(int id) throws IOException {
-        ArrayList<Personne> personnes = lecteur.getPersonnel("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_personnel.csv");
+        ArrayList<Personne> personnes = lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
         for (Personne personne : personnes) {
             if (personne.getId() == id) {
                 return personne;

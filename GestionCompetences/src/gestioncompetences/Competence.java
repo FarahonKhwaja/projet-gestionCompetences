@@ -79,7 +79,7 @@ public class Competence {
     }
 
     public static Competence getCompetenceById(String id) throws IOException {
-        ArrayList<Competence> competences = lecteur.getCompetences("C:\\Users\\entrax\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv");
+        ArrayList<Competence> competences = lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
         for (Competence competence : competences) {
             if (competence.getIdCompetence().equals(id)) {
                 return competence;

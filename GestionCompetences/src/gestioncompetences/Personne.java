@@ -5,7 +5,7 @@
  */
 package gestioncompetences;
 
-import gestionFichiers.Lecteur;
+import gestionFichiers.lecteur;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,7 +113,7 @@ public class Personne {
     }
 
     public static Personne getPersonneById(int id) throws IOException {
-        ArrayList<Personne> personnes = Lecteur.lireFichierPersonnes("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_personnel.csv");
+        ArrayList<Personne> personnes = lecteur.lireFichierPersonnes("C:\\\\Users\\\\entrax\\\\Documents\\\\GitHub\\\\projet-gestionCompetences\\\\fichiers_projet\\\\liste_personnel.csv");
         for (Personne personne : personnes) {
             if (personne.getId() == id) {
                 return personne;

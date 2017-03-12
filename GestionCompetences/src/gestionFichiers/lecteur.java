@@ -38,7 +38,7 @@ public class lecteur {
      * @throws IOException Si le fichier ciblé n'existe pas, retourne une erreur
      * IOException.
      */
-    public static ArrayList<Personne> lireFichierPersonnes(String chemin) throws IOException {
+    private static ArrayList<Personne> lireFichierPersonnes(String chemin) throws IOException {
         String chaine;
         int i = 0;
         ArrayList<Personne> personnes = new ArrayList<>();

@@ -12,18 +12,23 @@ import java.util.HashMap;
  *
  * @author phili
  */
-class MissionEnCours extends MissionNonmodifiable {
+public class MissionEnCours extends MissionNonmodifiable {
 
     /**
      *
+     * @param libelle
      * @param dateDebut
      * @param duree
-     * @param nbRequis
-     * @param personelRequis
+     * @param etat
      * @param personelAffecte
      */
     public MissionEnCours(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
         super(libelle, dateDebut, duree, etat, personelAffecte);
+        this.etat = "En Cours";
+    }
+    
+    public MissionEnCours(MissionPlanifiee m) {
+        super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonelAffecte());
         this.etat = "En Cours";
     }
 

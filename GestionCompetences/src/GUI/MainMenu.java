@@ -19,6 +19,10 @@ import javax.swing.table.DefaultTableModel;
 public class MainMenu extends javax.swing.JFrame {
 
     private DetailsPersonne detailsPersonneUI;
+    private DetailsMissionPreparation detailsMissionPreparationUI;
+    private DetailsMissionPlanifiee detailsMissionPlanifieeUI;
+    private DetailsMissionEnCours detailsMissionEnCoursUI;
+    private DetailsMissionTerminee detailsMissionTermineeUI;
 
     /**
      * Creates new form NewJFrame
@@ -300,11 +304,51 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void detailsMissionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsMissionButtonMouseClicked
         // TODO add your handling code here:
+        try {
+            if (jTableMissions.getSelectedRow() != -1) {
+                switch (tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 3).toString()) {
+                    case "Préparation":
+                        detailsMissionPreparationUI = new DetailsMissionPreparation(tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 0).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 1).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 2).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 3).toString()
+                        );
+                        detailsMissionPreparationUI.setVisible(true);
+                        break;
+                    case "Planifiée":
+                        detailsMissionPlanifieeUI = new DetailsMissionPlanifiee(tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 0).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 1).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 2).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 3).toString()
+                        );
+                        detailsMissionPlanifieeUI.setVisible(true);
+                        break;
+                    case "En Cours":
+                        detailsMissionEnCoursUI = new DetailsMissionEnCours(tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 0).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 1).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 2).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 3).toString()
+                        );
+                        detailsMissionEnCoursUI.setVisible(true);
+                        break;
+                    case "Terminée":
+                        detailsMissionTermineeUI = new DetailsMissionTerminee(tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 0).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 1).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 2).toString(),
+                                tableMissionModel.getValueAt(jTableMissions.getSelectedRow(), 3).toString()
+                        );
+                        detailsMissionTermineeUI.setVisible(true);
+                        break;
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_detailsMissionButtonMouseClicked
 
     private void ajouterMissionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterMissionButtonMouseClicked
         // TODO add your handling code here:
-        tableMissionModel.addRow(new Object[]{"", "", "", ""});
+        tableMissionModel.addRow(new Object[]{"", "", "", "Préparation"});
     }//GEN-LAST:event_ajouterMissionButtonMouseClicked
 
     private void supprimerMissionButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supprimerMissionButtonMouseClicked
@@ -337,8 +381,8 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_sauvegarderMissionButtonMouseClicked
 
     private void detailsPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsPersonneButtonMouseClicked
+        // TODO add your handling code here:
         try {
-            // TODO add your handling code here:
             if (jTablePersonne.getSelectedRow() != -1) {
                 detailsPersonneUI = new DetailsPersonne(Integer.parseInt(tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 0).toString()),
                         tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 1).toString(),
@@ -378,8 +422,10 @@ public class MainMenu extends javax.swing.JFrame {
         }
         try {
             gestionFichiers.writer.sauvegarderPersonnel(personnel);
+
         } catch (IOException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainMenu.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_sauvegarderPersonneButtonMouseClicked
 
@@ -411,8 +457,10 @@ public class MainMenu extends javax.swing.JFrame {
         }
         try {
             gestionFichiers.writer.sauvegarderCompetences(competences);
+
         } catch (IOException e) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MainMenu.class
+                    .getName()).log(Level.SEVERE, null, e);
         }
 
     }//GEN-LAST:event_sauvegarderCompetenceButtonMouseClicked
@@ -431,16 +479,24 @@ public class MainMenu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

@@ -4,10 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/MissionPlanifiee.java</file>
-            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/Mission.java</file>
-            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/Writer.java</file>
-            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestionFichiers/lecteur.java</file>
-            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/Personne.java</file>
+            <file>file:/C:/Users/Entrax/Documents/GitHub/projet-gestionCompetences/GestionCompetences/src/gestioncompetences/MissionModifiable.java</file>
         </group>
     </open-files>
 </project-private>

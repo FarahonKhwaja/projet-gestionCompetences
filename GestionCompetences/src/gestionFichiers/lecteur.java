@@ -22,12 +22,18 @@ public class lecteur {
     public static ArrayList<Personne> liste_personnel = new ArrayList<>();
     public static ArrayList<Competence> liste_competences = new ArrayList<>();
     public static ArrayList<Mission> liste_missions = new ArrayList<>();
+    public static ArrayList<MissionPreparation> liste_missionsPreparation = new ArrayList<>();
+    public static ArrayList<MissionPlanifiee> liste_missionsPlanifiee = new ArrayList<>();
+    public static ArrayList<MissionEnCours> liste_missionsEnCours = new ArrayList<>();
+    public static ArrayList<MissionTerminee> liste_missionsTerminee = new ArrayList<>();
 
     public static String yourName = "entrax";
     public static String cheminPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
     public static String cheminCompetences = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
     public static String cheminCompetencesPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
     public static String cheminMissions = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_missions.csv";
+    public static String cheminCompetencesMission = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_mission.csv";
+    public static String cheminAffectationsMission = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\affectations_competences_mission.csv";
 
     public static ArrayList<Personne> getPersonnel(String chemin) throws IOException {
         return lireFichierPersonnes(chemin);
@@ -89,6 +95,10 @@ public class lecteur {
         return competences;
     }
 
+    public static HashMap<Integer, ArrayList<String>> getCompetencesParPersonne(String chemin) throws IOException {
+        return lireFichierCompetencesParPersonne(chemin);
+    }
+
     public static HashMap<Integer, ArrayList<String>> lireFichierCompetencesParPersonne(String chemin) throws IOException {
         HashMap<Integer, ArrayList<String>> competencesPersonne = new HashMap<>();
         String chaine;
@@ -117,30 +127,143 @@ public class lecteur {
         return lireFichierMissions(chemin);
     }
 
-    /**
-     * Lit un fichier de {@link Personne}.
-     *
-     * @param chemin Correspond au chemin où se trouve le fichier à écrire. Il
-     * est créé si inexistant. Si existant, il est écrasé.
-     * @return Retourne une ArrayList de {@link Competence}, correspondant au
-     * contenu du fichier lu.
-     * @throws IOException Si le fichier ciblé n'existe pas, retourne une erreur
-     * IOException.
-     */
     private static ArrayList<Mission> lireFichierMissions(String chemin) throws IOException {
         String chaine;
         int i = 0;
         ArrayList<Mission> missions = new ArrayList<>();
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) {
-            if (i > 0) {
-                String[] infosUneCompetence = chaine.split(";");
-                Mission uneMission = new Mission(infosUneCompetence[0], infosUneCompetence[1], infosUneCompetence[2], infosUneCompetence[3]);
-                missions.add(uneMission);
-            }
+            String[] infosuneMission = chaine.split(";");
+            Mission uneMission = new Mission(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+            missions.add(uneMission);
             i++;
         }
         liste_missions = missions;
         return missions;
+    }
+
+    public static ArrayList<MissionPreparation> getMissionsPreparation(String chemin) throws IOException {
+        return lireFichierMissionsPreparation(chemin);
+    }
+
+    private static ArrayList<MissionPreparation> lireFichierMissionsPreparation(String chemin) throws IOException {
+        String chaine;
+        int i = 0;
+        ArrayList<MissionPreparation> missions = new ArrayList<>();
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) {
+            String[] infosuneMission = chaine.split(";");
+            MissionPreparation uneMission = new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+            missions.add(uneMission);
+            i++;
+        }
+        liste_missionsPreparation = missions;
+        return missions;
+    }
+
+    public static ArrayList<MissionPlanifiee> getMissionsPlanifiee(String chemin) throws IOException {
+        return lireFichierMissionsPlanifiee(chemin);
+    }
+
+    private static ArrayList<MissionPlanifiee> lireFichierMissionsPlanifiee(String chemin) throws IOException {
+        String chaine;
+        int i = 0;
+        ArrayList<MissionPlanifiee> missions = new ArrayList<>();
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) {
+            String[] infosuneMission = chaine.split(";");
+            MissionPlanifiee uneMission = new MissionPlanifiee(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+            missions.add(uneMission);
+            i++;
+        }
+        liste_missionsPlanifiee = missions;
+        return missions;
+    }
+
+    public static ArrayList<MissionEnCours> getMissionsEnCours(String chemin) throws IOException {
+        return lireFichierMissionsEnCours(chemin);
+    }
+
+    private static ArrayList<MissionEnCours> lireFichierMissionsEnCours(String chemin) throws IOException {
+        String chaine;
+        int i = 0;
+        ArrayList<MissionEnCours> missions = new ArrayList<>();
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) {
+            String[] infosuneMission = chaine.split(";");
+            //MissionEnCours uneMission = new MissionEnCours(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+            //missions.add(uneMission);
+            i++;
+        }
+        liste_missionsEnCours = missions;
+        return missions;
+    }
+
+    public static ArrayList<MissionTerminee> getMissionsTerminee(String chemin) throws IOException {
+        return lireFichierMissionsTerminee(chemin);
+    }
+
+    private static ArrayList<MissionTerminee> lireFichierMissionsTerminee(String chemin) throws IOException {
+        String chaine;
+        int i = 0;
+        ArrayList<MissionTerminee> missions = new ArrayList<>();
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) {
+            String[] infosuneMission = chaine.split(";");
+            //MissionTerminee uneMission = new MissionTerminee(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+            //missions.add(uneMission);
+            i++;
+        }
+        liste_missionsTerminee = missions;
+        return missions;
+    }
+
+    public static HashMap<String, HashMap<String, Integer>> getCompetencesParMission(String chemin) throws IOException {
+        return lireFichierCompetencesParMission(chemin);
+    }
+
+    public static HashMap<String, HashMap<String, Integer>> lireFichierCompetencesParMission(String chemin) throws IOException {
+        HashMap<String, HashMap<String, Integer>> competencesMission = new HashMap<>();
+        HashMap<String, Integer> competences = new HashMap<>();
+        String chaine;
+        int i = 0;
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) {
+            String[] infos = chaine.split(";");
+            if (competencesMission.get(infos[0]) != null) {
+                competences = competencesMission.get(infos[0]);
+            }
+            if (infos.length > 1) {
+                competences.put(infos[1], Integer.parseInt(infos[2]));
+            }
+            competencesMission.put(infos[0], competences);
+        }
+        return competencesMission;
+    }
+
+    public static HashMap<String, HashMap<String, ArrayList<Integer>>> getAffectationsParMission(String chemin) throws IOException {
+        return lireFichierAffectationsParMission(chemin);
+    }
+    public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsParMission(String chemin) throws IOException {
+        HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
+        HashMap<String, ArrayList<Integer>> affectations = new HashMap<>();
+        String chaine;
+        int i = 0;
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) {
+            String[] infos = chaine.split(";");
+            if (affectationsMission.get(infos[0]) != null) {
+                affectations = affectationsMission.get(infos[0]);
+            }
+            if (infos.length > 1) {
+                ArrayList<Integer> personnes = new ArrayList<>();
+                for (int j = 2; j < infos.length; j++) {
+                    personnes.add(Integer.parseInt(infos[j]));
+                }
+                affectations.put(infos[1], personnes);
+            }
+            affectationsMission.put(infos[0], affectations);
+        }
+        return affectationsMission;
     }
 }

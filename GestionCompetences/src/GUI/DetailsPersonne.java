@@ -11,6 +11,7 @@ import gestioncompetences.Personne;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -25,7 +26,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
     private static int idPersonne;
     private static String nom, prenom;
     private Personne personne;
-    private final HashMap<Integer, ArrayList<String>> competencesPersonnel = lecteur.lireFichierCompetencesParPersonne(lecteur.cheminCompetencesPersonnel);
+    private final HashMap<Integer, ArrayList<String>> competencesPersonnel = lecteur.getCompetencesParPersonne(lecteur.cheminCompetencesPersonnel);
 
     /**
      * Creates new form jFrameDetailsPersonne
@@ -33,6 +34,8 @@ public class DetailsPersonne extends javax.swing.JFrame {
     public DetailsPersonne(int idPersonne, String nom, String prenom) throws IOException {
         initComponents();
         DetailsPersonne.idPersonne = idPersonne;
+        DetailsPersonne.nom = nom;
+        DetailsPersonne.prenom = prenom;
         jLabelNomPersonne.setText(nom);
         jLabelPrenomPersonne.setText(prenom);
 
@@ -78,8 +81,8 @@ public class DetailsPersonne extends javax.swing.JFrame {
             });
             jTableCompetencesPersonne = new javax.swing.JTable();
 
-            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-            setTitle("Détails");
+            setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            setTitle("Détails Personnel");
 
             jButtonSaveCompetencesPersonne.setText("Enregister");
             jButtonSaveCompetencesPersonne.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,6 +168,10 @@ public class DetailsPersonne extends javax.swing.JFrame {
 
     private void jButtonSaveCompetencesPersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesPersonneMouseClicked
         // TODO add your handling code here:
+        for (Iterator<Competence> iterator = this.personne.getCompetences().iterator(); iterator.hasNext();) {
+            Competence cp = iterator.next();
+            iterator.remove();
+        }
         for (int i = 0; i < tableCompetencesPersonneModel.getRowCount(); i++) {
             Competence cp = new Competence(tableCompetencesPersonneModel.getValueAt(i, 0).toString(),
                     tableCompetencesPersonneModel.getValueAt(i, 1).toString(),
@@ -176,7 +183,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
             idCompetences.add(cp.getIdCompetence());
         }
         competencesPersonnel.put(this.personne.getId(), idCompetences);
-        
+
         try {
             gestionFichiers.writer.sauvegarderCompetencesPersonnel(competencesPersonnel);
         } catch (IOException ex) {

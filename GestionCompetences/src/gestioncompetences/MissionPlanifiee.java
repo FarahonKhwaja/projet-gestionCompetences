@@ -5,29 +5,37 @@
  */
 package gestioncompetences;
 
+import gestionFichiers.lecteur;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author phili
  */
-class MissionPlanifiee extends MissionModifiable {
+public class MissionPlanifiee extends MissionModifiable {
 
     protected HashMap<Competence, Integer> personelRequisRestant = new HashMap<>();
 
     /**
      *
+     * @param libelle
      * @param dateDebut
      * @param duree
-     * @param nbRequis
-     * @param personelRequis
+     * @param etat
      */
-    public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat, int nbRequis) {
-        super(libelle, dateDebut, duree, etat, nbRequis);
+    public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat) {
+        super(libelle, dateDebut, duree, etat);
         this.personelRequisRestant = this.personelRequis;
+        this.etat = "Planifiee";
+    }
+
+    public MissionPlanifiee(MissionPreparation m) {
+        super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat());
+        this.personelRequisRestant = m.getPersonelRequis();
         this.etat = "Planifiee";
     }
 
@@ -40,7 +48,7 @@ class MissionPlanifiee extends MissionModifiable {
 
     /**
      * @param competence the competence to add
-     * @param nbPersonne the nbPersonne to set
+     * @param personne
      */
     // Note : Exception 0 restant !
     public void addPersonne(Competence competence, Personne personne) {
@@ -52,6 +60,30 @@ class MissionPlanifiee extends MissionModifiable {
             personneArray.add(personne);
             this.getPersonelAffecte().put(competence, personneArray);
             this.getPersonelRequisRestant().put(competence, this.getPersonelRequisRestant().get(competence) - 1);
+        }
+    }
+
+    public void addPersonne(HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission) {
+        HashMap<String, ArrayList<Integer>> libCompetences = affectationsMission.get(this.getLibelle());
+
+        if (libCompetences != null) {
+            for (String competenceMission : libCompetences.keySet()) {
+                try {
+                    Competence competence;
+                    competence = Competence.getCompetenceById(competenceMission);
+                    ArrayList<Personne> personnes = new ArrayList<>();
+                    for (int idPersonne : libCompetences.get(competenceMission)) {
+                        personnes.add(Personne.getPersonneById(idPersonne));
+                    }
+                    this.getPersonelAffecte().put(competence, personnes);
+                    //System.out.println(competenceMission);
+                    System.out.println(this.getPersonelRequis());
+                    System.out.println(this.getPersonelRequisRestant());
+                    //this.getPersonelRequisRestant().put(competence, this.getPersonelRequisRestant().get(competence) - 1);
+                } catch (IOException ex) {
+                    Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
@@ -161,12 +193,22 @@ class MissionPlanifiee extends MissionModifiable {
 
     }
 
+    public static MissionPlanifiee getMissionByLibelle(String libelle) throws IOException {
+        ArrayList<MissionPlanifiee> missions = lecteur.getMissionsPlanifiee(gestionFichiers.lecteur.cheminMissions);
+        for (MissionPlanifiee mission : missions) {
+            if (mission.getLibelle().equals(libelle)) {
+                return mission;
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @return
      */
     public MissionEnCours commencer() {
-        return new MissionEnCours(getLibelle(), getDateDebut(), getDuree(), getEtat(), getPersonelAffecte());
+        return new MissionEnCours(this);
     }
 
 }

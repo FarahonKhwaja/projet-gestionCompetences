@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Cette classe permet d'écrire dans des fichiers .CSV
@@ -81,12 +83,26 @@ public class writer {
      * @throws IOException
      */
     public static void sauvegarderMissions(ArrayList<Mission> missions) throws IOException {
-        String totalite = "Libelle;Date de début;durée;état\n";
+        String totalite = "";
         for (Mission m : missions) {
             totalite += m.getLibelle() + ";" + m.getDateDebut() + ";" + m.getDuree() + ";" + m.getEtat() + "\n";
         }
 
         File fichier = new File(gestionFichiers.lecteur.cheminMissions);
+        BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
+        buffer_ecriture.write(totalite);
+        buffer_ecriture.close();
+    }
+
+    public static void sauvegarderCompetencesMissionPreparation(HashMap<String, HashMap<String, Integer>> competencesMissionsPreparation) throws IOException {
+        String totalite = "";
+        for (String MissionPreparation : competencesMissionsPreparation.keySet()) {
+            for (String idCompetence : competencesMissionsPreparation.get(MissionPreparation).keySet()) {
+                totalite += MissionPreparation + ";" + idCompetence + ";" + competencesMissionsPreparation.get(MissionPreparation).get(idCompetence) + "\n";
+            }
+        }
+
+        File fichier = new File(gestionFichiers.lecteur.cheminCompetencesMission);
         BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();

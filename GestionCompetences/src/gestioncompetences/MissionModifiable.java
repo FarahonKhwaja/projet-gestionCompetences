@@ -5,9 +5,11 @@
  */
 package gestioncompetences;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,7 +17,7 @@ import java.util.HashMap;
  */
 public class MissionModifiable extends Mission {
 
-    protected int nbRequis;
+    protected String nbRequis;
     protected HashMap<Competence, Integer> personelRequis = new HashMap<>();
     protected HashMap<Competence, ArrayList<Personne>> personelAffecte = new HashMap<>();
 
@@ -27,15 +29,20 @@ public class MissionModifiable extends Mission {
      * @param etat
      * @param nbRequis
      */
-    public MissionModifiable(String libelle, String dateDebut, String duree, String etat, int nbRequis) {
+    public MissionModifiable(String libelle, String dateDebut, String duree, String etat, String nbRequis) {
         super(libelle, dateDebut, duree, etat);
         this.nbRequis = nbRequis;
+    }
+    
+    public MissionModifiable(String libelle, String dateDebut, String duree, String etat) {
+        super(libelle, dateDebut, duree, etat);
+        this.nbRequis = "0";
     }
 
     /**
      * @return the nbRequis
      */
-    public int getNbRequis() {
+    public String getNbRequis() {
         return nbRequis;
     }
 
@@ -51,6 +58,39 @@ public class MissionModifiable extends Mission {
      */
     public HashMap<Competence, ArrayList<Personne>> getPersonelAffecte() {
         return personelAffecte;
+    }
+
+    /**
+     * @param competence the competence to add
+     * @param nbPersonne the nbPersonne to set
+     */
+    public void addCompetence(Competence competence, int nbPersonne) {
+        this.getPersonelRequis().put(competence, nbPersonne);
+    }
+
+    /**
+     * @param competencesMission
+     */
+    public void addCompetence(HashMap<String, HashMap<String, Integer>> competencesMission) {
+        HashMap<String, Integer> libCompetences = competencesMission.get(this.getLibelle());
+        if (libCompetences != null) {
+            for (String competenceMission : libCompetences.keySet()) {
+                Competence competence;
+                try {
+                    competence = Competence.getCompetenceById(competenceMission);
+                    this.getPersonelRequis().put(competence, libCompetences.get(competenceMission));
+                } catch (IOException ex) {
+                    Logger.getLogger(MissionPreparation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param competence the competence to remove
+     */
+    public void removeCompetence(Competence competence) {
+        this.getPersonelRequis().remove(competence);
     }
 
 }

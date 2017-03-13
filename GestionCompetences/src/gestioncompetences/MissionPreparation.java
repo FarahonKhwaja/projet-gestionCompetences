@@ -5,38 +5,42 @@
  */
 package gestioncompetences;
 
-import java.util.Date;
+import gestionFichiers.lecteur;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
  * @author phili
  */
-class MissionPreparation extends MissionModifiable {
+public class MissionPreparation extends MissionModifiable {
 
     /**
      *
+     * @param libelle
      * @param dateDebut
      * @param duree
+     * @param etat
      * @param nbRequis
      */
-    public MissionPreparation(String libelle, String dateDebut, String duree, String etat, int nbRequis) {
+    public MissionPreparation(String libelle, String dateDebut, String duree, String etat, String nbRequis) {
         super(libelle, dateDebut, duree, etat, nbRequis);
-        this.etat = "Preparation";
+        this.etat = "Préparation";
     }
 
-    /**
-     * @param competence the competence to add
-     * @param nbPersonne the nbPersonne to set
-     */
-    public void addCompetence(Competence competence, int nbPersonne) {
-        this.getPersonelRequis().put(competence, nbPersonne);
+    public MissionPreparation(String libelle, String dateDebut, String duree, String etat) {
+        super(libelle, dateDebut, duree, etat);
+        this.etat = "Préparation";
     }
 
-    /**
-     * @param competence the competence to remove
-     */
-    public void removeCompetence(Competence competence) {
-        this.getPersonelRequis().remove(competence);
+    public static MissionPreparation getMissionByLibelle(String libelle) throws IOException {
+        ArrayList<MissionPreparation> missions = lecteur.getMissionsPreparation(gestionFichiers.lecteur.cheminMissions);
+        for (MissionPreparation mission : missions) {
+            if (mission.getLibelle().equals(libelle)) {
+                return mission;
+            }
+        }
+        return null;
     }
 
     /**
@@ -44,7 +48,7 @@ class MissionPreparation extends MissionModifiable {
      * @return
      */
     public MissionPlanifiee planifier() {
-        return new MissionPlanifiee(getLibelle(), getDateDebut(), getDuree(), getEtat(), getNbRequis());
+        return new MissionPlanifiee(this);
     }
 
 }

@@ -5,6 +5,9 @@
  */
 package gestioncompetences;
 
+import gestionFichiers.lecteur;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -55,6 +58,16 @@ public class Mission {
      */
     public String getLibelle() {
         return libelle;
+    }
+
+    public static Mission getMissionByLibelle(String libelle) throws IOException {
+        ArrayList<Mission> missions = lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
+        for (Mission mission : missions) {
+            if (mission.getLibelle().equals(libelle)) {
+                return mission;
+            }
+        }
+        return null;
     }
 
 }

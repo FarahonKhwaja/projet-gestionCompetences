@@ -23,10 +23,10 @@ import javax.swing.table.DefaultTableModel;
 public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private static String libelle, dateDebut, duree, etat;
-    private MissionPlanifiee mission;
-    
+    private final MissionPlanifiee mission;
+
     private final HashMap<String, HashMap<String, Integer>> competencesMission = lecteur.getCompetencesParMission(lecteur.cheminCompetencesMission);
-    private final HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = lecteur.getAffectationsParMission(lecteur.cheminAffectationsMission);
+    private final HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = lecteur.getAffectationsParMission(lecteur.cheminCompetencesMission);
 
     /**
      * Creates new form DetailsMissionPreparation
@@ -41,15 +41,20 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
         MissionPlanifiee m = MissionPlanifiee.getMissionByLibelle(libelle);
         if (m == null) {
-            this.mission = new MissionPlanifiee(libelle, dateDebut, duree, etat);
+            HashMap<Competence, Integer> personelRequis = new HashMap<>();
+            this.mission = new MissionPlanifiee(libelle, dateDebut, duree, etat, personelRequis);
         } else {
-            this.mission = new MissionPlanifiee(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat());
+            this.mission = new MissionPlanifiee(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonelRequis());
         }
 
+        System.out.println(affectationsMission);
         this.mission.addCompetence(competencesMission);
         this.mission.addPersonne(affectationsMission);
         HashMap<Competence, ArrayList<Personne>> affectationMission = new HashMap<>();
+        HashMap<Competence, Integer> competenceMission = new HashMap<>();
         affectationMission = this.mission.getPersonelAffecte();
+        //System.out.println(affectationMission);
+        competenceMission = this.mission.getPersonelRequis();
         for (Competence cp : affectationMission.keySet()) {
             tablePersonnesCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), affectationMission.get(cp)});
         }
@@ -173,15 +178,12 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonAddPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
-        //Competence cp = new Personne(comboBoxPersonnesCompetencesMissionModel.getSelectedItem().toString());
-        //Personne pers = new Personne(comboBoxPersonnesCompetencesMissionModel.getSelectedItem().toString());
-        //tablePersonnesCompetencesMissionModel.addRow(new Object[]{pers.getNom(), cp.getNomEN(), cp.getNomFR(), "0"});
     }//GEN-LAST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
 
     private void jButtonResetPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
         if (jTableCompetencesMission.getSelectedRow() != -1) {
-            tablePersonnesCompetencesMissionModel.removeRow(jTableCompetencesMission.getSelectedRow());
+            tablePersonnesCompetencesMissionModel.setValueAt("",jTableCompetencesMission.getSelectedRow(),3);
         }
     }//GEN-LAST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
 

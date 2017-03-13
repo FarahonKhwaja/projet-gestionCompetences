@@ -8,8 +8,6 @@ package gestioncompetences;
 import static gestionFichiers.lecteur.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 /**
  *
@@ -48,10 +46,10 @@ public class GestionCompetences {
         missionPrep2.addCompetence(competences.get(1), 2);
         missionPrep2.addCompetence(competences.get(2), 2);
         missionPrep2.addCompetence(competences.get(3), 1);
-        System.out.println(missionPrep.getPersonelRequis());
+        //System.out.println(missionPrep.getPersonelRequis());
 
         MissionPlanifiee missionPlanifiee = missionPrep.planifier();
-        MissionPlanifiee missionPlanifiee2 = missionPrep2.planifier();
+        //MissionPlanifiee missionPlanifiee2 = missionPrep2.planifier();
         //HashMap<Personne, Integer> personneAffinites = missionPlanifiee.chercherAffinites(personnel);
         System.out.println(missionPlanifiee.getPersonelRequis());
         System.out.println(missionPlanifiee.getPersonelRequisRestant());
@@ -66,8 +64,8 @@ public class GestionCompetences {
         MissionEnCours missionEnCours = missionPlanifiee.commencer();
         //System.out.println(missionEnCours.getAffectationDefinitive().toString());
 
-        MissionEnCours missionEnCours2 = missionPlanifiee2.commencer();
-        System.out.println(missionEnCours.getAffectationDefinitive().toString());
+        //MissionEnCours missionEnCours2 = missionPlanifiee2.commencer();
+        //System.out.println(missionEnCours.getAffectationDefinitive().toString());
 
     }
 

@@ -8,7 +8,6 @@ package GUI;
 import gestionFichiers.lecteur;
 import gestioncompetences.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -29,6 +28,11 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
 
     /**
      * Creates new form DetailsMissionPreparation
+     * @param libelle
+     * @param dateDebut
+     * @param duree
+     * @param etat
+     * @throws java.io.IOException
      */
     public DetailsMissionPreparation(String libelle, String dateDebut, String duree, String etat) throws IOException {
         initComponents();

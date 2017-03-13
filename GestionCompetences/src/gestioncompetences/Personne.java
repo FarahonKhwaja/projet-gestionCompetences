@@ -56,6 +56,17 @@ public class Personne {
     }
 
     /**
+     *
+     * @param aString
+     */
+    public Personne(String aString) {
+        String[] parts = aString.split(" - ");
+        this.id = Integer.parseInt(parts[0]);
+        this.prenom = parts[1];
+        this.nom = parts[2];
+    }
+
+    /**
      * @return the nom
      */
     public String getNom() {

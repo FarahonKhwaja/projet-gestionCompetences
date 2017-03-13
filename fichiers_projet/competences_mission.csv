@@ -6,10 +6,11 @@ Mission1;A.3.;10
 Mission1;A.2.;5
 Mission1;A.4.;0
 Mission1;A.6.;74
-Mission2;A.3.;10
-Mission2;A.2.;5
-Mission2;A.4.;0
-Mission2;A.6.;74
+Mission2;A.3.;10;1;2;3
+Mission2;A.2.;5;1;2;3
+Mission2;A.4.;0;1;2;3
+Mission2;A.6.;74;1;2;3
+Mission2;A.7.;74;1;2;3
 Mission3;A.3.;10
 Mission3;A.2.;5
 Mission3;A.4.;0

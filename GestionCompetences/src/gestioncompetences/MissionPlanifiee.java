@@ -27,15 +27,19 @@ public class MissionPlanifiee extends MissionModifiable {
      * @param duree
      * @param etat
      */
-    public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat) {
+    public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, Integer> personelRequis) {
         super(libelle, dateDebut, duree, etat);
+        this.personelRequis = personelRequis;
         this.personelRequisRestant = this.personelRequis;
         this.etat = "Planifiee";
     }
 
     public MissionPlanifiee(MissionPreparation m) {
         super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat());
-        this.personelRequisRestant = m.getPersonelRequis();
+        this.personelRequis = m.getPersonelRequis();
+        System.out.println(this.personelRequis);
+        this.personelRequisRestant = this.personelRequis;
+        System.out.println(this.personelRequisRestant);
         this.etat = "Planifiee";
     }
 
@@ -65,20 +69,21 @@ public class MissionPlanifiee extends MissionModifiable {
 
     public void addPersonne(HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission) {
         HashMap<String, ArrayList<Integer>> libCompetences = affectationsMission.get(this.getLibelle());
-
         if (libCompetences != null) {
             for (String competenceMission : libCompetences.keySet()) {
                 try {
                     Competence competence;
                     competence = Competence.getCompetenceById(competenceMission);
+                    System.out.println(competence);
                     ArrayList<Personne> personnes = new ArrayList<>();
+                    System.out.println(libCompetences.get(competenceMission));
                     for (int idPersonne : libCompetences.get(competenceMission)) {
                         personnes.add(Personne.getPersonneById(idPersonne));
                     }
                     this.getPersonelAffecte().put(competence, personnes);
-                    //System.out.println(competenceMission);
-                    System.out.println(this.getPersonelRequis());
-                    System.out.println(this.getPersonelRequisRestant());
+                    //System.out.println(this.getPersonelAffecte());
+                    //.out.println(this.getPersonelRequis());
+                    //System.out.println(this.getPersonelRequisRestant());
                     //this.getPersonelRequisRestant().put(competence, this.getPersonelRequisRestant().get(competence) - 1);
                 } catch (IOException ex) {
                     Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);

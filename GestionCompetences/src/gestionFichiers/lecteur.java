@@ -172,7 +172,8 @@ public class lecteur {
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) {
             String[] infosuneMission = chaine.split(";");
-            MissionPlanifiee uneMission = new MissionPlanifiee(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+            HashMap<Competence, Integer> personelRequis = new HashMap<>();
+            MissionPlanifiee uneMission = new MissionPlanifiee(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3], personelRequis);
             missions.add(uneMission);
             i++;
         }
@@ -244,6 +245,7 @@ public class lecteur {
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> getAffectationsParMission(String chemin) throws IOException {
         return lireFichierAffectationsParMission(chemin);
     }
+
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsParMission(String chemin) throws IOException {
         HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
         HashMap<String, ArrayList<Integer>> affectations = new HashMap<>();
@@ -255,13 +257,11 @@ public class lecteur {
             if (affectationsMission.get(infos[0]) != null) {
                 affectations = affectationsMission.get(infos[0]);
             }
-            if (infos.length > 1) {
-                ArrayList<Integer> personnes = new ArrayList<>();
-                for (int j = 2; j < infos.length; j++) {
-                    personnes.add(Integer.parseInt(infos[j]));
-                }
-                affectations.put(infos[1], personnes);
+            ArrayList<Integer> personnes = new ArrayList<>();
+            for (int j = 3; j < infos.length; j++) {
+                personnes.add(Integer.parseInt(infos[j]));
             }
+            affectations.put(infos[1], personnes);
             affectationsMission.put(infos[0], affectations);
         }
         return affectationsMission;

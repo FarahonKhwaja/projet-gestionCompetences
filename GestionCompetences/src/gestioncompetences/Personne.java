@@ -21,13 +21,12 @@ public class Personne {
     protected String nom, prenom, dateEntree;
     protected int id;
     protected ArrayList<Competence> Competences = new ArrayList<>();
-
     /**
      *
-     * @param nom
-     * @param prenom
-     * @param dateEntree
-     * @param id
+     * @param nom Nom de la personne
+     * @param prenom Prénom de la personne
+     * @param dateEntree Date d'entrée de la personne dans l'entreprise
+     * @param id Identifiant de la personne
      */
     public Personne(String nom, String prenom, String dateEntree, int id) {
         this(nom, prenom, id);
@@ -36,9 +35,9 @@ public class Personne {
 
     /**
      *
-     * @param nom
-     * @param prenom
-     * @param id
+     * @param nom Nom de la personne
+     * @param prenom Prénom de la personne
+     * @param id Identifiant de la personne
      */
     public Personne(String nom, String prenom, int id) {
         this(nom, prenom);
@@ -47,8 +46,8 @@ public class Personne {
 
     /**
      *
-     * @param nom
-     * @param prenom
+     * @param nom Nom de la personne
+     * @param prenom Prénom de la personne
      */
     public Personne(String nom, String prenom) {
         this.nom = nom;
@@ -57,7 +56,7 @@ public class Personne {
 
     /**
      *
-     * @param aString
+     * @param aString Correspond au format idPersonne-NomPersonne-PrenomPersonne
      */
     public Personne(String aString) {
         String[] parts = aString.split(" - ");

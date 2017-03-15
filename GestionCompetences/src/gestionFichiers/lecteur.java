@@ -95,10 +95,27 @@ public class lecteur {
         return competences;
     }
 
+    /**
+     * Getter de @link{lireFichierCompetencesParPersonne}
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une Hashmap contenant, pour chaque identifiant de personne, une
+     * Arraylist contenant les identifiants des compétences associées à la
+     * personne.
+     * @throws IOException
+     */
     public static HashMap<Integer, ArrayList<String>> getCompetencesParPersonne(String chemin) throws IOException {
         return lireFichierCompetencesParPersonne(chemin);
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une Hashmap contenant, pour chaque identifiant de personne, une
+     * Arraylist contenant les identifiants des compétences associées à la
+     * personne.
+     * @throws IOException
+     */
     public static HashMap<Integer, ArrayList<String>> lireFichierCompetencesParPersonne(String chemin) throws IOException {
         HashMap<Integer, ArrayList<String>> competencesPersonne = new HashMap<>();
         String chaine;
@@ -118,15 +135,32 @@ public class lecteur {
         return competencesPersonne;
     }
 
+    /**
+     *
+     * @return l'idenfiant du dernier membre du personnel dans le CSV
+     * @throws IOException
+     */
     public static int getDernierIdPersonnel() throws IOException {
         ArrayList<Personne> personnel = gestionFichiers.lecteur.getPersonnel(cheminPersonnel);
         return personnel.size();
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions du CSV
+     * @throws IOException
+     */
     public static ArrayList<Mission> getMissions(String chemin) throws IOException {
         return lireFichierMissions(chemin);
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions du CSV
+     * @throws IOException
+     */
     private static ArrayList<Mission> lireFichierMissions(String chemin) throws IOException {
         String chaine;
         int i = 0;
@@ -142,10 +176,22 @@ public class lecteur {
         return missions;
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions en préparation du CSV
+     * @throws IOException
+     */
     public static ArrayList<MissionPreparation> getMissionsPreparation(String chemin) throws IOException {
         return lireFichierMissionsPreparation(chemin);
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions en préparation du CSV
+     * @throws IOException
+     */
     private static ArrayList<MissionPreparation> lireFichierMissionsPreparation(String chemin) throws IOException {
         String chaine;
         int i = 0;
@@ -161,10 +207,22 @@ public class lecteur {
         return missions;
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions plannifiées du CSV
+     * @throws IOException
+     */
     public static ArrayList<MissionPlanifiee> getMissionsPlanifiee(String chemin) throws IOException {
         return lireFichierMissionsPlanifiee(chemin);
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions plannifiées du CSV
+     * @throws IOException
+     */
     private static ArrayList<MissionPlanifiee> lireFichierMissionsPlanifiee(String chemin) throws IOException {
         String chaine;
         int i = 0;
@@ -181,10 +239,22 @@ public class lecteur {
         return missions;
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions en cours du CSV
+     * @throws IOException
+     */
     public static ArrayList<MissionEnCours> getMissionsEnCours(String chemin) throws IOException {
         return lireFichierMissionsEnCours(chemin);
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions en cours du CSV
+     * @throws IOException
+     */
     private static ArrayList<MissionEnCours> lireFichierMissionsEnCours(String chemin) throws IOException {
         String chaine;
         int i = 0;
@@ -200,10 +270,21 @@ public class lecteur {
         return missions;
     }
 
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions terminées du CSV
+     * @throws IOException
+     */
     public static ArrayList<MissionTerminee> getMissionsTerminee(String chemin) throws IOException {
         return lireFichierMissionsTerminee(chemin);
     }
-
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une ArrayList contenant toutes les missions terminées du CSV
+     * @throws IOException
+     */
     private static ArrayList<MissionTerminee> lireFichierMissionsTerminee(String chemin) throws IOException {
         String chaine;
         int i = 0;
@@ -218,11 +299,23 @@ public class lecteur {
         liste_missionsTerminee = missions;
         return missions;
     }
-
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une Hashmap contenant, pour chaque identifiant de mission,
+     * les compétences associées nécessaires.
+     * @throws IOException
+     */
     public static HashMap<String, HashMap<String, Integer>> getCompetencesParMission(String chemin) throws IOException {
         return lireFichierCompetencesParMission(chemin);
     }
-
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une Hashmap contenant, pour chaque identifiant de mission,
+     * les compétences associées nécessaires.
+     * @throws IOException
+     */
     public static HashMap<String, HashMap<String, Integer>> lireFichierCompetencesParMission(String chemin) throws IOException {
         HashMap<String, HashMap<String, Integer>> competencesMission = new HashMap<>();
         HashMap<String, Integer> competences = new HashMap<>();
@@ -241,11 +334,23 @@ public class lecteur {
         }
         return competencesMission;
     }
-
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une Hashmap contenant, pour chaque identifiant de mission,
+     * les affectations associées effectuées.
+     * @throws IOException
+     */
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> getAffectationsParMission(String chemin) throws IOException {
         return lireFichierAffectationsParMission(chemin);
     }
-
+    /**
+     *
+     * @param chemin correspond au chemin du CSV.
+     * @return une Hashmap contenant, pour chaque identifiant de mission,
+     * les affectations associées effectuées.
+     * @throws IOException
+     */
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsParMission(String chemin) throws IOException {
         HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
         HashMap<String, ArrayList<Integer>> affectations = new HashMap<>();

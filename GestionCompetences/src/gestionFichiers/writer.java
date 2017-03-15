@@ -58,7 +58,8 @@ public class writer {
 
     /**
      *
-     * @param competencesPersonnel
+     * @param competencesPersonnel correspond à une Hashmap contenant, pour 
+     * chaque identifiant de personnel, les compétences qu'il possède.
      * @throws IOException
      */
     public static void sauvegarderCompetencesPersonnel(HashMap<Integer, ArrayList<String>> competencesPersonnel) throws IOException {
@@ -79,7 +80,7 @@ public class writer {
 
     /**
      *
-     * @param missions
+     * @param missions correspond à une liste de @link{Mission}
      * @throws IOException
      */
     public static void sauvegarderMissions(ArrayList<Mission> missions) throws IOException {
@@ -93,7 +94,12 @@ public class writer {
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();
     }
-
+/**
+ * 
+ * @param competencesMissionsPreparation correspond à une Hashmap contenant, 
+ * pour chaque identifiant de mission, les compétences nécessaires.
+ * @throws IOException 
+ */
     public static void sauvegarderCompetencesMissionPreparation(HashMap<String, HashMap<String, Integer>> competencesMissionsPreparation) throws IOException {
         String totalite = "";
         for (String MissionPreparation : competencesMissionsPreparation.keySet()) {

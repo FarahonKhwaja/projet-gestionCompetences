@@ -23,6 +23,7 @@ public class MainMenu extends javax.swing.JFrame {
     private DetailsMissionPlanifiee detailsMissionPlanifieeUI;
     private DetailsMissionEnCours detailsMissionEnCoursUI;
     private DetailsMissionTerminee detailsMissionTermineeUI;
+    private DetailsCompetence detailsCompetenceUI;
 
     /**
      * Creates new form NewJFrame
@@ -96,6 +97,7 @@ public class MainMenu extends javax.swing.JFrame {
                         "Identifiant", "Libellé EN", "Libellé FR"
                     });
                     jTableCompetences = new javax.swing.JTable();
+                    detailsCompetenceBouton = new javax.swing.JButton();
 
                     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                     setTitle("Gestion Personnel");
@@ -256,6 +258,13 @@ public class MainMenu extends javax.swing.JFrame {
                     jTableCompetences.setModel(tableCompetencesModel);
                     jScrollPane2.setViewportView(jTableCompetences);
 
+                    detailsCompetenceBouton.setText("Détails");
+                    detailsCompetenceBouton.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            detailsCompetenceBoutonMouseClicked(evt);
+                        }
+                    });
+
                     javax.swing.GroupLayout jPanelCompetencesLayout = new javax.swing.GroupLayout(jPanelCompetences);
                     jPanelCompetences.setLayout(jPanelCompetencesLayout);
                     jPanelCompetencesLayout.setHorizontalGroup(
@@ -264,13 +273,15 @@ public class MainMenu extends javax.swing.JFrame {
                             .addContainerGap()
                             .addGroup(jPanelCompetencesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanelCompetencesLayout.createSequentialGroup()
-                                    .addGap(0, 346, Short.MAX_VALUE)
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(detailsCompetenceBouton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(ajouterCompetenceButton)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(supprimerCompetenceButton)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(sauvegarderCompetenceButton))
-                                .addComponent(jScrollPane2))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE))
                             .addContainerGap())
                     );
                     jPanelCompetencesLayout.setVerticalGroup(
@@ -282,7 +293,8 @@ public class MainMenu extends javax.swing.JFrame {
                             .addGroup(jPanelCompetencesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(sauvegarderCompetenceButton)
                                 .addComponent(supprimerCompetenceButton)
-                                .addComponent(ajouterCompetenceButton))
+                                .addComponent(ajouterCompetenceButton)
+                                .addComponent(detailsCompetenceBouton))
                             .addContainerGap())
                     );
 
@@ -465,6 +477,26 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_sauvegarderCompetenceButtonMouseClicked
 
+    private void detailsCompetenceBoutonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_detailsCompetenceBoutonMouseClicked
+        // TODO add your handling code here:
+        //récupérer dans competences_personnel.csv le personnel ayant la compétence ciblée
+        //"jointure" avec personnel.csv pour avoir nom, prenom, date_entree du personnel
+        if (jTableCompetences.getSelectedRow() != -1) {
+            detailsCompetenceUI = new DetailsCompetence();
+        }
+/* exemple pour personnes
+        try {
+            if (jTablePersonne.getSelectedRow() != -1) {
+                detailsPersonneUI = new DetailsPersonne(Integer.parseInt(tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 0).toString()),
+                        tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 1).toString(),
+                        tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 2).toString());
+                detailsPersonneUI.setVisible(true);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+    }//GEN-LAST:event_detailsCompetenceBoutonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -516,6 +548,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton ajouterCompetenceButton;
     private javax.swing.JButton ajouterMissionButton;
     private javax.swing.JButton ajouterPersonneButton;
+    private javax.swing.JButton detailsCompetenceBouton;
     private javax.swing.JButton detailsMissionButton;
     private javax.swing.JButton detailsPersonneButton;
     private javax.swing.JPanel jPanelCompetences;

@@ -47,7 +47,7 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
 
         this.mission.addCompetence(competencesMission);
         HashMap<Competence, Integer> competenceMission = new HashMap<>();
-        competenceMission = this.mission.getPersonelRequis();
+        competenceMission = this.mission.getPersonnelRequis();
         for (Competence cp : competenceMission.keySet()) {
             tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), competenceMission.get(cp)});
         }
@@ -161,7 +161,7 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
 
     private void jButtonSaveCompetencesMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesMissionMouseClicked
         // TODO add your handling code here:
-        for (Iterator<Competence> iterator = this.mission.getPersonelRequis().keySet().iterator(); iterator.hasNext();) {
+        for (Iterator<Competence> iterator = this.mission.getPersonnelRequis().keySet().iterator(); iterator.hasNext();) {
             Competence cp = iterator.next();
             iterator.remove();
         }
@@ -172,8 +172,8 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
             this.mission.addCompetence(cp, Integer.parseInt(tableCompetencesMissionModel.getValueAt(i, 3).toString()));
         }
         HashMap<String, Integer> idCompetences = new HashMap<>();
-        for (Competence cp : this.mission.getPersonelRequis().keySet()) {
-            idCompetences.put(cp.getIdCompetence(), this.mission.getPersonelRequis().get(cp));
+        for (Competence cp : this.mission.getPersonnelRequis().keySet()) {
+            idCompetences.put(cp.getIdCompetence(), this.mission.getPersonnelRequis().get(cp));
         }
         competencesMission.put(this.mission.getLibelle(), idCompetences);
 

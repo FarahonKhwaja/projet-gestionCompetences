@@ -44,7 +44,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             HashMap<Competence, Integer> personelRequis = new HashMap<>();
             this.mission = new MissionPlanifiee(libelle, dateDebut, duree, etat, personelRequis);
         } else {
-            this.mission = new MissionPlanifiee(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonelRequis());
+            this.mission = new MissionPlanifiee(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonnelRequis());
         }
 
         System.out.println(affectationsMission);
@@ -52,9 +52,9 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
         this.mission.addPersonne(affectationsMission);
         HashMap<Competence, ArrayList<Personne>> affectationMission = new HashMap<>();
         HashMap<Competence, Integer> competenceMission = new HashMap<>();
-        affectationMission = this.mission.getPersonelAffecte();
+        affectationMission = this.mission.getPersonnelAffecte();
         //System.out.println(affectationMission);
-        competenceMission = this.mission.getPersonelRequis();
+        competenceMission = this.mission.getPersonnelRequis();
         for (Competence cp : affectationMission.keySet()) {
             tablePersonnesCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), affectationMission.get(cp)});
         }
@@ -168,7 +168,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonSavePersonnesCompetencesMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSavePersonnesCompetencesMissionMouseClicked
         // TODO add your handling code here:
-        for (Iterator<Competence> iterator = this.mission.getPersonelRequis().keySet().iterator(); iterator.hasNext();) {
+        for (Iterator<Competence> iterator = this.mission.getPersonnelRequis().keySet().iterator(); iterator.hasNext();) {
             Competence cp = iterator.next();
             iterator.remove();
         }
@@ -178,6 +178,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonAddPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
 
     private void jButtonResetPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetPersonnesCompetenceMissionMouseClicked

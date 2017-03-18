@@ -29,16 +29,16 @@ public class MissionPlanifiee extends MissionModifiable {
      */
     public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, Integer> personelRequis) {
         super(libelle, dateDebut, duree, etat);
-        this.personelRequis = personelRequis;
-        this.personelRequisRestant = this.personelRequis;
+        this.personnelRequis = personelRequis;
+        this.personelRequisRestant = this.personnelRequis;
         this.etat = "Planifiee";
     }
 
     public MissionPlanifiee(MissionPreparation m) {
         super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat());
-        this.personelRequis = m.getPersonelRequis();
-        System.out.println(this.personelRequis);
-        this.personelRequisRestant = this.personelRequis;
+        this.personnelRequis = m.getPersonnelRequis();
+        System.out.println(this.personnelRequis);
+        this.personelRequisRestant = this.personnelRequis;
         System.out.println(this.personelRequisRestant);
         this.etat = "Planifiee";
     }
@@ -58,11 +58,11 @@ public class MissionPlanifiee extends MissionModifiable {
     public void addPersonne(Competence competence, Personne personne) {
         if (this.getPersonelRequisRestant().get(competence) > 0) {
             ArrayList<Personne> personneArray = new ArrayList<>();
-            if (this.getPersonelAffecte().get(competence) != null) {
-                personneArray = this.getPersonelAffecte().get(competence);
+            if (this.getPersonnelAffecte().get(competence) != null) {
+                personneArray = this.getPersonnelAffecte().get(competence);
             }
             personneArray.add(personne);
-            this.getPersonelAffecte().put(competence, personneArray);
+            this.getPersonnelAffecte().put(competence, personneArray);
             this.getPersonelRequisRestant().put(competence, this.getPersonelRequisRestant().get(competence) - 1);
         }
     }
@@ -80,7 +80,7 @@ public class MissionPlanifiee extends MissionModifiable {
                     for (int idPersonne : libCompetences.get(competenceMission)) {
                         personnes.add(Personne.getPersonneById(idPersonne));
                     }
-                    this.getPersonelAffecte().put(competence, personnes);
+                    this.getPersonnelAffecte().put(competence, personnes);
                     //System.out.println(this.getPersonelAffecte());
                     //.out.println(this.getPersonelRequis());
                     //System.out.println(this.getPersonelRequisRestant());
@@ -96,7 +96,7 @@ public class MissionPlanifiee extends MissionModifiable {
      * @param competence the competence to remove
      */
     public void removePersonne(Competence competence) {
-        this.getPersonelAffecte().remove(competence);
+        this.getPersonnelAffecte().remove(competence);
     }
 
     /**
@@ -110,7 +110,7 @@ public class MissionPlanifiee extends MissionModifiable {
             //System.out.println(personne.getCompetences());
             for (Competence competencePersonne : personne.getCompetences()) {
                 //System.out.println("B" + competencePersonne);
-                for (Competence key : this.getPersonelRequis().keySet()) {
+                for (Competence key : this.getPersonnelRequis().keySet()) {
                     if (key.getIdCompetence().equals(competencePersonne.getIdCompetence())) {
                         i++;
                     }
@@ -139,7 +139,7 @@ public class MissionPlanifiee extends MissionModifiable {
                     //System.out.println(key.getCompetences());
                     for (Competence competencePersonne : key.getCompetences()) {
                         //System.out.println("B" + competencePersonne);
-                        for (Competence competence : this.getPersonelRequis().keySet()) {
+                        for (Competence competence : this.getPersonnelRequis().keySet()) {
                             if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
                                 addPersonne(competence, key);
                             }
@@ -185,7 +185,7 @@ public class MissionPlanifiee extends MissionModifiable {
                     //System.out.println(key.getCompetences());
                     for (Competence competencePersonne : key.getCompetences()) {
                         //System.out.println("B" + competencePersonne);
-                        for (Competence competence : this.getPersonelRequis().keySet()) {
+                        for (Competence competence : this.getPersonnelRequis().keySet()) {
                             if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
                                 addPersonne(competence, key);
                             }

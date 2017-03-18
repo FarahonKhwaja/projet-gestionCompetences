@@ -18,8 +18,8 @@ import java.util.logging.Logger;
 public class MissionModifiable extends Mission {
 
     protected String nbRequis;
-    protected HashMap<Competence, Integer> personelRequis = new HashMap<>();
-    protected HashMap<Competence, ArrayList<Personne>> personelAffecte = new HashMap<>();
+    protected HashMap<Competence, Integer> personnelRequis = new HashMap<>();
+    protected HashMap<Competence, ArrayList<Personne>> personnelAffecte = new HashMap<>();
 
     /**
      *
@@ -47,17 +47,17 @@ public class MissionModifiable extends Mission {
     }
 
     /**
-     * @return the personelRequis
+     * @return the personnelRequis
      */
-    public HashMap<Competence, Integer> getPersonelRequis() {
-        return personelRequis;
+    public HashMap<Competence, Integer> getPersonnelRequis() {
+        return personnelRequis;
     }
 
     /**
-     * @return the personelAffecte
+     * @return the personnelAffecte
      */
-    public HashMap<Competence, ArrayList<Personne>> getPersonelAffecte() {
-        return personelAffecte;
+    public HashMap<Competence, ArrayList<Personne>> getPersonnelAffecte() {
+        return personnelAffecte;
     }
 
     /**
@@ -65,7 +65,7 @@ public class MissionModifiable extends Mission {
      * @param nbPersonne the nbPersonne to set
      */
     public void addCompetence(Competence competence, int nbPersonne) {
-        this.getPersonelRequis().put(competence, nbPersonne);
+        this.getPersonnelRequis().put(competence, nbPersonne);
     }
 
     /**
@@ -78,7 +78,7 @@ public class MissionModifiable extends Mission {
                 Competence competence;
                 try {
                     competence = Competence.getCompetenceById(competenceMission);
-                    this.getPersonelRequis().put(competence, libCompetences.get(competenceMission));
+                    this.getPersonnelRequis().put(competence, libCompetences.get(competenceMission));
                 } catch (IOException ex) {
                     Logger.getLogger(MissionPreparation.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -90,7 +90,7 @@ public class MissionModifiable extends Mission {
      * @param competence the competence to remove
      */
     public void removeCompetence(Competence competence) {
-        this.getPersonelRequis().remove(competence);
+        this.getPersonnelRequis().remove(competence);
     }
 
 }

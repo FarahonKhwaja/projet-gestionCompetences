@@ -51,7 +51,7 @@ public class GestionCompetences {
         MissionPlanifiee missionPlanifiee = missionPrep.planifier();
         //MissionPlanifiee missionPlanifiee2 = missionPrep2.planifier();
         //HashMap<Personne, Integer> personneAffinites = missionPlanifiee.chercherAffinites(personnel);
-        System.out.println(missionPlanifiee.getPersonelRequis());
+        System.out.println(missionPlanifiee.getPersonnelRequis());
         System.out.println(missionPlanifiee.getPersonelRequisRestant());
         //missionPlanifiee.multiSelectionAuto(personneAffinites);
         //missionPlanifiee2.multiSelectionAutoSup(personnel);

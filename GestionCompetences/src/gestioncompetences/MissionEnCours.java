@@ -28,7 +28,7 @@ public class MissionEnCours extends MissionNonmodifiable {
     }
     
     public MissionEnCours(MissionPlanifiee m) {
-        super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonelAffecte());
+        super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonnelAffecte());
         this.etat = "En Cours";
     }
 

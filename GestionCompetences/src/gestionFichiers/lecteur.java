@@ -28,7 +28,7 @@ public class lecteur {
     public static ArrayList<MissionEnCours> liste_missionsEnCours = new ArrayList<>();
     public static ArrayList<MissionTerminee> liste_missionsTerminee = new ArrayList<>();
 
-    public static String yourName = "phili";
+    public static String yourName = "entrax";
     public static String cheminPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
     public static String cheminCompetences = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
     public static String cheminCompetencesPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
@@ -395,7 +395,7 @@ public class lecteur {
                 affectations = affectationsMission.get(infos[0]);
             }
             ArrayList<Integer> personnes = new ArrayList<>();
-            for (int j = 3; j < infos.length; j++) {
+            for (int j = 2; j < infos.length; j++) {
                 personnes.add(Integer.parseInt(infos[j]));
             }
             affectations.put(infos[1], personnes);

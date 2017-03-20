@@ -103,7 +103,6 @@ public class Competence {
         ArrayList<Personne> personnes = new ArrayList<>();
         //ERREUR NULLPOINTEREXCEPTION : lireFichierCompetencesParPersonne ne marche pas
         HashMap<Integer, ArrayList<String>> competencesParPersonne = lecteur.getCompetencesParPersonne(lecteur.cheminCompetencesPersonnel);
-        System.out.println(competencesParPersonne.get(1));
         //parcourir les ArrayList<String>
         for(Integer idPersonne : competencesParPersonne.keySet())
         {
@@ -112,7 +111,6 @@ public class Competence {
             if(liste.contains(id))
                 personnes.add(Personne.getPersonneById(idPersonne));
         }
-        System.out.println(personnes.toString());
         /*for(Personne p : personnes)
         {
             System.out.println(p.toString());

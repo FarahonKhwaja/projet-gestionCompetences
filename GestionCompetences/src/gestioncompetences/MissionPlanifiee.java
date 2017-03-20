@@ -32,14 +32,14 @@ public class MissionPlanifiee extends MissionModifiable {
     public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, Integer> personelRequis) {
         super(libelle, dateDebut, duree, etat);
         this.personnelRequis = personelRequis;
-        this.personnelRequisRestant = personelRequis;
+        this.personnelRequisRestant = this.personnelRequis;
         this.etat = "Planifiée";
     }
 
     public MissionPlanifiee(MissionPreparation m) {
         super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat());
         this.personnelRequis = m.getPersonnelRequis();
-        this.personnelRequisRestant = m.getPersonnelRequis();
+        this.personnelRequisRestant = this.personnelRequis;
         this.etat = "Planifiée";
     }
 
@@ -73,9 +73,6 @@ public class MissionPlanifiee extends MissionModifiable {
                 this.getPersonnelRequisRestant().put(cp, this.getPersonnelRequisRestant().get(cp) - 1);
             }
         }
-        System.out.println(this.getPersonnelRequisRestant());
-        System.out.println(this.getPersonnelRequis());
-        System.out.println("");
     }
 
     public void addPersonne(HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission) {
@@ -96,41 +93,48 @@ public class MissionPlanifiee extends MissionModifiable {
         }
     }
 
+    public void clearAffectations() {
+        for (Competence cp : this.getPersonnelRequisRestant().keySet()) {
+            int nb = 0;
+            if (this.getPersonnelAffecte().get(cp) != null) {
+                nb = this.getPersonnelAffecte().get(cp).size();
+            }
+            this.getPersonnelRequisRestant().put(cp, this.getPersonnelRequisRestant().get(cp) + nb);
+        }
+        this.getPersonnelAffecte().clear();
+    }
+
     /**
      *
+     * @param personnel
+     * @throws IOException
      */
-    //Note pour plus tard : rajouter un check que la personne soit pas déjà sur une mission en cours
-    public HashMap<Personne, Integer> chercherAffinites(ArrayList<Personne> personnel) throws IOException {
+    public void multiSelectionAutoSup() throws IOException {
+        ArrayList<Personne> personnel = lecteur.getPersonnel(lecteur.cheminPersonnel);
         HashMap<Personne, Integer> personneAffinites = new HashMap<>();
         for (Personne personne : personnel) {
+            personne.addCompetence(lecteur.getCompetencesParPersonne(lecteur.cheminCompetencesPersonnel));
             int i = 0;
             for (Competence competencePersonne : personne.getCompetences()) {
-                for (Competence key : this.getPersonnelRequis().keySet()) {
-                    if (key.getIdCompetence().equals(competencePersonne.getIdCompetence())) {
+                for (Competence competence : this.getPersonnelRequisRestant().keySet()) {
+                    if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonnelRequisRestant().get(competence) > 0) {
                         i++;
                     }
                 }
             }
             personneAffinites.put(personne, i);
         }
-        return personneAffinites;
-    }
 
-    /**
-     *
-     * @param personneAffinites
-     * @throws IOException
-     */
-    public void multiSelectionAuto(HashMap<Personne, Integer> personneAffinites) throws IOException {
-        int i = 0;
+        int j = 0;
         for (Personne key : personneAffinites.keySet()) {
-            if (personneAffinites.get(key).compareTo(i) > 0) {
-                i = personneAffinites.get(key);
+            if (personneAffinites.get(key).compareTo(j) > 0) {
+                j = personneAffinites.get(key);
             }
         }
-        while (i > 0) {
+
+        if (j != 0) {
             for (Personne key : personneAffinites.keySet()) {
-                if (personneAffinites.get(key).compareTo(i) == 0) {
+                if (personneAffinites.get(key).compareTo(j) == 0) {
                     for (Competence competencePersonne : key.getCompetences()) {
                         for (Competence competence : this.getPersonnelRequis().keySet()) {
                             if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonnelRequisRestant().get(competence) > 0) {
@@ -140,15 +144,10 @@ public class MissionPlanifiee extends MissionModifiable {
                     }
                 }
             }
-            i--;
+            multiSelectionAutoSup(personnel);
         }
     }
 
-    /**
-     *
-     * @param personnel
-     * @throws IOException
-     */
     public void multiSelectionAutoSup(ArrayList<Personne> personnel) throws IOException {
         HashMap<Personne, Integer> personneAffinites = new HashMap<>();
         for (Personne personne : personnel) {
@@ -184,7 +183,6 @@ public class MissionPlanifiee extends MissionModifiable {
             }
             multiSelectionAutoSup(personnel);
         }
-
     }
 
     public static MissionPlanifiee getMissionByLibelle(String libelle) throws IOException {

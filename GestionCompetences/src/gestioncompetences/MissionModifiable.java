@@ -19,8 +19,6 @@ public class MissionModifiable extends Mission {
 
     protected String nbRequis;
     protected HashMap<Competence, Integer> personnelRequis = new HashMap<>();
-    protected HashMap<Competence, ArrayList<Personne>> personnelAffecte = new HashMap<>();
-
     /**
      *
      * @param libelle
@@ -51,13 +49,6 @@ public class MissionModifiable extends Mission {
      */
     public HashMap<Competence, Integer> getPersonnelRequis() {
         return personnelRequis;
-    }
-
-    /**
-     * @return the personnelAffecte
-     */
-    public HashMap<Competence, ArrayList<Personne>> getPersonnelAffecte() {
-        return personnelAffecte;
     }
 
     /**

@@ -39,25 +39,26 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" pref="702" max="32767" attributes="0"/>
-                      <Component id="jScrollPane2" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabelLibelleMission" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jButtonCommencer" min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jButtonAutoSelectPersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonResetPersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonDeletePersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="189" max="32767" attributes="0"/>
                           <Component id="jComboBoxPersonnesMission" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonAddPersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButtonDeletePersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonSavePersonnesCompetencesMission" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -79,18 +80,19 @@
                       <Component id="jLabelLibelleMission" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="150" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="200" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="237" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="187" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonSavePersonnesCompetencesMission" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonAddPersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxPersonnesMission" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonResetPersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonAutoSelectPersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonDeletePersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonAddPersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -184,6 +186,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonResetPersonnesCompetenceMissionMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonResetPersonnesCompetenceMissionActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -197,6 +200,14 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonDeletePersonnesCompetenceMissionMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonAutoSelectPersonnesCompetenceMission">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="S&#xe9;lection automatique"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAutoSelectPersonnesCompetenceMissionActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

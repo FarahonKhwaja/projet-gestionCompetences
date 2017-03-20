@@ -43,12 +43,4 @@ public class MissionPreparation extends MissionModifiable {
         return null;
     }
 
-    /**
-     *
-     * @return
-     */
-    public MissionPlanifiee planifier() {
-        return new MissionPlanifiee(this);
-    }
-
 }

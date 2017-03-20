@@ -77,7 +77,16 @@ public class DetailsMissionTerminee extends javax.swing.JFrame {
             new Object [][] {},
             new String [] {
                 "Identifiant", "Libellé EN", "Libellé FR", "Nb Requis"
-            });
+            })
+            {
+                @Override
+                public boolean isCellEditable(int row, int column)
+                {
+                    return false;
+                }
+            };
+
+            ;
             jTableCompetencesMission = new javax.swing.JTable();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

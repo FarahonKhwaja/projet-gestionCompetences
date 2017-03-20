@@ -47,7 +47,6 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             this.mission = new MissionPlanifiee(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonnelRequis());
         }
 
-        System.out.println(affectationsMission);
         this.mission.addCompetence(competencesMission);
         this.mission.addPersonne(affectationsMission);
         HashMap<Competence, ArrayList<Personne>> affectationMission = new HashMap<>();

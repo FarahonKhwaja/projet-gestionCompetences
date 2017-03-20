@@ -133,7 +133,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tableCompetencesMissionModel = new DefaultTableModel(&#xd;&#xa;            new Object [][] {},&#xd;&#xa;            new String [] {&#xd;&#xa;                &quot;Identifiant&quot;, &quot;Libell&#xe9; EN&quot;, &quot;Libell&#xe9; FR&quot;, &quot;Nb Requis&quot;&#xd;&#xa;            });"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tableCompetencesMissionModel = new DefaultTableModel(&#xd;&#xa;            new Object [][] {},&#xd;&#xa;            new String [] {&#xd;&#xa;                &quot;Identifiant&quot;, &quot;Libell&#xe9; EN&quot;, &quot;Libell&#xe9; FR&quot;, &quot;Nb Requis&quot;&#xd;&#xa;            })&#xd;&#xa;{&#xd;&#xa;                    @Override&#xd;&#xa;        public boolean isCellEditable(int row, int column)&#xd;&#xa;                    {&#xd;&#xa;                        return false;&#xd;&#xa;                    }&#xd;&#xa;                };&#xd;&#xa;&#xd;&#xa;;"/>
               </AuxValues>
             </Component>
           </SubComponents>

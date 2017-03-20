@@ -388,8 +388,33 @@ public class MainMenu extends javax.swing.JFrame {
             String dateDebut = tableMissionModel.getValueAt(i, 1).toString();
             String duree = tableMissionModel.getValueAt(i, 2).toString();
             String etat = tableMissionModel.getValueAt(i, 3).toString();
-
-            mission.add(new Mission(libelle, dateDebut, duree, etat));
+            Mission uneMission = null;
+            switch (etat) {
+                case "Préparation": {
+                    //String libelle, String dateDebut, String duree, String etat
+                    uneMission
+                            = new MissionPreparation(libelle, dateDebut, duree, etat);
+                    break;
+                }
+                case "Planifiée": {
+                    uneMission = new MissionPlanifiee(
+                            new MissionPreparation(libelle, dateDebut, duree, etat));
+                    break;
+                }
+                case "En Cours": {
+                    uneMission = new MissionEnCours(
+                            new MissionPlanifiee(
+                                    new MissionPreparation(libelle, dateDebut, duree, etat)));
+                    break;
+                }
+                case "Terminée": {
+                    uneMission = new MissionTerminee(
+                            new MissionEnCours(
+                                    new MissionPlanifiee(
+                                            new MissionPreparation(libelle, dateDebut, duree, etat))));
+                }
+            }
+            mission.add(uneMission);
         }
         try {
             gestionFichiers.writer.sauvegarderMissions(mission);

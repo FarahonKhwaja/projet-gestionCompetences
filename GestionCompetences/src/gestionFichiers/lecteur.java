@@ -179,7 +179,7 @@ public class lecteur {
                             new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
                     break;
                 }
-                case "Planifiee":
+                case "Planifiée":
                 {
                     uneMission = new MissionPlanifiee(
                             new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]));

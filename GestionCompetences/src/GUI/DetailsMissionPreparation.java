@@ -147,21 +147,18 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
                                     .addComponent(jButtonAddCompetenceMission)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jButtonSaveCompetencesMission))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButtonPlanifier, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(19, 19, 19)))))
+                                .addComponent(jButtonPlanifier, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addContainerGap())
             );
             jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabelLibelleMission))
-                        .addComponent(jButtonPlanifier))
+                        .addComponent(jButtonPlanifier)
+                        .addComponent(jLabelLibelleMission))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonSaveCompetencesMission)
@@ -228,7 +225,7 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
     private void jButtonPlanifierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPlanifierMouseClicked
         // TODO add your handling code here:
         for (Iterator<Competence> iterator = this.mission.getPersonnelRequis().keySet().iterator(); iterator.hasNext();) {
-            Competence cp = iterator.next();
+            iterator.next();
             iterator.remove();
         }
         for (int i = 0; i < tableCompetencesMissionModel.getRowCount(); i++) {
@@ -248,8 +245,6 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(DetailsMissionPreparation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        MissionPlanifiee miss = this.mission.planifier();
         this.dispose();
     }//GEN-LAST:event_jButtonPlanifierMouseClicked
 

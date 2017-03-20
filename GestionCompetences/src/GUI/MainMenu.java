@@ -24,15 +24,15 @@ public class MainMenu extends javax.swing.JFrame {
     private DetailsMissionEnCours detailsMissionEnCoursUI;
     private DetailsMissionTerminee detailsMissionTermineeUI;
     private DetailsCompetence detailsCompetenceUI;
+    private ArrayList<Competence> competences = new ArrayList<>();
+    private ArrayList<Personne> personnel = new ArrayList<>();
+    private ArrayList<Mission> missions = new ArrayList<>();
 
     /**
      * Creates new form NewJFrame
      */
     public MainMenu() {
         initComponents();
-        ArrayList<Competence> competences = null;
-        ArrayList<Personne> personnel = null;
-        ArrayList<Mission> missions = null;
         try {
             competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
             personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
@@ -40,6 +40,7 @@ public class MainMenu extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(missions);
         for (Competence cp : competences) {
             tableCompetencesModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
         }
@@ -101,6 +102,11 @@ public class MainMenu extends javax.swing.JFrame {
 
                     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                     setTitle("Gestion Personnel");
+                    addFocusListener(new java.awt.event.FocusAdapter() {
+                        public void focusGained(java.awt.event.FocusEvent evt) {
+                            formFocusGained(evt);
+                        }
+                    });
 
                     jTableMissions.setModel(tableMissionModel);
                     jScrollPane1.setViewportView(jTableMissions);
@@ -485,10 +491,10 @@ public class MainMenu extends javax.swing.JFrame {
             //passer en paramètres les infos de la compétence
             int idSelected = jTableCompetences.getSelectedRow();
             jTableCompetences.getValueAt(idSelected, 1);
-            detailsCompetenceUI = new DetailsCompetence((String)jTableCompetences.getValueAt(idSelected, 0));
+            detailsCompetenceUI = new DetailsCompetence((String) jTableCompetences.getValueAt(idSelected, 0));
             detailsCompetenceUI.setVisible(true);
         }
-/* exemple pour personnes
+        /* exemple pour personnes
         try {
             if (jTablePersonne.getSelectedRow() != -1) {
                 detailsPersonneUI = new DetailsPersonne(Integer.parseInt(tablePersonneModel.getValueAt(jTablePersonne.getSelectedRow(), 0).toString()),
@@ -500,6 +506,19 @@ public class MainMenu extends javax.swing.JFrame {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }*/
     }//GEN-LAST:event_detailsCompetenceBoutonMouseClicked
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        System.out.println("1");
+        System.out.println(missions);
+        try {
+            missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
+            personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
+            competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formFocusGained
 
     /**
      * @param args the command line arguments

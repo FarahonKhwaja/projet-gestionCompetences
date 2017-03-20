@@ -74,9 +74,9 @@ public class MissionPlanifiee extends MissionModifiable {
                 try {
                     Competence competence;
                     competence = Competence.getCompetenceById(competenceMission);
-                    System.out.println(competence);
+                    //System.out.println(competence);
                     ArrayList<Personne> personnes = new ArrayList<>();
-                    System.out.println(libCompetences.get(competenceMission));
+                    //System.out.println(libCompetences.get(competenceMission));
                     for (int idPersonne : libCompetences.get(competenceMission)) {
                         personnes.add(Personne.getPersonneById(idPersonne));
                     }

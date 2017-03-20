@@ -25,11 +25,16 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
     private static String libelle, dateDebut, duree, etat;
     private final MissionPlanifiee mission;
 
-    private final HashMap<String, HashMap<String, Integer>> competencesMission = lecteur.getCompetencesParMission(lecteur.cheminCompetencesMission);
-    private final HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = lecteur.getAffectationsParMission(lecteur.cheminCompetencesMission);
+    private HashMap<String, HashMap<String, Integer>> competencesMission = new HashMap<>();
+    private HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
 
     /**
      * Creates new form DetailsMissionPreparation
+     * @param libelle
+     * @param dateDebut
+     * @param duree
+     * @param etat
+     * @throws java.io.IOException
      */
     public DetailsMissionPlanifiee(String libelle, String dateDebut, String duree, String etat) throws IOException {
         initComponents();
@@ -38,6 +43,9 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
         DetailsMissionPlanifiee.duree = duree;
         DetailsMissionPlanifiee.etat = etat;
         jLabelLibelleMission.setText(libelle);
+
+        competencesMission = lecteur.getCompetencesParMission(lecteur.cheminCompetencesMission);
+        affectationsMission = lecteur.getAffectationsParMission(lecteur.cheminCompetencesMission);
 
         MissionPlanifiee m = MissionPlanifiee.getMissionByLibelle(libelle);
         if (m == null) {
@@ -55,10 +63,10 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
         //System.out.println(affectationMission);
         competenceMission = this.mission.getPersonnelRequis();
         for (Competence cp : affectationMission.keySet()) {
-            tablePersonnesCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), affectationMission.get(cp)});
+            tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), affectationMission.get(cp)});
         }
         for (Personne personne : lecteur.getPersonnel(lecteur.cheminPersonnel)) {
-            comboBoxPersonnesCompetencesMissionModel.addElement(personne.toString());
+            comboBoxPersonnesMissionModel.addElement(personne.toString());
         }
     }
 
@@ -72,23 +80,35 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButtonSavePersonnesCompetencesMission = new javax.swing.JButton();
-        jButtonAddPersonnesCompetenceMission = new javax.swing.JButton();
-        comboBoxPersonnesCompetencesMissionModel = new DefaultComboBoxModel<String>(new String [] {});
-        jComboBoxCompetencesMission = new javax.swing.JComboBox<>();
-        jButtonResetPersonnesCompetenceMission = new javax.swing.JButton();
         jLabelLibelleMission = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablePersonnesCompetencesMissionModel = new DefaultTableModel(
+        tableCompetencesMissionModel = new DefaultTableModel(
             new Object [][] {},
             new String [] {
                 "Identifiant", "Libellé EN", "Libellé FR", "Personnel assigné"
             });
             jTableCompetencesMission = new javax.swing.JTable();
             jButtonCommencer = new javax.swing.JButton();
+            jScrollPane1 = new javax.swing.JScrollPane();
+            tablePersonnesCompetenceMissionModel = new DefaultTableModel(              new Object [][] {},              new String [] {                  "Identifiant", "Nom", "Prénom", "Date d'entrée"              });
+            jTablePersonnesCompetenceMission = new javax.swing.JTable();
+            jButtonSavePersonnesCompetencesMission = new javax.swing.JButton();
+            jButtonAddPersonnesCompetenceMission = new javax.swing.JButton();
+            comboBoxPersonnesMissionModel = new DefaultComboBoxModel<String>(new String [] {});
+            jComboBoxPersonnesMission = new javax.swing.JComboBox<>();
+            jButtonResetPersonnesCompetenceMission = new javax.swing.JButton();
+            jLabel1 = new javax.swing.JLabel();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             setTitle("Détails Mission Planifiee");
+
+            jTableCompetencesMission.setModel(tableCompetencesMissionModel);
+            jScrollPane2.setViewportView(jTableCompetencesMission);
+
+            jButtonCommencer.setText("Commencer");
+
+            jTablePersonnesCompetenceMission.setModel(tablePersonnesCompetenceMissionModel);
+            jScrollPane1.setViewportView(jTablePersonnesCompetenceMission);
 
             jButtonSavePersonnesCompetencesMission.setText("Enregister");
             jButtonSavePersonnesCompetencesMission.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,7 +124,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
                 }
             });
 
-            jComboBoxCompetencesMission.setModel(comboBoxPersonnesCompetencesMissionModel);
+            jComboBoxPersonnesMission.setModel(comboBoxPersonnesMissionModel);
 
             jButtonResetPersonnesCompetenceMission.setText("Réinitialiser");
             jButtonResetPersonnesCompetenceMission.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -113,10 +133,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
                 }
             });
 
-            jTableCompetencesMission.setModel(tablePersonnesCompetencesMissionModel);
-            jScrollPane2.setViewportView(jTableCompetencesMission);
-
-            jButtonCommencer.setText("Commencer");
+            jLabel1.setText("Affectations");
 
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
@@ -125,39 +142,44 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabelLibelleMission)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButtonResetPersonnesCompetenceMission)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxCompetencesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonAddPersonnesCompetenceMission)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonSavePersonnesCompetencesMission))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(17, 17, 17)))))
+                            .addComponent(jButtonCommencer, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jButtonResetPersonnesCompetenceMission)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jComboBoxPersonnesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonAddPersonnesCompetenceMission)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonSavePersonnesCompetencesMission))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(0, 0, Short.MAX_VALUE)))
                     .addContainerGap())
             );
             jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabelLibelleMission))
-                        .addComponent(jButtonCommencer))
+                        .addComponent(jButtonCommencer)
+                        .addComponent(jLabelLibelleMission))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonSavePersonnesCompetencesMission)
                         .addComponent(jButtonAddPersonnesCompetenceMission)
-                        .addComponent(jComboBoxCompetencesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxPersonnesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonResetPersonnesCompetenceMission))
                     .addContainerGap())
             );
@@ -166,11 +188,11 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             );
 
             pack();
@@ -188,13 +210,13 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonAddPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
 
     private void jButtonResetPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
         if (jTableCompetencesMission.getSelectedRow() != -1) {
-            tablePersonnesCompetencesMissionModel.setValueAt("",jTableCompetencesMission.getSelectedRow(),3);
+            tableCompetencesMissionModel.setValueAt("", jTableCompetencesMission.getSelectedRow(), 3);
         }
     }//GEN-LAST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
 
@@ -243,12 +265,16 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCommencer;
     private javax.swing.JButton jButtonResetPersonnesCompetenceMission;
     private javax.swing.JButton jButtonSavePersonnesCompetencesMission;
-    private javax.swing.JComboBox<String> jComboBoxCompetencesMission;
+    private javax.swing.JComboBox<String> jComboBoxPersonnesMission;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelLibelleMission;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableCompetencesMission;
+    private javax.swing.JTable jTablePersonnesCompetenceMission;
     // End of variables declaration//GEN-END:variables
-    DefaultTableModel tablePersonnesCompetencesMissionModel;
-    DefaultComboBoxModel<String> comboBoxPersonnesCompetencesMissionModel;
+    DefaultTableModel tableCompetencesMissionModel;
+    DefaultTableModel tablePersonnesCompetenceMissionModel;
+    DefaultComboBoxModel<String> comboBoxPersonnesMissionModel;
 }

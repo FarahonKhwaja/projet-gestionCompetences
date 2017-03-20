@@ -58,7 +58,6 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
         this.mission.addCompetence(competencesMission);
         this.mission.addPersonne(affectationsMission);
-        //System.out.println(this.mission.getPersonnelRequisRestant());
         HashMap<Competence, Integer> competenceMission = this.mission.getPersonnelRequis();
         for (Competence cp : this.mission.getPersonnelRequis().keySet()) {
             int nbR = 0;
@@ -153,11 +152,6 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
                     jButtonResetPersonnesCompetenceMissionMouseClicked(evt);
                 }
             });
-            jButtonResetPersonnesCompetenceMission.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jButtonResetPersonnesCompetenceMissionActionPerformed(evt);
-                }
-            });
 
             jLabel1.setText("Affectations");
 
@@ -169,9 +163,9 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             });
 
             jButtonAutoSelectPersonnesCompetenceMission.setText("Sélection automatique");
-            jButtonAutoSelectPersonnesCompetenceMission.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jButtonAutoSelectPersonnesCompetenceMissionActionPerformed(evt);
+            jButtonAutoSelectPersonnesCompetenceMission.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonAutoSelectPersonnesCompetenceMissionMouseClicked(evt);
                 }
             });
 
@@ -245,9 +239,21 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonSavePersonnesCompetencesMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSavePersonnesCompetencesMissionMouseClicked
         // TODO add your handling code here:
-        for (Iterator<Competence> iterator = this.mission.getPersonnelRequis().keySet().iterator(); iterator.hasNext();) {
-            Competence cp = iterator.next();
-            iterator.remove();
+        HashMap<String, ArrayList<Integer>> affectationsCompetence = new HashMap<>();
+
+        for (Competence cp : this.mission.getPersonnelAffecte().keySet()) {
+            ArrayList<Integer> idPersonnes = new ArrayList<>();
+            for (Personne personne : this.mission.getPersonnelAffecte().get(cp)) {
+                idPersonnes.add(personne.getId());
+            }
+            affectationsCompetence.put(cp.getIdCompetence(), idPersonnes);
+        }
+        affectationsMission.put(this.mission.getLibelle(), affectationsCompetence);
+
+        try {
+            gestionFichiers.writer.sauvegarderAffectationsParMission(affectationsMission);
+        } catch (IOException ex) {
+            Logger.getLogger(DetailsMissionPreparation.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.dispose();
@@ -255,13 +261,45 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonAddPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
-
+        if (jTablePersonnesCompetenceMission.getSelectedRow() != -1 && comboBoxPersonnesMissionModel.getSelectedItem() != null && (int) tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 4) > 0) {
+            String[] pString = comboBoxPersonnesMissionModel.getSelectedItem().toString().split(" - ");
+            Personne pers;
+            try {
+                pers = Personne.getPersonneById(Integer.parseInt(pString[0]));
+                this.mission.addPersonne(Competence.getCompetenceById(tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 0).toString()), pers);
+                tablePersonnesCompetenceMissionModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom(), pers.getDateEntree()});
+                tableCompetencesMissionModel.setValueAt((int) tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 3) + 1, jTableCompetencesMission.getSelectedRow(), 3);
+                tableCompetencesMissionModel.setValueAt((int) tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 4) - 1, jTableCompetencesMission.getSelectedRow(), 4);
+            } catch (IOException ex) {
+                Logger.getLogger(DetailsMissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
 
     private void jButtonResetPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
+        this.mission.clearAffectations();
+        while (tableCompetencesMissionModel.getRowCount() != 0) {
+            tableCompetencesMissionModel.removeRow(0);
+        }
         while (tablePersonnesCompetenceMissionModel.getRowCount() != 0) {
             tablePersonnesCompetenceMissionModel.removeRow(0);
+        }
+        this.mission.addPersonne(affectationsMission);
+
+        HashMap<Competence, Integer> competenceMission = this.mission.getPersonnelRequis();
+        for (Competence cp : this.mission.getPersonnelRequis().keySet()) {
+            int nbR = 0;
+            for (Competence libCp : competenceMission.keySet()) {
+                if (libCp.getIdCompetence().equals(cp.getIdCompetence())) {
+                    nbR = competenceMission.get(libCp);
+                }
+            }
+            int nb = 0;
+            if (this.mission.getPersonnelAffecte().get(cp) != null) {
+                nb = this.mission.getPersonnelAffecte().get(cp).size();
+            }
+            tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), nb, nbR});
         }
     }//GEN-LAST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
 
@@ -307,13 +345,22 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
     private void jButtonDeletePersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeletePersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
         if (jTablePersonnesCompetenceMission.getSelectedRow() != -1) {
-            tablePersonnesCompetenceMissionModel.removeRow(jTablePersonnesCompetenceMission.getSelectedRow());
+            String[] pString = tablePersonnesCompetenceMissionModel.getValueAt(jTablePersonnesCompetenceMission.getSelectedRow(), 0).toString().split(" - ");
+            Personne pers;
+            try {
+                pers = Personne.getPersonneById(Integer.parseInt(pString[0]));
+                this.mission.removePersonne(Competence.getCompetenceById(tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 0).toString()), pers);
+                tablePersonnesCompetenceMissionModel.removeRow(jTablePersonnesCompetenceMission.getSelectedRow());
+                tableCompetencesMissionModel.setValueAt((int) tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 3) - 1, jTableCompetencesMission.getSelectedRow(), 3);
+                tableCompetencesMissionModel.setValueAt((int) tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 4) + 1, jTableCompetencesMission.getSelectedRow(), 4);
+            } catch (IOException ex) {
+                Logger.getLogger(DetailsMissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButtonDeletePersonnesCompetenceMissionMouseClicked
 
-    private void jButtonAutoSelectPersonnesCompetenceMissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAutoSelectPersonnesCompetenceMissionActionPerformed
+    private void jButtonAutoSelectPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAutoSelectPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
-        System.out.println(this.mission.getPersonnelAffecte());
         try {
             this.mission.multiSelectionAutoSup();
         } catch (IOException ex) {
@@ -322,6 +369,9 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
         while (tableCompetencesMissionModel.getRowCount() != 0) {
             tableCompetencesMissionModel.removeRow(0);
+        }
+        while (tablePersonnesCompetenceMissionModel.getRowCount() != 0) {
+            tablePersonnesCompetenceMissionModel.removeRow(0);
         }
 
         HashMap<Competence, Integer> competenceMission = this.mission.getPersonnelRequis();
@@ -334,34 +384,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             }
             tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), this.mission.getPersonnelAffecte().get(cp).size(), nb});
         }
-        System.out.println(this.mission.getPersonnelAffecte());
-    }//GEN-LAST:event_jButtonAutoSelectPersonnesCompetenceMissionActionPerformed
-
-    private void jButtonResetPersonnesCompetenceMissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetPersonnesCompetenceMissionActionPerformed
-        // TODO add your handling code here:
-        System.out.println(this.mission.getPersonnelAffecte());
-        this.mission.clearAffectations();
-        while (tableCompetencesMissionModel.getRowCount() != 0) {
-            tableCompetencesMissionModel.removeRow(0);
-        }
-        //this.mission.addCompetence(competencesMission);
-        this.mission.addPersonne(affectationsMission);
-
-        HashMap<Competence, Integer> competenceMission = this.mission.getPersonnelRequis();
-        for (Competence cp : this.mission.getPersonnelRequis().keySet()) {
-            int nbR = 0;
-            for (Competence libCp : competenceMission.keySet()) {
-                if (libCp.getIdCompetence().equals(cp.getIdCompetence())) {
-                    nbR = competenceMission.get(libCp);
-                }
-            }
-            int nb = 0;
-            if (this.mission.getPersonnelAffecte().get(cp) != null) {
-                nb = this.mission.getPersonnelAffecte().get(cp).size();
-            }
-            tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), nb, nbR});
-        }
-    }//GEN-LAST:event_jButtonResetPersonnesCompetenceMissionActionPerformed
+    }//GEN-LAST:event_jButtonAutoSelectPersonnesCompetenceMissionMouseClicked
 
     /**
      * @param args the command line arguments

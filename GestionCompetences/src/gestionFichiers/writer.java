@@ -56,7 +56,7 @@ public class writer {
 
     /**
      *
-     * @param competencesPersonnel correspond à une Hashmap contenant, pour 
+     * @param competencesPersonnel correspond à une Hashmap contenant, pour
      * chaque identifiant de personnel, les compétences qu'il possède.
      * @throws IOException
      */
@@ -92,12 +92,13 @@ public class writer {
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();
     }
-/**
- * 
- * @param competencesMissionsPreparation correspond à une Hashmap contenant, 
- * pour chaque identifiant de mission, les compétences nécessaires.
- * @throws IOException 
- */
+
+    /**
+     *
+     * @param competencesMissionsPreparation correspond à une Hashmap contenant,
+     * pour chaque identifiant de mission, les compétences nécessaires.
+     * @throws IOException
+     */
     public static void sauvegarderCompetencesMissionPreparation(HashMap<String, HashMap<String, Integer>> competencesMissionsPreparation) throws IOException {
         String totalite = "";
         for (String MissionPreparation : competencesMissionsPreparation.keySet()) {
@@ -107,6 +108,24 @@ public class writer {
         }
 
         File fichier = new File(gestionFichiers.lecteur.cheminCompetencesMission);
+        BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
+        buffer_ecriture.write(totalite);
+        buffer_ecriture.close();
+    }
+
+    public static void sauvegarderAffectationsParMission(HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsParMission) throws IOException {
+        String totalite = "";
+        for (String Missions : affectationsParMission.keySet()) {
+            for (String idCompetence : affectationsParMission.get(Missions).keySet()) {
+                totalite += Missions + ";" + idCompetence + ";";
+                for (Integer idPersonne : affectationsParMission.get(Missions).get(idCompetence)) {
+                    totalite += idPersonne + ";";
+                }
+                totalite += "\n";
+            }
+        }
+
+        File fichier = new File(gestionFichiers.lecteur.cheminAffectationsMission);
         BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();

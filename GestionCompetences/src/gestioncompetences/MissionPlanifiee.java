@@ -104,6 +104,27 @@ public class MissionPlanifiee extends MissionModifiable {
         this.getPersonnelAffecte().clear();
     }
 
+    public void removePersonne(Competence competence, Personne personne) {
+        for (Competence cp : this.getPersonnelAffecte().keySet()) {
+            if (cp.getIdCompetence().equals(competence.getIdCompetence())) {
+                ArrayList<Personne> personneArrayTemp = this.getPersonnelAffecte().get(cp);
+                ArrayList<Personne> personneArray = new ArrayList<>();
+                System.out.println(personneArrayTemp);
+                for (Personne pers : personneArrayTemp) {
+                    System.out.println(pers.getId());
+                    System.out.println(personne.getId());
+                    if (pers.getId() != personne.getId()) {
+                        System.out.println(pers);
+                        personneArray.add(pers);
+                    }
+                }
+                System.out.println(personneArray);
+                this.getPersonnelAffecte().put(cp, personneArray);
+                this.getPersonnelRequisRestant().put(cp, this.getPersonnelRequisRestant().get(cp) + 1);
+            }
+        }
+    }
+
     /**
      *
      * @param personnel

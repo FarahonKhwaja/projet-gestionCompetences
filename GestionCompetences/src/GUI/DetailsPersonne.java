@@ -203,8 +203,10 @@ public class DetailsPersonne extends javax.swing.JFrame {
 
     private void jButtonAddCompetencePersonneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddCompetencePersonneMouseClicked
         // TODO add your handling code here:
-        Competence cp = new Competence(comboBoxCompetencesPersonneModel.getSelectedItem().toString());
-        tableCompetencesPersonneModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
+        if (comboBoxCompetencesPersonneModel.getSelectedItem() != null) {
+            Competence cp = new Competence(comboBoxCompetencesPersonneModel.getSelectedItem().toString());
+            tableCompetencesPersonneModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
+        }
     }//GEN-LAST:event_jButtonAddCompetencePersonneMouseClicked
 
     /**

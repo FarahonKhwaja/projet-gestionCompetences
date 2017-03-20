@@ -7,6 +7,7 @@ package gestionFichiers;
 
 import gestioncompetences.*;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class lecteur {
     public static ArrayList<MissionEnCours> liste_missionsEnCours = new ArrayList<>();
     public static ArrayList<MissionTerminee> liste_missionsTerminee = new ArrayList<>();
 
-    public static String yourName = "entrax";
+    public static String yourName = "phili";
     public static String cheminPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
     public static String cheminCompetences = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
     public static String cheminCompetencesPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
@@ -132,6 +133,7 @@ public class lecteur {
             }
             i++;
         }
+        System.out.println("LECTEUR : " + competencesPersonne.get(0));
         return competencesPersonne;
     }
 
@@ -357,7 +359,7 @@ public class lecteur {
         String chaine;
         int i = 0;
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
-        while (((chaine = fichier.readLine()) != null)) {
+        while (((chaine = fichier.readLine()) != null)) { //pour chaque compétence
             String[] infos = chaine.split(";");
             if (affectationsMission.get(infos[0]) != null) {
                 affectations = affectationsMission.get(infos[0]);
@@ -370,5 +372,20 @@ public class lecteur {
             affectationsMission.put(infos[0], affectations);
         }
         return affectationsMission;
+    }
+    
+    public static Personne getPersonneById(String id) throws FileNotFoundException, IOException
+    {
+        Personne p = null;
+        BufferedReader reader = new BufferedReader(new FileReader(cheminPersonnel));
+        String chaine;
+        while((chaine = reader.readLine()) != null){
+            String[] unePersonne = chaine.split(";");
+            if(unePersonne[3].equals(id))
+            {
+                p = new Personne(unePersonne[0], unePersonne[1], unePersonne[2], Integer.parseInt(id));
+            }
+        }
+        return p;
     }
 }

@@ -482,7 +482,11 @@ public class MainMenu extends javax.swing.JFrame {
         //récupérer dans competences_personnel.csv le personnel ayant la compétence ciblée
         //"jointure" avec personnel.csv pour avoir nom, prenom, date_entree du personnel
         if (jTableCompetences.getSelectedRow() != -1) {
-            detailsCompetenceUI = new DetailsCompetence();
+            //passer en paramètres les infos de la compétence
+            int idSelected = jTableCompetences.getSelectedRow();
+            jTableCompetences.getValueAt(idSelected, 1);
+            detailsCompetenceUI = new DetailsCompetence((String)jTableCompetences.getValueAt(idSelected, 0));
+            detailsCompetenceUI.setVisible(true);
         }
 /* exemple pour personnes
         try {

@@ -5,6 +5,12 @@
  */
 package GUI;
 
+import gestioncompetences.Competence;
+import gestioncompetences.Personne;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,8 +22,23 @@ public class DetailsCompetence extends javax.swing.JFrame {
     /**
      * Creates new form DetailsCompetence
      */
-    public DetailsCompetence() {
+    private static String idCompetence;
+
+    public DetailsCompetence(String idComp) {
         initComponents();
+        DetailsCompetence.idCompetence = idComp;
+        ArrayList<Personne> personnes = null;
+        try {
+            personnes = Competence.getPersonnesByCompetenceId(idComp);
+        } catch (IOException ex) {
+            Logger.getLogger(DetailsCompetence.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // "Nom", "Prénom", "Date Entrée dans l'entreprise"
+        for (Personne p : personnes) {
+            tablePersonnesCompetenceModel.addRow(new Object[]{p.getNom(), p.getPrenom(), p.getDateEntree()});
+        }
+
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -35,12 +56,12 @@ public class DetailsCompetence extends javax.swing.JFrame {
             new String [] {
                 "Nom", "Prénom", "Date Entrée dans l'entreprise"
             });
-            jTable1 = new javax.swing.JTable();
+            jTablePersonnes = new javax.swing.JTable();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-            jTable1.setModel(tablePersonnesCompetenceModel);
-            jScrollPane1.setViewportView(jTable1);
+            jTablePersonnes.setModel(tablePersonnesCompetenceModel);
+            jScrollPane1.setViewportView(jTablePersonnes);
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
@@ -88,14 +109,14 @@ public class DetailsCompetence extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DetailsCompetence().setVisible(true);
+                new DetailsCompetence(DetailsCompetence.idCompetence).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablePersonnes;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel tablePersonnesCompetenceModel;
 }

@@ -8,6 +8,7 @@ package gestioncompetences;
 import gestionFichiers.lecteur;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -97,6 +98,24 @@ public class Competence {
             }
         }
         return null;
-
+    }
+    public static ArrayList<Personne> getPersonnesByCompetenceId(String id) throws IOException {
+        ArrayList<Personne> personnes = null;
+        //ERREUR NULLPOINTEREXCEPTION : lireFichierCompetencesParPersonne ne marche pas
+        HashMap<Integer, ArrayList<String>> competencesParPersonne = lecteur.getCompetencesParPersonne(lecteur.cheminCompetencesPersonnel);
+        System.out.println(competencesParPersonne.get(0));
+        //parcourir les ArrayList<String>
+        for(int i = 0; i < competencesParPersonne.size(); i++)
+        {
+            for (String listeCompetences : competencesParPersonne.get(i)) {
+                System.out.println(listeCompetences);
+            }
+        }
+        
+        /*for(Personne p : personnes)
+        {
+            System.out.println(p.toString());
+        }*/
+        return personnes;
     }
 }

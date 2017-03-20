@@ -62,3 +62,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /GestionCompetences/dist/
+GestionCompetences/src/gestionFichiers/lecteur.java

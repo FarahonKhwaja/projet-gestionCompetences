@@ -169,7 +169,38 @@ public class lecteur {
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) {
             String[] infosuneMission = chaine.split(";");
-            Mission uneMission = new Mission(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+            Mission uneMission = null;
+            switch(infosuneMission[3])
+            {
+                case "Préparation": 
+                {
+                    //String libelle, String dateDebut, String duree, String etat
+                    uneMission = 
+                            new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+                    break;
+                }
+                case "Planifiee":
+                {
+                    uneMission = new MissionPlanifiee(
+                            new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]));
+                    break;
+                }
+                case "En Cours":
+                {
+                    uneMission = new MissionEnCours(
+                            new MissionPlanifiee(
+                                    new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3])));
+                    break;
+                }
+                case "Terminée":
+                {
+                    uneMission = new MissionTerminee(
+                            new MissionEnCours(
+                                    new MissionPlanifiee(
+                                            new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]))));
+                }
+            }
+
             missions.add(uneMission);
             i++;
         }

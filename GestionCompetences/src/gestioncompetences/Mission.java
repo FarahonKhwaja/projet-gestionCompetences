@@ -8,13 +8,12 @@ package gestioncompetences;
 import gestionFichiers.lecteur;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
  * @author phili
  */
-public class Mission {
+public abstract class Mission {
 
     protected String libelle, dateDebut, duree, etat;
 

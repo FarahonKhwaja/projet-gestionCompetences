@@ -121,6 +121,11 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
                     jButtonPlanifierMouseClicked(evt);
                 }
             });
+            jButtonPlanifier.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButtonPlanifierActionPerformed(evt);
+                }
+            });
 
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
@@ -247,6 +252,11 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
         MissionPlanifiee miss = this.mission.planifier();
         this.dispose();
     }//GEN-LAST:event_jButtonPlanifierMouseClicked
+
+    private void jButtonPlanifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlanifierActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButtonPlanifierActionPerformed
 
     /**
      * @param args the command line arguments

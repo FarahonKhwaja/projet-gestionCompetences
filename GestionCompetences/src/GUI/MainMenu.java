@@ -40,7 +40,6 @@ public class MainMenu extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(missions);
         for (Competence cp : competences) {
             tableCompetencesModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
         }
@@ -108,6 +107,7 @@ public class MainMenu extends javax.swing.JFrame {
                         }
                     });
 
+                    jTableMissions.setAutoCreateRowSorter(true);
                     jTableMissions.setModel(tableMissionModel);
                     jScrollPane1.setViewportView(jTableMissions);
 
@@ -202,6 +202,7 @@ public class MainMenu extends javax.swing.JFrame {
                         }
                     });
 
+                    jTablePersonne.setAutoCreateRowSorter(true);
                     jTablePersonne.setModel(tablePersonneModel);
                     jScrollPane3.setViewportView(jTablePersonne);
 
@@ -261,6 +262,7 @@ public class MainMenu extends javax.swing.JFrame {
                         }
                     });
 
+                    jTableCompetences.setAutoCreateRowSorter(true);
                     jTableCompetences.setModel(tableCompetencesModel);
                     jScrollPane2.setViewportView(jTableCompetences);
 
@@ -447,9 +449,6 @@ public class MainMenu extends javax.swing.JFrame {
         if (jTablePersonne.getSelectedRow() != -1) {
             tablePersonneModel.removeRow(jTablePersonne.getSelectedRow());
         }
-        /*for (int selectedRow : jTablePersonne.getSelectedRows()) {
-            tablePersonneModel.removeRow(selectedRow);
-        }*/
     }//GEN-LAST:event_supprimerPersonneButtonMouseClicked
 
     private void sauvegarderPersonneButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sauvegarderPersonneButtonMouseClicked
@@ -482,9 +481,6 @@ public class MainMenu extends javax.swing.JFrame {
         if (jTableCompetences.getSelectedRow() != -1) {
             tableCompetencesModel.removeRow(jTableCompetences.getSelectedRow());
         }
-        /*for (int selectedRow : jTableCompetences.getSelectedRows()) {
-            tableCompetencesModel.removeRow(selectedRow);
-        }*/
     }//GEN-LAST:event_supprimerCompetenceButtonMouseClicked
 
     private void sauvegarderCompetenceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sauvegarderCompetenceButtonMouseClicked
@@ -534,8 +530,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
-        System.out.println("1");
-        System.out.println(missions);
         try {
             missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
             personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);

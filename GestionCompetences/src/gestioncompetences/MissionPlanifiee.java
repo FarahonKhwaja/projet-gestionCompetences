@@ -18,7 +18,8 @@ import java.util.logging.Logger;
  */
 public class MissionPlanifiee extends MissionModifiable {
 
-    protected HashMap<Competence, Integer> personelRequisRestant = new HashMap<>();
+    protected HashMap<Competence, Integer> personnelRequisRestant = new HashMap<>();
+    protected HashMap<Competence, ArrayList<Personne>> personnelAffecte = new HashMap<>();
 
     /**
      *
@@ -26,45 +27,55 @@ public class MissionPlanifiee extends MissionModifiable {
      * @param dateDebut
      * @param duree
      * @param etat
+     * @param personelRequis
      */
     public MissionPlanifiee(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, Integer> personelRequis) {
         super(libelle, dateDebut, duree, etat);
         this.personnelRequis = personelRequis;
-        this.personelRequisRestant = this.personnelRequis;
-        this.etat = "Planifiee";
+        this.personnelRequisRestant = personelRequis;
+        this.etat = "Planifiée";
     }
 
     public MissionPlanifiee(MissionPreparation m) {
         super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat());
         this.personnelRequis = m.getPersonnelRequis();
-        System.out.println(this.personnelRequis);
-        this.personelRequisRestant = this.personnelRequis;
-        System.out.println(this.personelRequisRestant);
-        this.etat = "Planifiee";
+        this.personnelRequisRestant = m.getPersonnelRequis();
+        this.etat = "Planifiée";
     }
 
     /**
-     * @return the personelRequisRestant
+     * @return the personnelRequisRestant
      */
-    public HashMap<Competence, Integer> getPersonelRequisRestant() {
-        return personelRequisRestant;
+    public HashMap<Competence, Integer> getPersonnelRequisRestant() {
+        return personnelRequisRestant;
+    }
+
+    /**
+     * @return the personnelAffecte
+     */
+    public HashMap<Competence, ArrayList<Personne>> getPersonnelAffecte() {
+        return personnelAffecte;
     }
 
     /**
      * @param competence the competence to add
      * @param personne
      */
-    // Note : Exception 0 restant !
     public void addPersonne(Competence competence, Personne personne) {
-        if (this.getPersonelRequisRestant().get(competence) > 0) {
-            ArrayList<Personne> personneArray = new ArrayList<>();
-            if (this.getPersonnelAffecte().get(competence) != null) {
-                personneArray = this.getPersonnelAffecte().get(competence);
+        for (Competence cp : this.getPersonnelRequisRestant().keySet()) {
+            if (cp.getIdCompetence().equals(competence.getIdCompetence()) && this.getPersonnelRequisRestant().get(cp) > 0) {
+                ArrayList<Personne> personneArray = new ArrayList<>();
+                if (this.getPersonnelAffecte().get(cp) != null) {
+                    personneArray = this.getPersonnelAffecte().get(cp);
+                }
+                personneArray.add(personne);
+                this.getPersonnelAffecte().put(cp, personneArray);
+                this.getPersonnelRequisRestant().put(cp, this.getPersonnelRequisRestant().get(cp) - 1);
             }
-            personneArray.add(personne);
-            this.getPersonnelAffecte().put(competence, personneArray);
-            this.getPersonelRequisRestant().put(competence, this.getPersonelRequisRestant().get(competence) - 1);
         }
+        System.out.println(this.getPersonnelRequisRestant());
+        System.out.println(this.getPersonnelRequis());
+        System.out.println("");
     }
 
     public void addPersonne(HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission) {
@@ -74,29 +85,15 @@ public class MissionPlanifiee extends MissionModifiable {
                 try {
                     Competence competence;
                     competence = Competence.getCompetenceById(competenceMission);
-                    //System.out.println(competence);
                     ArrayList<Personne> personnes = new ArrayList<>();
-                    //System.out.println(libCompetences.get(competenceMission));
                     for (int idPersonne : libCompetences.get(competenceMission)) {
-                        personnes.add(Personne.getPersonneById(idPersonne));
+                        addPersonne(competence, Personne.getPersonneById(idPersonne));
                     }
-                    this.getPersonnelAffecte().put(competence, personnes);
-                    //System.out.println(this.getPersonelAffecte());
-                    //.out.println(this.getPersonelRequis());
-                    //System.out.println(this.getPersonelRequisRestant());
-                    //this.getPersonelRequisRestant().put(competence, this.getPersonelRequisRestant().get(competence) - 1);
                 } catch (IOException ex) {
                     Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
-    }
-
-    /**
-     * @param competence the competence to remove
-     */
-    public void removePersonne(Competence competence) {
-        this.getPersonnelAffecte().remove(competence);
     }
 
     /**
@@ -107,9 +104,7 @@ public class MissionPlanifiee extends MissionModifiable {
         HashMap<Personne, Integer> personneAffinites = new HashMap<>();
         for (Personne personne : personnel) {
             int i = 0;
-            //System.out.println(personne.getCompetences());
             for (Competence competencePersonne : personne.getCompetences()) {
-                //System.out.println("B" + competencePersonne);
                 for (Competence key : this.getPersonnelRequis().keySet()) {
                     if (key.getIdCompetence().equals(competencePersonne.getIdCompetence())) {
                         i++;
@@ -136,11 +131,9 @@ public class MissionPlanifiee extends MissionModifiable {
         while (i > 0) {
             for (Personne key : personneAffinites.keySet()) {
                 if (personneAffinites.get(key).compareTo(i) == 0) {
-                    //System.out.println(key.getCompetences());
                     for (Competence competencePersonne : key.getCompetences()) {
-                        //System.out.println("B" + competencePersonne);
                         for (Competence competence : this.getPersonnelRequis().keySet()) {
-                            if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
+                            if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonnelRequisRestant().get(competence) > 0) {
                                 addPersonne(competence, key);
                             }
                         }
@@ -160,11 +153,9 @@ public class MissionPlanifiee extends MissionModifiable {
         HashMap<Personne, Integer> personneAffinites = new HashMap<>();
         for (Personne personne : personnel) {
             int i = 0;
-            //System.out.println(personne.getCompetences());
             for (Competence competencePersonne : personne.getCompetences()) {
-                //System.out.println("B" + competencePersonne);
-                for (Competence competence : this.getPersonelRequisRestant().keySet()) {
-                    if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
+                for (Competence competence : this.getPersonnelRequisRestant().keySet()) {
+                    if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonnelRequisRestant().get(competence) > 0) {
                         i++;
                     }
                 }
@@ -182,11 +173,9 @@ public class MissionPlanifiee extends MissionModifiable {
         if (j != 0) {
             for (Personne key : personneAffinites.keySet()) {
                 if (personneAffinites.get(key).compareTo(j) == 0) {
-                    //System.out.println(key.getCompetences());
                     for (Competence competencePersonne : key.getCompetences()) {
-                        //System.out.println("B" + competencePersonne);
                         for (Competence competence : this.getPersonnelRequis().keySet()) {
-                            if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonelRequisRestant().get(competence) > 0) {
+                            if (competence.getIdCompetence().equals(competencePersonne.getIdCompetence()) && this.getPersonnelRequisRestant().get(competence) > 0) {
                                 addPersonne(competence, key);
                             }
                         }
@@ -206,14 +195,6 @@ public class MissionPlanifiee extends MissionModifiable {
             }
         }
         return null;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public MissionEnCours commencer() {
-        return new MissionEnCours(this);
     }
 
 }

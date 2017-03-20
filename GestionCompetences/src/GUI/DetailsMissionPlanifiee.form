@@ -53,6 +53,8 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="jButtonResetPersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButtonDeletePersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jComboBoxPersonnesMission" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonAddPersonnesCompetenceMission" min="-2" max="-2" attributes="0"/>
@@ -88,6 +90,7 @@
                       <Component id="jButtonAddPersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jComboBoxPersonnesMission" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonResetPersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonDeletePersonnesCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -106,6 +109,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTableCompetencesMission">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="tableCompetencesMissionModel" type="code"/>
                 </Property>
@@ -113,8 +117,11 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableCompetencesMissionMouseClicked"/>
+              </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tableCompetencesMissionModel = new DefaultTableModel(&#xd;&#xa;            new Object [][] {},&#xd;&#xa;            new String [] {&#xd;&#xa;                &quot;Identifiant&quot;, &quot;Libell&#xe9; EN&quot;, &quot;Libell&#xe9; FR&quot;, &quot;Personnel assign&#xe9;&quot;&#xd;&#xa;            });"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tableCompetencesMissionModel = new DefaultTableModel(&#xd;&#xa;            new Object [][] {},&#xd;&#xa;            new String [] {&#xd;&#xa;                &quot;Identifiant&quot;, &quot;Libell&#xe9; EN&quot;, &quot;Libell&#xe9; FR&quot;, &quot;Personnel assign&#xe9;&quot;, &quot;Personnel manquant&quot;&#xd;&#xa;            })&#xd;&#xa;{&#xd;&#xa;                    @Override&#xd;&#xa;        public boolean isCellEditable(int row, int column)&#xd;&#xa;                    {&#xd;&#xa;                        return false;&#xd;&#xa;                    }&#xd;&#xa;                };"/>
               </AuxValues>
             </Component>
           </SubComponents>
@@ -133,6 +140,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTablePersonnesCompetenceMission">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="tablePersonnesCompetenceMissionModel" type="code"/>
                 </Property>
@@ -182,6 +190,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Affectations"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonDeletePersonnesCompetenceMission">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Supprimer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonDeletePersonnesCompetenceMissionMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

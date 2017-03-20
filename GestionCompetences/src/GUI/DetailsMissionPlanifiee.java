@@ -30,6 +30,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     /**
      * Creates new form DetailsMissionPreparation
+     *
      * @param libelle
      * @param dateDebut
      * @param duree
@@ -57,13 +58,15 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
         this.mission.addCompetence(competencesMission);
         this.mission.addPersonne(affectationsMission);
-        HashMap<Competence, ArrayList<Personne>> affectationMission = new HashMap<>();
-        HashMap<Competence, Integer> competenceMission = new HashMap<>();
-        affectationMission = this.mission.getPersonnelAffecte();
-        //System.out.println(affectationMission);
-        competenceMission = this.mission.getPersonnelRequis();
-        for (Competence cp : affectationMission.keySet()) {
-            tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), affectationMission.get(cp)});
+        HashMap<Competence, Integer> competenceMission = this.mission.getPersonnelRequis();
+        for (Competence cp : this.mission.getPersonnelAffecte().keySet()) {
+            String nb = "Erreur";
+            for (Competence libCp : competenceMission.keySet()) {
+                if (libCp.getIdCompetence().equals(cp.getIdCompetence())) {
+                    nb = competenceMission.get(libCp).toString();
+                }
+            }
+            tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), this.mission.getPersonnelAffecte().get(cp).size(), nb});
         }
         for (Personne personne : lecteur.getPersonnel(lecteur.cheminPersonnel)) {
             comboBoxPersonnesMissionModel.addElement(personne.toString());
@@ -85,8 +88,15 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
         tableCompetencesMissionModel = new DefaultTableModel(
             new Object [][] {},
             new String [] {
-                "Identifiant", "Libellé EN", "Libellé FR", "Personnel assigné"
-            });
+                "Identifiant", "Libellé EN", "Libellé FR", "Personnel assigné", "Personnel manquant"
+            })
+            {
+                @Override
+                public boolean isCellEditable(int row, int column)
+                {
+                    return false;
+                }
+            };
             jTableCompetencesMission = new javax.swing.JTable();
             jButtonCommencer = new javax.swing.JButton();
             jScrollPane1 = new javax.swing.JScrollPane();
@@ -98,15 +108,23 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             jComboBoxPersonnesMission = new javax.swing.JComboBox<>();
             jButtonResetPersonnesCompetenceMission = new javax.swing.JButton();
             jLabel1 = new javax.swing.JLabel();
+            jButtonDeletePersonnesCompetenceMission = new javax.swing.JButton();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             setTitle("Détails Mission Planifiee");
 
+            jTableCompetencesMission.setAutoCreateRowSorter(true);
             jTableCompetencesMission.setModel(tableCompetencesMissionModel);
+            jTableCompetencesMission.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jTableCompetencesMissionMouseClicked(evt);
+                }
+            });
             jScrollPane2.setViewportView(jTableCompetencesMission);
 
             jButtonCommencer.setText("Commencer");
 
+            jTablePersonnesCompetenceMission.setAutoCreateRowSorter(true);
             jTablePersonnesCompetenceMission.setModel(tablePersonnesCompetenceMissionModel);
             jScrollPane1.setViewportView(jTablePersonnesCompetenceMission);
 
@@ -135,6 +153,13 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
             jLabel1.setText("Affectations");
 
+            jButtonDeletePersonnesCompetenceMission.setText("Supprimer");
+            jButtonDeletePersonnesCompetenceMission.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonDeletePersonnesCompetenceMissionMouseClicked(evt);
+                }
+            });
+
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
             jPanel1Layout.setHorizontalGroup(
@@ -151,6 +176,8 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(jButtonResetPersonnesCompetenceMission)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButtonDeletePersonnesCompetenceMission)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jComboBoxPersonnesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,7 +207,8 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
                         .addComponent(jButtonSavePersonnesCompetencesMission)
                         .addComponent(jButtonAddPersonnesCompetenceMission)
                         .addComponent(jComboBoxPersonnesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonResetPersonnesCompetenceMission))
+                        .addComponent(jButtonResetPersonnesCompetenceMission)
+                        .addComponent(jButtonDeletePersonnesCompetenceMission))
                     .addContainerGap())
             );
 
@@ -215,10 +243,39 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonResetPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
-        if (jTableCompetencesMission.getSelectedRow() != -1) {
-            tableCompetencesMissionModel.setValueAt("", jTableCompetencesMission.getSelectedRow(), 3);
+        while (tablePersonnesCompetenceMissionModel.getRowCount() != 0) {
+            tablePersonnesCompetenceMissionModel.removeRow(0);
         }
     }//GEN-LAST:event_jButtonResetPersonnesCompetenceMissionMouseClicked
+
+    private void jTableCompetencesMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCompetencesMissionMouseClicked
+        // TODO add your handling code here:
+        while (tablePersonnesCompetenceMissionModel.getRowCount() != 0) {
+            tablePersonnesCompetenceMissionModel.removeRow(0);
+        }
+        Competence cp;
+        ArrayList<Personne> personnel = new ArrayList<>();
+        try {
+            cp = Competence.getCompetenceById(tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 0).toString());
+            for (Competence comp : this.mission.getPersonnelAffecte().keySet()) {
+                if (comp.getIdCompetence().equals(cp.getIdCompetence())) {
+                    personnel = this.mission.getPersonnelAffecte().get(comp);
+                }
+            }
+            for (Personne pers : personnel) {
+                tablePersonnesCompetenceMissionModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom(), pers.getDateEntree()});
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(DetailsMissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTableCompetencesMissionMouseClicked
+
+    private void jButtonDeletePersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeletePersonnesCompetenceMissionMouseClicked
+        // TODO add your handling code here:
+        if (jTablePersonnesCompetenceMission.getSelectedRow() != -1) {
+            tablePersonnesCompetenceMissionModel.removeRow(jTablePersonnesCompetenceMission.getSelectedRow());
+        }
+    }//GEN-LAST:event_jButtonDeletePersonnesCompetenceMissionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -263,6 +320,7 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddPersonnesCompetenceMission;
     private javax.swing.JButton jButtonCommencer;
+    private javax.swing.JButton jButtonDeletePersonnesCompetenceMission;
     private javax.swing.JButton jButtonResetPersonnesCompetenceMission;
     private javax.swing.JButton jButtonSavePersonnesCompetencesMission;
     private javax.swing.JComboBox<String> jComboBoxPersonnesMission;

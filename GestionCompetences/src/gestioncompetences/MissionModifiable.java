@@ -86,11 +86,4 @@ public class MissionModifiable extends Mission {
         }
     }
 
-    /**
-     * @param competence the competence to remove
-     */
-    public void removeCompetence(Competence competence) {
-        this.getPersonnelRequis().remove(competence);
-    }
-
 }

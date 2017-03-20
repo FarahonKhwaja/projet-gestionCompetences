@@ -115,6 +115,7 @@ public class DetailsMissionTerminee extends javax.swing.JFrame {
                 }
             });
 
+            jTableCompetencesMission.setAutoCreateRowSorter(true);
             jTableCompetencesMission.setModel(tableCompetencesMissionModel);
             jScrollPane2.setViewportView(jTableCompetencesMission);
 

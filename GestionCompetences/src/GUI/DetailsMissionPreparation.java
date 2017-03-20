@@ -24,7 +24,7 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
     private static String libelle, dateDebut, duree, etat;
     private MissionPreparation mission;
 
-    private final HashMap<String, HashMap<String, Integer>> competencesMission = lecteur.getCompetencesParMission(lecteur.cheminCompetencesMission);
+    private HashMap<String, HashMap<String, Integer>> competencesMission = new HashMap<>();
 
     /**
      * Creates new form DetailsMissionPreparation
@@ -42,6 +42,8 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
         DetailsMissionPreparation.duree = duree;
         DetailsMissionPreparation.etat = etat;
         jLabelLibelleMission.setText(libelle);
+
+        competencesMission = lecteur.getCompetencesParMission(lecteur.cheminCompetencesMission);
 
         MissionPreparation m = MissionPreparation.getMissionByLibelle(libelle);
         if (m == null) {
@@ -112,6 +114,7 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
                 }
             });
 
+            jTableCompetencesMission.setAutoCreateRowSorter(true);
             jTableCompetencesMission.setModel(tableCompetencesMissionModel);
             jScrollPane2.setViewportView(jTableCompetencesMission);
 
@@ -250,7 +253,7 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
 
     private void jButtonPlanifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlanifierActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jButtonPlanifierActionPerformed
 
     /**

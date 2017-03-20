@@ -60,6 +60,7 @@ public class DetailsCompetence extends javax.swing.JFrame {
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+            jTablePersonnes.setAutoCreateRowSorter(true);
             jTablePersonnes.setModel(tablePersonnesCompetenceModel);
             jScrollPane1.setViewportView(jTablePersonnes);
 

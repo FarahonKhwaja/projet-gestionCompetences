@@ -28,7 +28,7 @@ public class lecteur {
     public static ArrayList<MissionEnCours> liste_missionsEnCours = new ArrayList<>();
     public static ArrayList<MissionTerminee> liste_missionsTerminee = new ArrayList<>();
 
-    public static String yourName = "phili";
+    public static String yourName = "entrax";
     public static String cheminPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
     public static String cheminCompetences = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
     public static String cheminCompetencesPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
@@ -170,30 +170,25 @@ public class lecteur {
         while (((chaine = fichier.readLine()) != null)) {
             String[] infosuneMission = chaine.split(";");
             Mission uneMission = null;
-            switch(infosuneMission[3])
-            {
-                case "Préparation": 
-                {
+            switch (infosuneMission[3]) {
+                case "Préparation": {
                     //String libelle, String dateDebut, String duree, String etat
-                    uneMission = 
-                            new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
+                    uneMission
+                            = new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]);
                     break;
                 }
-                case "Planifiée":
-                {
+                case "Planifiée": {
                     uneMission = new MissionPlanifiee(
                             new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3]));
                     break;
                 }
-                case "En Cours":
-                {
+                case "En Cours": {
                     uneMission = new MissionEnCours(
                             new MissionPlanifiee(
                                     new MissionPreparation(infosuneMission[0], infosuneMission[1], infosuneMission[2], infosuneMission[3])));
                     break;
                 }
-                case "Terminée":
-                {
+                case "Terminée": {
                     uneMission = new MissionTerminee(
                             new MissionEnCours(
                                     new MissionPlanifiee(
@@ -311,6 +306,7 @@ public class lecteur {
     public static ArrayList<MissionTerminee> getMissionsTerminee(String chemin) throws IOException {
         return lireFichierMissionsTerminee(chemin);
     }
+
     /**
      *
      * @param chemin correspond au chemin du CSV.
@@ -331,30 +327,32 @@ public class lecteur {
         liste_missionsTerminee = missions;
         return missions;
     }
+
     /**
      *
      * @param chemin correspond au chemin du CSV.
-     * @return une Hashmap contenant, pour chaque identifiant de mission,
-     * les compétences associées nécessaires.
+     * @return une Hashmap contenant, pour chaque identifiant de mission, les
+     * compétences associées nécessaires.
      * @throws IOException
      */
     public static HashMap<String, HashMap<String, Integer>> getCompetencesParMission(String chemin) throws IOException {
         return lireFichierCompetencesParMission(chemin);
     }
+
     /**
      *
      * @param chemin correspond au chemin du CSV.
-     * @return une Hashmap contenant, pour chaque identifiant de mission,
-     * les compétences associées nécessaires.
+     * @return une Hashmap contenant, pour chaque identifiant de mission, les
+     * compétences associées nécessaires.
      * @throws IOException
      */
     public static HashMap<String, HashMap<String, Integer>> lireFichierCompetencesParMission(String chemin) throws IOException {
         HashMap<String, HashMap<String, Integer>> competencesMission = new HashMap<>();
-        HashMap<String, Integer> competences = new HashMap<>();
         String chaine;
         int i = 0;
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) {
+            HashMap<String, Integer> competences = new HashMap<>();
             String[] infos = chaine.split(";");
             if (competencesMission.get(infos[0]) != null) {
                 competences = competencesMission.get(infos[0]);
@@ -366,30 +364,32 @@ public class lecteur {
         }
         return competencesMission;
     }
+
     /**
      *
      * @param chemin correspond au chemin du CSV.
-     * @return une Hashmap contenant, pour chaque identifiant de mission,
-     * les affectations associées effectuées.
+     * @return une Hashmap contenant, pour chaque identifiant de mission, les
+     * affectations associées effectuées.
      * @throws IOException
      */
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> getAffectationsParMission(String chemin) throws IOException {
         return lireFichierAffectationsParMission(chemin);
     }
+
     /**
      *
      * @param chemin correspond au chemin du CSV.
-     * @return une Hashmap contenant, pour chaque identifiant de mission,
-     * les affectations associées effectuées.
+     * @return une Hashmap contenant, pour chaque identifiant de mission, les
+     * affectations associées effectuées.
      * @throws IOException
      */
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsParMission(String chemin) throws IOException {
         HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
-        HashMap<String, ArrayList<Integer>> affectations = new HashMap<>();
         String chaine;
         int i = 0;
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) { //pour chaque compétence
+            HashMap<String, ArrayList<Integer>> affectations = new HashMap<>();
             String[] infos = chaine.split(";");
             if (affectationsMission.get(infos[0]) != null) {
                 affectations = affectationsMission.get(infos[0]);
@@ -403,16 +403,14 @@ public class lecteur {
         }
         return affectationsMission;
     }
-    
-    public static Personne getPersonneById(String id) throws FileNotFoundException, IOException
-    {
+
+    public static Personne getPersonneById(String id) throws FileNotFoundException, IOException {
         Personne p = null;
         BufferedReader reader = new BufferedReader(new FileReader(cheminPersonnel));
         String chaine;
-        while((chaine = reader.readLine()) != null){
+        while ((chaine = reader.readLine()) != null) {
             String[] unePersonne = chaine.split(";");
-            if(unePersonne[3].equals(id))
-            {
+            if (unePersonne[3].equals(id)) {
                 p = new Personne(unePersonne[0], unePersonne[1], unePersonne[2], Integer.parseInt(id));
             }
         }

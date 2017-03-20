@@ -107,6 +107,7 @@ public class DetailsPersonne extends javax.swing.JFrame {
                 }
             });
 
+            jTableCompetencesPersonne.setAutoCreateRowSorter(true);
             jTableCompetencesPersonne.setModel(tableCompetencesPersonneModel);
             jScrollPane2.setViewportView(jTableCompetencesPersonne);
 

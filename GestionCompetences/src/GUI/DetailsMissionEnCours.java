@@ -85,7 +85,6 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
                     return false;
                 }
             };
-            ;
             jTableCompetencesMission = new javax.swing.JTable();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,6 +114,7 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
                 }
             });
 
+            jTableCompetencesMission.setAutoCreateRowSorter(true);
             jTableCompetencesMission.setModel(tableCompetencesMissionModel);
             jScrollPane2.setViewportView(jTableCompetencesMission);
 

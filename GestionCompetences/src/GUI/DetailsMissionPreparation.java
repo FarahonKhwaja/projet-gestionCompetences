@@ -28,6 +28,7 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
 
     /**
      * Creates new form DetailsMissionPreparation
+     *
      * @param libelle
      * @param dateDebut
      * @param duree
@@ -83,6 +84,7 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
                 "Identifiant", "Libellé EN", "Libellé FR", "Nb Requis"
             });
             jTableCompetencesMission = new javax.swing.JTable();
+            jButtonPlanifier = new javax.swing.JButton();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             setTitle("Détails Mission en preparation");
@@ -113,6 +115,13 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
             jTableCompetencesMission.setModel(tableCompetencesMissionModel);
             jScrollPane2.setViewportView(jTableCompetencesMission);
 
+            jButtonPlanifier.setText("Planifier");
+            jButtonPlanifier.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonPlanifierMouseClicked(evt);
+                }
+            });
+
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
             jPanel1Layout.setHorizontalGroup(
@@ -124,22 +133,30 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabelLibelleMission)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonDeleteCompetenceMission)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxCompetencesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonAddCompetenceMission)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonSaveCompetencesMission)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jButtonDeleteCompetenceMission)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboBoxCompetencesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButtonAddCompetenceMission)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButtonSaveCompetencesMission))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jButtonPlanifier, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(19, 19, 19)))))
                     .addContainerGap())
             );
             jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabelLibelleMission)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabelLibelleMission))
+                        .addComponent(jButtonPlanifier))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonSaveCompetencesMission)
@@ -184,8 +201,8 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
         }
         for (int i = 0; i < tableCompetencesMissionModel.getRowCount(); i++) {
             Competence cp = new Competence(tableCompetencesMissionModel.getValueAt(i, 0).toString(),
-                tableCompetencesMissionModel.getValueAt(i, 1).toString(),
-                tableCompetencesMissionModel.getValueAt(i, 2).toString());
+                    tableCompetencesMissionModel.getValueAt(i, 1).toString(),
+                    tableCompetencesMissionModel.getValueAt(i, 2).toString());
             this.mission.addCompetence(cp, Integer.parseInt(tableCompetencesMissionModel.getValueAt(i, 3).toString()));
         }
         HashMap<String, Integer> idCompetences = new HashMap<>();
@@ -202,6 +219,34 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_jButtonSaveCompetencesMissionMouseClicked
+
+    private void jButtonPlanifierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPlanifierMouseClicked
+        // TODO add your handling code here:
+        for (Iterator<Competence> iterator = this.mission.getPersonnelRequis().keySet().iterator(); iterator.hasNext();) {
+            Competence cp = iterator.next();
+            iterator.remove();
+        }
+        for (int i = 0; i < tableCompetencesMissionModel.getRowCount(); i++) {
+            Competence cp = new Competence(tableCompetencesMissionModel.getValueAt(i, 0).toString(),
+                    tableCompetencesMissionModel.getValueAt(i, 1).toString(),
+                    tableCompetencesMissionModel.getValueAt(i, 2).toString());
+            this.mission.addCompetence(cp, Integer.parseInt(tableCompetencesMissionModel.getValueAt(i, 3).toString()));
+        }
+        HashMap<String, Integer> idCompetences = new HashMap<>();
+        for (Competence cp : this.mission.getPersonnelRequis().keySet()) {
+            idCompetences.put(cp.getIdCompetence(), this.mission.getPersonnelRequis().get(cp));
+        }
+        competencesMission.put(this.mission.getLibelle(), idCompetences);
+
+        try {
+            gestionFichiers.writer.sauvegarderCompetencesMissionPreparation(competencesMission);
+        } catch (IOException ex) {
+            Logger.getLogger(DetailsMissionPreparation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        MissionPlanifiee miss = this.mission.planifier();
+        this.dispose();
+    }//GEN-LAST:event_jButtonPlanifierMouseClicked
 
     /**
      * @param args the command line arguments
@@ -245,6 +290,7 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddCompetenceMission;
     private javax.swing.JButton jButtonDeleteCompetenceMission;
+    private javax.swing.JButton jButtonPlanifier;
     private javax.swing.JButton jButtonSaveCompetencesMission;
     private javax.swing.JComboBox<String> jComboBoxCompetencesMission;
     private javax.swing.JLabel jLabelLibelleMission;

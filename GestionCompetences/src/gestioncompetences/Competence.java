@@ -100,18 +100,19 @@ public class Competence {
         return null;
     }
     public static ArrayList<Personne> getPersonnesByCompetenceId(String id) throws IOException {
-        ArrayList<Personne> personnes = null;
+        ArrayList<Personne> personnes = new ArrayList<>();
         //ERREUR NULLPOINTEREXCEPTION : lireFichierCompetencesParPersonne ne marche pas
         HashMap<Integer, ArrayList<String>> competencesParPersonne = lecteur.getCompetencesParPersonne(lecteur.cheminCompetencesPersonnel);
-        System.out.println(competencesParPersonne.get(0));
+        System.out.println(competencesParPersonne.get(1));
         //parcourir les ArrayList<String>
-        for(int i = 0; i < competencesParPersonne.size(); i++)
+        for(Integer idPersonne : competencesParPersonne.keySet())
         {
-            for (String listeCompetences : competencesParPersonne.get(i)) {
-                System.out.println(listeCompetences);
-            }
+            
+            ArrayList<String> liste = competencesParPersonne.get(idPersonne);
+            if(liste.contains(id))
+                personnes.add(Personne.getPersonneById(idPersonne));
         }
-        
+        System.out.println(personnes.toString());
         /*for(Personne p : personnes)
         {
             System.out.println(p.toString());

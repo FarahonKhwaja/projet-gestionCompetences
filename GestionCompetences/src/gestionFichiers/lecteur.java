@@ -129,11 +129,10 @@ public class lecteur {
                 for (int j = 1; j < infos.length; j++) {
                     competences.add(infos[j]);
                 }
-                competencesPersonne.put(i, competences);
+                competencesPersonne.put(Integer.parseInt(infos[0]), competences);
             }
             i++;
         }
-        System.out.println("LECTEUR : " + competencesPersonne.get(0));
         return competencesPersonne;
     }
 

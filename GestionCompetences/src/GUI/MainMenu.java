@@ -40,7 +40,7 @@ public class MainMenu extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(missions);
+        //System.out.println(missions);
         for (Competence cp : competences) {
             tableCompetencesModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
         }
@@ -105,6 +105,13 @@ public class MainMenu extends javax.swing.JFrame {
                     addFocusListener(new java.awt.event.FocusAdapter() {
                         public void focusGained(java.awt.event.FocusEvent evt) {
                             formFocusGained(evt);
+                        }
+                    });
+                    addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+                        public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                            formWindowGainedFocus(evt);
+                        }
+                        public void windowLostFocus(java.awt.event.WindowEvent evt) {
                         }
                     });
 
@@ -534,6 +541,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
+        /*
         System.out.println("1");
         System.out.println(missions);
         try {
@@ -542,8 +550,29 @@ public class MainMenu extends javax.swing.JFrame {
             competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
         } catch (IOException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_formFocusGained
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        try {
+            // TODO add your handling code here:
+            System.out.println("formWindowGainedFocus");
+            missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
+            personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
+            competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
+            for (Competence cp : competences) {
+                tableCompetencesModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR()});
+            }
+            for (Personne pers : personnel) {
+                tablePersonneModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom(), pers.getDateEntree()});
+            }
+            for (Mission miss : missions) {
+                tableMissionModel.addRow(new Object[]{miss.getLibelle(), miss.getDateDebut(), miss.getDuree(), miss.getEtat()});
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

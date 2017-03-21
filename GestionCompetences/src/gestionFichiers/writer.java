@@ -134,4 +134,23 @@ public class writer {
         buffer_ecriture.write(totalite);
         buffer_ecriture.close();
     }
+
+    /**
+     *
+     * @param dateFinMission
+     * @throws IOException
+     */
+    public static void sauvegarderDateFinParMission(HashMap<String, String> dateFinMission) throws IOException {
+        String totalite = "";
+        for (String Missions : dateFinMission.keySet()) {
+            totalite += Missions + ";" + dateFinMission.get(Missions) + ";" + "\n";
+        }
+
+        File fichier = new File(gestionFichiers.lecteur.cheminDateFinMission);
+        BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
+
+        buffer_ecriture.write(totalite);
+
+        buffer_ecriture.close();
+    }
 }

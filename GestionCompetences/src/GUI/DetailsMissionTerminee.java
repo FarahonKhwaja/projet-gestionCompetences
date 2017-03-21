@@ -25,6 +25,7 @@ public class DetailsMissionTerminee extends javax.swing.JFrame {
 
     private HashMap<Competence, ArrayList<Personne>> affectationsCompetencesMission = new HashMap<>();
     private HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
+    private HashMap<String, String> dateFinMission = new HashMap<>();
 
     /**
      * Creates new form DetailsMissionPreparation
@@ -68,6 +69,11 @@ public class DetailsMissionTerminee extends javax.swing.JFrame {
                 }
             }
         }
+        
+        
+        dateFinMission = lecteur.getDateFinParMission(lecteur.cheminDateFinMission);
+        String dateFin = dateFinMission.get(this.mission.getLibelle());
+        jLabelDateFin.setText(dateFin);
 
         for (Competence cp : affectationsCompetencesMission.keySet()) {
             int nb = 0;

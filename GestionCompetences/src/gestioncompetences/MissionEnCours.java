@@ -6,8 +6,10 @@
 package gestioncompetences;
 
 import gestionFichiers.lecteur;
+import gestionFichiers.writer;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -57,8 +59,11 @@ public class MissionEnCours extends MissionNonmodifiable {
     /**
      *
      */
-    public void prochainEtat() {
+    public void prochainEtat() throws IOException {
         super.prochainEtat("Terminée");
+        HashMap<String, String> dateFinMission = new HashMap<>();
+        dateFinMission.put(this.getLibelle(), new Date().toString());
+        writer.sauvegarderDateFinParMission(dateFinMission);
     }
 
 }

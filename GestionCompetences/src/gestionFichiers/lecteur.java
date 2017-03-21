@@ -58,7 +58,7 @@ public class lecteur {
     /**
      *
      */
-    public static String yourName = "phili";
+    public static String yourName = "entrax";
 
     /**
      *
@@ -89,6 +89,11 @@ public class lecteur {
      *
      */
     public static String cheminAffectationsMission = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\affectations_competences_mission.csv";
+
+    /**
+     *
+     */
+    public static String cheminDateFinMission = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\datefin_missions_terminees.csv";
 
     /**
      *
@@ -460,31 +465,23 @@ public class lecteur {
         return affectationsMission;
     }
 
-    /**
-     *
-     * @param chemin
-     * @return
-     * @throws IOException
-     */
-    public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsDefParMission(String chemin) throws IOException {
-        HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
+    public static HashMap<String, String> getDateFinParMission(String chemin) throws IOException {
+        return lireDateFinParMission(chemin);
+    }
+
+    public static HashMap<String, String> lireDateFinParMission(String chemin) throws IOException {
+        HashMap<String, String> dateFinMission = new HashMap<>();
         String chaine;
         int i = 0;
         BufferedReader fichier = new BufferedReader(new FileReader(chemin));
         while (((chaine = fichier.readLine()) != null)) { //pour chaque compétence
-            HashMap<String, ArrayList<Integer>> affectations = new HashMap<>();
+            String dateFin;
             String[] infos = chaine.split(";");
-            if (affectationsMission.get(infos[0]) != null) {
-                affectations = affectationsMission.get(infos[0]);
-            }
-            ArrayList<Integer> personnes = new ArrayList<>();
-            for (int j = 2; j < infos.length; j++) {
-                personnes.add(Integer.parseInt(infos[j]));
-            }
-            affectations.put(infos[1], personnes);
-            affectationsMission.put(infos[0], affectations);
+            dateFin = infos[1];
+            dateFinMission.put(infos[0], dateFin);
         }
-        return affectationsMission;
+        return dateFinMission;
+
     }
 
     /**

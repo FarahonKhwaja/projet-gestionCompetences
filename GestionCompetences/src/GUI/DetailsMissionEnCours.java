@@ -215,8 +215,12 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableCompetencesMissionMouseClicked
 
     private void jButtonTerminerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTerminerMouseClicked
-        // TODO add your handling code here:
-        this.mission.prochainEtat();
+        try {
+            // TODO add your handling code here:
+            this.mission.prochainEtat();
+        } catch (IOException ex) {
+            Logger.getLogger(DetailsMissionEnCours.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         this.dispose();
     }//GEN-LAST:event_jButtonTerminerMouseClicked

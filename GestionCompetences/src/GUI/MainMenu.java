@@ -549,7 +549,6 @@ public class MainMenu extends javax.swing.JFrame {
         try {
             missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
             for (Mission miss : missions) {
-                System.out.println(miss.getEtat());
                 tableMissionModel.addRow(new Object[]{miss.getLibelle(), miss.getDateDebut(), miss.getDuree(), miss.getEtat()});
             }
         } catch (IOException ex) {
@@ -565,7 +564,6 @@ public class MainMenu extends javax.swing.JFrame {
         try {
             missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
             for (Mission miss : missions) {
-                System.out.println(miss.getEtat());
                 tableMissionModel.addRow(new Object[]{miss.getLibelle(), miss.getDateDebut(), miss.getDuree(), miss.getEtat()});
             }
         } catch (IOException ex) {

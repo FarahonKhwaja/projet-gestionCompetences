@@ -140,10 +140,6 @@ public class Competence {
                 personnes.add(Personne.getPersonneById(idPersonne));
             }
         }
-        /*for(Personne p : personnes)
-        {
-            System.out.println(p.toString());
-        }*/
         return personnes;
     }
 }

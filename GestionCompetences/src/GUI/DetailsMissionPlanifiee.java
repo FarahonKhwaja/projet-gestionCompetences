@@ -272,10 +272,11 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonAddPersonnesCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddPersonnesCompetenceMissionMouseClicked
         // TODO add your handling code here:
-        if (jTablePersonnesCompetenceMission.getSelectedRow() != -1 && comboBoxPersonnesMissionModel.getSelectedItem() != null && (int) tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 4) > 0) {
+        if (jTableCompetencesMission.getSelectedRow() != -1 && comboBoxPersonnesMissionModel.getSelectedItem() != null && (int) tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 4) > 0) {
             String[] pString = comboBoxPersonnesMissionModel.getSelectedItem().toString().split(" - ");
             Personne pers;
             try {
+                System.out.println("test");
                 pers = Personne.getPersonneById(Integer.parseInt(pString[0]));
                 this.mission.addPersonne(Competence.getCompetenceById(tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 0).toString()), pers);
                 tablePersonnesCompetenceMissionModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom(), pers.getDateEntree()});
@@ -387,10 +388,10 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
         HashMap<Competence, Integer> competenceMission = this.mission.getPersonnelRequis();
         for (Competence cp : this.mission.getPersonnelAffecte().keySet()) {
-            String nb = "Erreur";
+            int nb = 0;
             for (Competence libCp : competenceMission.keySet()) {
                 if (libCp.getIdCompetence().equals(cp.getIdCompetence())) {
-                    nb = competenceMission.get(libCp).toString();
+                    nb = competenceMission.get(libCp);
                 }
             }
             tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), this.mission.getPersonnelAffecte().get(cp).size(), nb});

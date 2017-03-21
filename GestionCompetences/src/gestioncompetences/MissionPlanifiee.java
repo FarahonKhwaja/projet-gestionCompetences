@@ -18,7 +18,14 @@ import java.util.logging.Logger;
  */
 public class MissionPlanifiee extends MissionModifiable {
 
+    /**
+     *
+     */
     protected HashMap<Competence, Integer> personnelRequisRestant = new HashMap<>();
+
+    /**
+     *
+     */
     protected HashMap<Competence, ArrayList<Personne>> personnelAffecte = new HashMap<>();
 
     /**
@@ -36,6 +43,11 @@ public class MissionPlanifiee extends MissionModifiable {
         this.etat = "Planifiée";
     }
 
+    /**
+     *
+     * @param m correspond à la {@link MissionPreparation} à transformer en 
+     * {@link MissionPlanifiee}
+     */
     public MissionPlanifiee(MissionPreparation m) {
         super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat());
         this.personnelRequis = m.getPersonnelRequis();
@@ -51,15 +63,15 @@ public class MissionPlanifiee extends MissionModifiable {
     }
 
     /**
-     * @return the personnelAffecte
+     * @return le personnel affecté
      */
     public HashMap<Competence, ArrayList<Personne>> getPersonnelAffecte() {
         return personnelAffecte;
     }
 
     /**
-     * @param competence the competence to add
-     * @param personne
+     * @param competence la {@link Competence} à ajouter
+     * @param personne la {@link Personne} à qui il faut ajouter la compétence competence
      */
     public void addPersonne(Competence competence, Personne personne) {
         for (Competence cp : this.getPersonnelRequisRestant().keySet()) {
@@ -75,6 +87,10 @@ public class MissionPlanifiee extends MissionModifiable {
         }
     }
 
+    /**
+     *
+     * @param affectationsMission
+     */
     public void addPersonne(HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission) {
         HashMap<String, ArrayList<Integer>> libCompetences = affectationsMission.get(this.getLibelle());
         if (libCompetences != null) {
@@ -93,6 +109,9 @@ public class MissionPlanifiee extends MissionModifiable {
         }
     }
 
+    /**
+     *
+     */
     public void clearAffectations() {
         for (Competence cp : this.getPersonnelRequisRestant().keySet()) {
             int nb = 0;
@@ -104,6 +123,11 @@ public class MissionPlanifiee extends MissionModifiable {
         this.getPersonnelAffecte().clear();
     }
 
+    /**
+     *
+     * @param competence correspond à une {@link Competence}
+     * @param personne correspond à une {@link Personne}
+     */
     public void removePersonne(Competence competence, Personne personne) {
         for (Competence cp : this.getPersonnelAffecte().keySet()) {
             if (cp.getIdCompetence().equals(competence.getIdCompetence())) {
@@ -122,7 +146,6 @@ public class MissionPlanifiee extends MissionModifiable {
 
     /**
      *
-     * @param personnel
      * @throws IOException
      */
     public void multiSelectionAutoSup() throws IOException {
@@ -164,6 +187,11 @@ public class MissionPlanifiee extends MissionModifiable {
         }
     }
 
+    /**
+     *
+     * @param personnel correspond à une ArrayList de {@link Personne}
+     * @throws IOException
+     */
     public void multiSelectionAutoSup(ArrayList<Personne> personnel) throws IOException {
         HashMap<Personne, Integer> personneAffinites = new HashMap<>();
         for (Personne personne : personnel) {
@@ -201,6 +229,12 @@ public class MissionPlanifiee extends MissionModifiable {
         }
     }
 
+    /**
+     *
+     * @param libelle libellé d'une mission
+     * @return la mission correspondant au libellé
+     * @throws IOException
+     */
     public static MissionPlanifiee getMissionByLibelle(String libelle) throws IOException {
         ArrayList<MissionPlanifiee> missions = lecteur.getMissionsPlanifiee(gestionFichiers.lecteur.cheminMissions);
         for (MissionPlanifiee mission : missions) {
@@ -211,6 +245,9 @@ public class MissionPlanifiee extends MissionModifiable {
         return null;
     }
 
+    /**
+     *
+     */
     public void prochainEtat() {
         super.prochainEtat("En Cours");
     }

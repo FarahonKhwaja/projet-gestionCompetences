@@ -112,6 +112,11 @@ public class writer {
         buffer_ecriture.close();
     }
 
+    /**
+     *
+     * @param affectationsParMission
+     * @throws IOException
+     */
     public static void sauvegarderAffectationsParMission(HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsParMission) throws IOException {
         String totalite = "";
         for (String Missions : affectationsParMission.keySet()) {

@@ -16,6 +16,9 @@ import java.util.HashMap;
  */
 public class MissionTerminee extends MissionNonmodifiable {
 
+    /**
+     *
+     */
     protected String dateFin;
 
     /**
@@ -31,6 +34,10 @@ public class MissionTerminee extends MissionNonmodifiable {
         this.etat = "Terminée";
     }
 
+    /**
+     *
+     * @param m
+     */
     public MissionTerminee(MissionEnCours m) {
         super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getAffectationDefinitive());
         this.etat = "Terminée";
@@ -43,6 +50,12 @@ public class MissionTerminee extends MissionNonmodifiable {
         return dateFin;
     }
 
+    /**
+     *
+     * @param libelle
+     * @return
+     * @throws IOException
+     */
     public static MissionTerminee getMissionByLibelle(String libelle) throws IOException {
         ArrayList<MissionTerminee> missions = lecteur.getMissionsTerminee(gestionFichiers.lecteur.cheminMissions);
         for (MissionTerminee mission : missions) {
@@ -53,6 +66,9 @@ public class MissionTerminee extends MissionNonmodifiable {
         return null;
     }
 
+    /**
+     *
+     */
     public void prochainEtat() {
         super.prochainEtat("Terminée");
     }

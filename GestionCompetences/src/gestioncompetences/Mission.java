@@ -18,14 +18,22 @@ import java.util.logging.Logger;
  */
 public abstract class Mission {
 
-    protected String libelle, dateDebut, duree, etat;
+    /**
+     *
+     */
+    protected String libelle, dateDebut, duree,
 
     /**
      *
-     * @param libelle
-     * @param dateDebut
-     * @param duree
-     * @param etat
+     */
+    etat;
+
+    /**
+     *
+     * @param libelle libellé d'une mission
+     * @param dateDebut date de début d'une mission
+     * @param duree durée d'une mission
+     * @param etat état d'une mission
      */
     public Mission(String libelle, String dateDebut, String duree, String etat) {
         this.dateDebut = dateDebut;
@@ -55,6 +63,10 @@ public abstract class Mission {
         return etat;
     }
 
+    /**
+     *
+     * @param etat état de la mission
+     */
     public void setEtat(String etat) {
         this.etat = etat;
     }
@@ -66,6 +78,10 @@ public abstract class Mission {
         return libelle;
     }
 
+    /**
+     *
+     * @param etat assigne etat à l'état de la mission
+     */
     public void prochainEtat(String etat) {
         try {
             ArrayList<Mission> missionsPrep = lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
@@ -82,6 +98,12 @@ public abstract class Mission {
         }
     }
 
+    /**
+     *
+     * @param libelle libellé d'une mission
+     * @return la Mission correspondant au libellé
+     * @throws IOException
+     */
     public static Mission getMissionByLibelle(String libelle) throws IOException {
         ArrayList<Mission> missions = lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
         for (Mission mission : missions) {

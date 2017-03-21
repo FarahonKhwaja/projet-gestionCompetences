@@ -24,6 +24,10 @@ public class DetailsCompetence extends javax.swing.JFrame {
      */
     private static String idCompetence;
 
+    /**
+     *
+     * @param idComp
+     */
     public DetailsCompetence(String idComp) {
         initComponents();
         DetailsCompetence.idCompetence = idComp;

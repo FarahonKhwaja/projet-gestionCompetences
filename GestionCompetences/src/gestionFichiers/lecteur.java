@@ -20,22 +20,82 @@ import java.util.HashMap;
  */
 public class lecteur {
 
+    /**
+     *
+     */
     public static ArrayList<Personne> liste_personnel = new ArrayList<>();
+
+    /**
+     *
+     */
     public static ArrayList<Competence> liste_competences = new ArrayList<>();
+
+    /**
+     *
+     */
     public static ArrayList<Mission> liste_missions = new ArrayList<>();
+
+    /**
+     *
+     */
     public static ArrayList<MissionPreparation> liste_missionsPreparation = new ArrayList<>();
+
+    /**
+     *
+     */
     public static ArrayList<MissionPlanifiee> liste_missionsPlanifiee = new ArrayList<>();
+
+    /**
+     *
+     */
     public static ArrayList<MissionEnCours> liste_missionsEnCours = new ArrayList<>();
+
+    /**
+     *
+     */
     public static ArrayList<MissionTerminee> liste_missionsTerminee = new ArrayList<>();
 
-    public static String yourName = "entrax";
+    /**
+     *
+     */
+    public static String yourName = "phili";
+
+    /**
+     *
+     */
     public static String cheminPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_personnel.csv";
+
+    /**
+     *
+     */
     public static String cheminCompetences = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_competences.csv";
+
+    /**
+     *
+     */
     public static String cheminCompetencesPersonnel = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_personnel.csv";
+
+    /**
+     *
+     */
     public static String cheminMissions = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\liste_missions.csv";
+
+    /**
+     *
+     */
     public static String cheminCompetencesMission = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\competences_mission.csv";
+
+    /**
+     *
+     */
     public static String cheminAffectationsMission = "C:\\Users\\" + yourName + "\\Documents\\GitHub\\projet-gestionCompetences\\fichiers_projet\\affectations_competences_mission.csv";
 
+    /**
+     *
+     * @param chemin
+     * @return
+     * @throws IOException
+     */
     public static ArrayList<Personne> getPersonnel(String chemin) throws IOException {
         return lireFichierPersonnes(chemin);
     }
@@ -67,6 +127,12 @@ public class lecteur {
         return personnes;
     }
 
+    /**
+     *
+     * @param chemin
+     * @return
+     * @throws IOException
+     */
     public static ArrayList<Competence> getCompetences(String chemin) throws IOException {
         return lireFichierCompetences(chemin);
     }
@@ -394,6 +460,12 @@ public class lecteur {
         return affectationsMission;
     }
 
+    /**
+     *
+     * @param chemin
+     * @return
+     * @throws IOException
+     */
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsDefParMission(String chemin) throws IOException {
         HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
         String chaine;
@@ -415,6 +487,13 @@ public class lecteur {
         return affectationsMission;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public static Personne getPersonneById(String id) throws FileNotFoundException, IOException {
         Personne p = null;
         BufferedReader reader = new BufferedReader(new FileReader(cheminPersonnel));

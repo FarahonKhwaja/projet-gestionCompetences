@@ -28,11 +28,24 @@ public class MissionPreparation extends MissionModifiable {
         this.etat = "Préparation";
     }
 
+    /**
+     *
+     * @param libelle
+     * @param dateDebut
+     * @param duree
+     * @param etat
+     */
     public MissionPreparation(String libelle, String dateDebut, String duree, String etat) {
         super(libelle, dateDebut, duree, etat);
         this.etat = "Préparation";
     }
 
+    /**
+     *
+     * @param libelle
+     * @return
+     * @throws IOException
+     */
     public static MissionPreparation getMissionByLibelle(String libelle) throws IOException {
         ArrayList<MissionPreparation> missions = lecteur.getMissionsPreparation(gestionFichiers.lecteur.cheminMissions);
         for (MissionPreparation mission : missions) {
@@ -43,6 +56,9 @@ public class MissionPreparation extends MissionModifiable {
         return null;
     }
 
+    /**
+     *
+     */
     public void prochainEtat() {
         super.prochainEtat("Planifiée");
     }

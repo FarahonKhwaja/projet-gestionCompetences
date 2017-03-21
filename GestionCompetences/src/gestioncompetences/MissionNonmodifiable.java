@@ -14,15 +14,18 @@ import java.util.HashMap;
  */
 public abstract class MissionNonmodifiable extends Mission {
 
+    /**
+     *
+     */
     protected HashMap<Competence, ArrayList<Personne>> affectationDefinitive;
 
     /**
      *
-     * @param libelle
-     * @param dateDebut
-     * @param duree
-     * @param etat
-     * @param personnelAffecte
+     * @param libelle libellé d'une mission non modifiable
+     * @param dateDebut date de début d'une mission non modifiable
+     * @param duree durée d'une mission non modifiable
+     * @param etat état d'une mission non modifiable
+     * @param personnelAffecte personnel affecté à une mission non modifiable
      */
     public MissionNonmodifiable(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, ArrayList<Personne>> personnelAffecte) {
         super(libelle, dateDebut, duree, etat);

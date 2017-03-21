@@ -16,22 +16,36 @@ import java.util.logging.Logger;
  */
 public abstract class MissionModifiable extends Mission {
 
+    /**
+     *
+     */
     protected String nbRequis;
+
+    /**
+     *
+     */
     protected HashMap<Competence, Integer> personnelRequis = new HashMap<>();
 
     /**
      *
-     * @param libelle
-     * @param dateDebut
-     * @param duree
-     * @param etat
-     * @param nbRequis
+     * @param libelle libellé d'une mission modifiable
+     * @param dateDebut date de début d'une mission modifiable
+     * @param duree durée d'une mission modifiable
+     * @param etat état d'une mission modifiable
+     * @param nbRequis nombre de collaborateurs requis pour une mission modifiable
      */
     public MissionModifiable(String libelle, String dateDebut, String duree, String etat, String nbRequis) {
         super(libelle, dateDebut, duree, etat);
         this.nbRequis = nbRequis;
     }
 
+    /**
+     *
+     * @param libelle libellé d'une mission modifiable
+     * @param dateDebut date de début d'une mission modifiable
+     * @param duree durée d'une mission modifiable
+     * @param etat état d'une mission modifiable
+     */
     public MissionModifiable(String libelle, String dateDebut, String duree, String etat) {
         super(libelle, dateDebut, duree, etat);
         this.nbRequis = "0";

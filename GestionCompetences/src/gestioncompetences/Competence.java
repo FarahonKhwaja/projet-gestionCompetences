@@ -16,15 +16,26 @@ import java.util.HashMap;
  */
 public class Competence {
 
+    /**
+     *
+     */
     protected String idCompetence;
+
+    /**
+     *
+     */
     protected String nomEN;
+
+    /**
+     *
+     */
     protected String nomFR;
 
     /**
      *
-     * @param idComp
-     * @param nomAnglais
-     * @param nomFrancais
+     * @param idComp id de la compétence
+     * @param nomAnglais nom anglais de la compétence
+     * @param nomFrancais nom français de la compétence
      */
     public Competence(String idComp, String nomAnglais, String nomFrancais) {
         idCompetence = idComp;
@@ -34,7 +45,8 @@ public class Competence {
 
     /**
      *
-     * @param aString
+     * @param aString correspond à une Compétence sous la forme 
+     * idCompetence - nomEN - nomFR
      */
     public Competence(String aString) {
         String[] parts = aString.split(" - ");
@@ -85,11 +97,21 @@ public class Competence {
         this.nomFR = nomFR;
     }
 
+    /**
+     *
+     * @return idCompetence-nomEN-nomFR
+     */
     @Override
     public String toString() {
         return getIdCompetence() + " - " + getNomEN() + " - " + getNomFR();
     }
 
+    /**
+     *
+     * @param id identifiant d'une compétence
+     * @return object Compétence correspondant à id
+     * @throws IOException
+     */
     public static Competence getCompetenceById(String id) throws IOException {
         ArrayList<Competence> competences = lecteur.getCompetences(lecteur.cheminCompetences);
         for (Competence competence : competences) {
@@ -100,6 +122,12 @@ public class Competence {
         return null;
     }
 
+    /**
+     *
+     * @param id identifiant d'une Personne
+     * @return ArrayList des compétences de la Personne correspondant à id
+     * @throws IOException
+     */
     public static ArrayList<Personne> getPersonnesByCompetenceId(String id) throws IOException {
         ArrayList<Personne> personnes = new ArrayList<>();
         //ERREUR NULLPOINTEREXCEPTION : lireFichierCompetencesParPersonne ne marche pas

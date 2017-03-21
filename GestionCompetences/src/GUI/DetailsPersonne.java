@@ -30,6 +30,10 @@ public class DetailsPersonne extends javax.swing.JFrame {
 
     /**
      * Creates new form jFrameDetailsPersonne
+     * @param idPersonne
+     * @param nom
+     * @param prenom
+     * @throws java.io.IOException
      */
     public DetailsPersonne(int idPersonne, String nom, String prenom) throws IOException {
         initComponents();

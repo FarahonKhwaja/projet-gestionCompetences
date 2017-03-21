@@ -18,8 +18,24 @@ import java.util.logging.Logger;
  */
 public class Personne {
 
-    protected String nom, prenom, dateEntree;
+    /**
+     *
+     */
+    protected String nom,
+
+    /**
+     *
+     */
+    prenom, dateEntree;
+
+    /**
+     *
+     */
     protected int id;
+
+    /**
+     *
+     */
     protected ArrayList<Competence> Competences = new ArrayList<>();
 
     /**
@@ -132,11 +148,21 @@ public class Personne {
         this.getCompetences().remove(competence);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return getId() + " - " + getPrenom() + " " + getNom();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws IOException
+     */
     public static Personne getPersonneById(int id) throws IOException {
         ArrayList<Personne> personnes = lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
         for (Personne personne : personnes) {

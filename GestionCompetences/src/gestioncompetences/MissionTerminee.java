@@ -6,12 +6,9 @@
 package gestioncompetences;
 
 import gestionFichiers.lecteur;
-import gestionFichiers.writer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -56,21 +53,8 @@ public class MissionTerminee extends MissionNonmodifiable {
         return null;
     }
 
-    @Override
     public void prochainEtat() {
-        try {
-            ArrayList<MissionTerminee> missionsT = lecteur.getMissionsTerminee(gestionFichiers.lecteur.cheminMissions);
-            ArrayList<Mission> missions = new ArrayList<>();
-            for (MissionTerminee mission : missionsT) {
-                if (mission.getLibelle().equals(libelle)) {
-                    mission.setEtat("Terminée");
-                }
-                missions.add(mission);
-            }
-            writer.sauvegarderMissions(missions);
-        } catch (IOException ex) {
-            Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super.prochainEtat("Terminée");
     }
 
 }

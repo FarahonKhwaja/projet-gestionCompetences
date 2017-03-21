@@ -399,10 +399,25 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
 
     private void jButtonCommencerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCommencerMouseClicked
         // TODO add your handling code here:
-        for (int i = 0; i < tableCompetencesMissionModel.getRowCount(); i++) {
-            if (tableCompetencesMissionModel.getValueAt(i, 4).toString().equals("0")) {
+        HashMap<String, ArrayList<Integer>> affectationsCompetence = new HashMap<>();
+
+        for (Competence cp : this.mission.getPersonnelAffecte().keySet()) {
+            ArrayList<Integer> idPersonnes = new ArrayList<>();
+            for (Personne personne : this.mission.getPersonnelAffecte().get(cp)) {
+                idPersonnes.add(personne.getId());
             }
+            affectationsCompetence.put(cp.getIdCompetence(), idPersonnes);
         }
+        affectationsMission.put(this.mission.getLibelle(), affectationsCompetence);
+
+        try {
+            this.mission.prochainEtat();
+            gestionFichiers.writer.sauvegarderAffectationsParMission(affectationsMission);
+        } catch (IOException ex) {
+            Logger.getLogger(DetailsMissionPreparation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.dispose();
     }//GEN-LAST:event_jButtonCommencerMouseClicked
 
     /**

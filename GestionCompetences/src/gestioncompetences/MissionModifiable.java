@@ -6,7 +6,6 @@
 package gestioncompetences;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,8 +76,5 @@ public abstract class MissionModifiable extends Mission {
             }
         }
     }
-
-    @Override
-    public abstract void prochainEtat();
 
 }

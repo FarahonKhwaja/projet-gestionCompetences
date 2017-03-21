@@ -541,13 +541,9 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
-        try {
-            missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
-            personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
-            competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
+        //personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
+        //competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
     }//GEN-LAST:event_formFocusGained
 
     private void jButtonRefreshMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRefreshMissionMouseClicked

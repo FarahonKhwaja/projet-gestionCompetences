@@ -216,7 +216,9 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
 
     private void jButtonTerminerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTerminerMouseClicked
         // TODO add your handling code here:
+        this.mission.prochainEtat();
 
+        this.dispose();
     }//GEN-LAST:event_jButtonTerminerMouseClicked
 
     /**

@@ -36,6 +36,4 @@ public abstract class MissionNonmodifiable extends Mission {
         return affectationDefinitive;
     }
 
-    public abstract void prochainEtat();
-
 }

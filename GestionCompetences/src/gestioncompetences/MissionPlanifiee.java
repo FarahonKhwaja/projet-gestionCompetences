@@ -6,7 +6,6 @@
 package gestioncompetences;
 
 import gestionFichiers.lecteur;
-import gestionFichiers.writer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,16 +109,11 @@ public class MissionPlanifiee extends MissionModifiable {
             if (cp.getIdCompetence().equals(competence.getIdCompetence())) {
                 ArrayList<Personne> personneArrayTemp = this.getPersonnelAffecte().get(cp);
                 ArrayList<Personne> personneArray = new ArrayList<>();
-                System.out.println(personneArrayTemp);
                 for (Personne pers : personneArrayTemp) {
-                    System.out.println(pers.getId());
-                    System.out.println(personne.getId());
                     if (pers.getId() != personne.getId()) {
-                        System.out.println(pers);
                         personneArray.add(pers);
                     }
                 }
-                System.out.println(personneArray);
                 this.getPersonnelAffecte().put(cp, personneArray);
                 this.getPersonnelRequisRestant().put(cp, this.getPersonnelRequisRestant().get(cp) + 1);
             }
@@ -217,21 +211,7 @@ public class MissionPlanifiee extends MissionModifiable {
         return null;
     }
 
-    @Override
     public void prochainEtat() {
-        try {
-            ArrayList<MissionPlanifiee> missionsPla = lecteur.getMissionsPlanifiee(gestionFichiers.lecteur.cheminMissions);
-            ArrayList<Mission> missions = new ArrayList<>();
-            for (MissionPlanifiee mission : missionsPla) {
-                if (mission.getLibelle().equals(libelle)) {
-                    mission.setEtat("En Cours");
-                }
-                missions.add(mission);
-            }
-            writer.sauvegarderMissions(missions);
-        } catch (IOException ex) {
-            Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super.prochainEtat("En Cours");
     }
-
 }

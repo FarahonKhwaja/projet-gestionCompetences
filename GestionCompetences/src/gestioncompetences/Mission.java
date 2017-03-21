@@ -6,8 +6,11 @@
 package gestioncompetences;
 
 import gestionFichiers.lecteur;
+import gestionFichiers.writer;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -63,7 +66,21 @@ public abstract class Mission {
         return libelle;
     }
 
-    public abstract void prochainEtat();
+    public void prochainEtat(String etat) {
+        try {
+            ArrayList<Mission> missionsPrep = lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
+            ArrayList<Mission> missions = new ArrayList<>();
+            for (Mission mission : missionsPrep) {
+                if (mission.getLibelle().equals(this.libelle)) {
+                    mission.setEtat(etat);
+                }
+                missions.add(mission);
+            }
+            writer.sauvegarderMissions(missions);
+        } catch (IOException ex) {
+            Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public static Mission getMissionByLibelle(String libelle) throws IOException {
         ArrayList<Mission> missions = lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);

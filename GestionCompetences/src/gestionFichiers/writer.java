@@ -86,7 +86,6 @@ public class writer {
         for (Mission m : missions) {
             totalite += m.getLibelle() + ";" + m.getDateDebut() + ";" + m.getDuree() + ";" + m.getEtat() + "\n";
         }
-        System.out.println("Save missions");
         File fichier = new File(gestionFichiers.lecteur.cheminMissions);
         BufferedWriter buffer_ecriture = new BufferedWriter(new FileWriter(fichier));
         buffer_ecriture.write(totalite);

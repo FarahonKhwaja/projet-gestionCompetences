@@ -21,6 +21,7 @@ public class Personne {
     protected String nom, prenom, dateEntree;
     protected int id;
     protected ArrayList<Competence> Competences = new ArrayList<>();
+
     /**
      *
      * @param nom Nom de la personne

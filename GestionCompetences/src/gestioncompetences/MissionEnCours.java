@@ -5,8 +5,13 @@
  */
 package gestioncompetences;
 
+import gestionFichiers.lecteur;
+import gestionFichiers.writer;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,18 +31,37 @@ public class MissionEnCours extends MissionNonmodifiable {
         super(libelle, dateDebut, duree, etat, personelAffecte);
         this.etat = "En Cours";
     }
-    
+
     public MissionEnCours(MissionPlanifiee m) {
         super(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getPersonnelAffecte());
         this.etat = "En Cours";
     }
 
-    /**
-     *
-     * @return
-     */
-    public MissionTerminee clore() {
-        return new MissionTerminee(getLibelle(), getDateDebut(), getDuree(), getEtat(), getAffectationDefinitive());
+    public static MissionEnCours getMissionByLibelle(String libelle) throws IOException {
+        ArrayList<MissionEnCours> missions = lecteur.getMissionsEnCours(gestionFichiers.lecteur.cheminMissions);
+        for (MissionEnCours mission : missions) {
+            if (mission.getLibelle().equals(libelle)) {
+                return mission;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void prochainEtat() {
+        try {
+            ArrayList<MissionEnCours> missionsEc = lecteur.getMissionsEnCours(gestionFichiers.lecteur.cheminMissions);
+            ArrayList<Mission> missions = new ArrayList<>();
+            for (MissionEnCours mission : missionsEc) {
+                if (mission.getLibelle().equals(libelle)) {
+                    mission.setEtat("Terminée");
+                }
+                missions.add(mission);
+            }            
+            writer.sauvegarderMissions(missions);
+        } catch (IOException ex) {
+            Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

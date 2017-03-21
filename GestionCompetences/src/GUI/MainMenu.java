@@ -74,6 +74,7 @@ public class MainMenu extends javax.swing.JFrame {
             ajouterMissionButton = new javax.swing.JButton();
             supprimerMissionButton = new javax.swing.JButton();
             sauvegarderMissionButton = new javax.swing.JButton();
+            jButtonRefreshMission = new javax.swing.JButton();
             jPanelPersonnel = new javax.swing.JPanel();
             ajouterPersonneButton = new javax.swing.JButton();
             supprimerPersonneButton = new javax.swing.JButton();
@@ -139,6 +140,13 @@ public class MainMenu extends javax.swing.JFrame {
                         }
                     });
 
+                    jButtonRefreshMission.setText("Rafraichir");
+                    jButtonRefreshMission.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            jButtonRefreshMissionMouseClicked(evt);
+                        }
+                    });
+
                     javax.swing.GroupLayout jPanelMissionsLayout = new javax.swing.GroupLayout(jPanelMissions);
                     jPanelMissions.setLayout(jPanelMissionsLayout);
                     jPanelMissionsLayout.setHorizontalGroup(
@@ -148,6 +156,8 @@ public class MainMenu extends javax.swing.JFrame {
                             .addGroup(jPanelMissionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMissionsLayout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jButtonRefreshMission)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(detailsMissionButton)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(ajouterMissionButton)
@@ -168,7 +178,8 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addComponent(detailsMissionButton)
                                 .addComponent(ajouterMissionButton)
                                 .addComponent(supprimerMissionButton)
-                                .addComponent(sauvegarderMissionButton))
+                                .addComponent(sauvegarderMissionButton)
+                                .addComponent(jButtonRefreshMission))
                             .addContainerGap())
                     );
 
@@ -539,6 +550,22 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formFocusGained
 
+    private void jButtonRefreshMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRefreshMissionMouseClicked
+        // TODO add your handling code here:
+        while (tableMissionModel.getRowCount() != 0) {
+            tableMissionModel.removeRow(0);
+        }
+        try {
+            missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
+            for (Mission miss : missions) {
+                System.out.println(miss.getEtat());
+                tableMissionModel.addRow(new Object[]{miss.getLibelle(), miss.getDateDebut(), miss.getDuree(), miss.getEtat()});
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonRefreshMissionMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -593,6 +620,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton detailsCompetenceBouton;
     private javax.swing.JButton detailsMissionButton;
     private javax.swing.JButton detailsPersonneButton;
+    private javax.swing.JButton jButtonRefreshMission;
     private javax.swing.JPanel jPanelCompetences;
     private javax.swing.JPanel jPanelMissions;
     private javax.swing.JPanel jPanelPersonnel;

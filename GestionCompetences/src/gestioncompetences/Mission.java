@@ -52,12 +52,18 @@ public abstract class Mission {
         return etat;
     }
 
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
     /**
      * @return the etat
      */
     public String getLibelle() {
         return libelle;
     }
+
+    public abstract void prochainEtat();
 
     public static Mission getMissionByLibelle(String libelle) throws IOException {
         ArrayList<Mission> missions = lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);

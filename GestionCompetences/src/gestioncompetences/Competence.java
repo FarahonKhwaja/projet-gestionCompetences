@@ -99,17 +99,18 @@ public class Competence {
         }
         return null;
     }
+
     public static ArrayList<Personne> getPersonnesByCompetenceId(String id) throws IOException {
         ArrayList<Personne> personnes = new ArrayList<>();
         //ERREUR NULLPOINTEREXCEPTION : lireFichierCompetencesParPersonne ne marche pas
         HashMap<Integer, ArrayList<String>> competencesParPersonne = lecteur.getCompetencesParPersonne(lecteur.cheminCompetencesPersonnel);
         //parcourir les ArrayList<String>
-        for(Integer idPersonne : competencesParPersonne.keySet())
-        {
-            
+        for (Integer idPersonne : competencesParPersonne.keySet()) {
+
             ArrayList<String> liste = competencesParPersonne.get(idPersonne);
-            if(liste.contains(id))
+            if (liste.contains(id)) {
                 personnes.add(Personne.getPersonneById(idPersonne));
+            }
         }
         /*for(Personne p : personnes)
         {

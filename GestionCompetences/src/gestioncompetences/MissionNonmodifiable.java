@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author Entrax
  */
-public class MissionNonmodifiable extends Mission {
+public abstract class MissionNonmodifiable extends Mission {
 
     protected HashMap<Competence, ArrayList<Personne>> affectationDefinitive;
 
@@ -22,11 +22,11 @@ public class MissionNonmodifiable extends Mission {
      * @param dateDebut
      * @param duree
      * @param etat
-     * @param personelAffecte
+     * @param personnelAffecte
      */
-    public MissionNonmodifiable(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, ArrayList<Personne>> personelAffecte) {
+    public MissionNonmodifiable(String libelle, String dateDebut, String duree, String etat, HashMap<Competence, ArrayList<Personne>> personnelAffecte) {
         super(libelle, dateDebut, duree, etat);
-        this.affectationDefinitive = personelAffecte;
+        this.affectationDefinitive = personnelAffecte;
     }
 
     /**
@@ -35,5 +35,7 @@ public class MissionNonmodifiable extends Mission {
     public HashMap<Competence, ArrayList<Personne>> getAffectationDefinitive() {
         return affectationDefinitive;
     }
+
+    public abstract void prochainEtat();
 
 }

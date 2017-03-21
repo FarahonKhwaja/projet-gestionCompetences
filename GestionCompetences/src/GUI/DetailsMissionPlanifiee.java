@@ -10,7 +10,6 @@ import gestioncompetences.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -101,7 +100,14 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             jTableCompetencesMission = new javax.swing.JTable();
             jButtonCommencer = new javax.swing.JButton();
             jScrollPane1 = new javax.swing.JScrollPane();
-            tablePersonnesCompetenceMissionModel = new DefaultTableModel(              new Object [][] {},              new String [] {                  "Identifiant", "Nom", "Prénom", "Date d'entrée"              });
+            tablePersonnesCompetenceMissionModel = new DefaultTableModel(              new Object [][] {},              new String [] {                  "Identifiant", "Nom", "Prénom", "Date d'entrée"              })
+            {
+                @Override
+                public boolean isCellEditable(int row, int column)
+                {
+                    return false;
+                }
+            };
             jTablePersonnesCompetenceMission = new javax.swing.JTable();
             jButtonSavePersonnesCompetencesMission = new javax.swing.JButton();
             jButtonAddPersonnesCompetenceMission = new javax.swing.JButton();
@@ -125,6 +131,11 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             jScrollPane2.setViewportView(jTableCompetencesMission);
 
             jButtonCommencer.setText("Commencer");
+            jButtonCommencer.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonCommencerMouseClicked(evt);
+                }
+            });
 
             jTablePersonnesCompetenceMission.setAutoCreateRowSorter(true);
             jTablePersonnesCompetenceMission.setModel(tablePersonnesCompetenceMissionModel);
@@ -385,6 +396,14 @@ public class DetailsMissionPlanifiee extends javax.swing.JFrame {
             tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), this.mission.getPersonnelAffecte().get(cp).size(), nb});
         }
     }//GEN-LAST:event_jButtonAutoSelectPersonnesCompetenceMissionMouseClicked
+
+    private void jButtonCommencerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCommencerMouseClicked
+        // TODO add your handling code here:
+        for (int i = 0; i < tableCompetencesMissionModel.getRowCount(); i++) {
+            if (tableCompetencesMissionModel.getValueAt(i, 4).toString().equals("0")) {
+            }
+        }
+    }//GEN-LAST:event_jButtonCommencerMouseClicked
 
     /**
      * @param args the command line arguments

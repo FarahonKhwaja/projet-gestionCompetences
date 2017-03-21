@@ -124,11 +124,6 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
                     jButtonPlanifierMouseClicked(evt);
                 }
             });
-            jButtonPlanifier.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jButtonPlanifierActionPerformed(evt);
-                }
-            });
 
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
@@ -231,11 +226,11 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
             iterator.next();
             iterator.remove();
         }
-        for (int i = 0; i < tableCompetencesMissionModel.getRowCount(); i++) {
-            Competence cp = new Competence(tableCompetencesMissionModel.getValueAt(i, 0).toString(),
-                    tableCompetencesMissionModel.getValueAt(i, 1).toString(),
-                    tableCompetencesMissionModel.getValueAt(i, 2).toString());
-            this.mission.addCompetence(cp, Integer.parseInt(tableCompetencesMissionModel.getValueAt(i, 3).toString()));
+        for (int j = 0; j < tableCompetencesMissionModel.getRowCount(); j++) {
+            Competence cp = new Competence(tableCompetencesMissionModel.getValueAt(j, 0).toString(),
+                    tableCompetencesMissionModel.getValueAt(j, 1).toString(),
+                    tableCompetencesMissionModel.getValueAt(j, 2).toString());
+            this.mission.addCompetence(cp, Integer.parseInt(tableCompetencesMissionModel.getValueAt(j, 3).toString()));
         }
         HashMap<String, Integer> idCompetences = new HashMap<>();
         for (Competence cp : this.mission.getPersonnelRequis().keySet()) {
@@ -244,17 +239,13 @@ public class DetailsMissionPreparation extends javax.swing.JFrame {
         competencesMission.put(this.mission.getLibelle(), idCompetences);
 
         try {
+            this.mission.prochainEtat();
             gestionFichiers.writer.sauvegarderCompetencesMissionPreparation(competencesMission);
         } catch (IOException ex) {
             Logger.getLogger(DetailsMissionPreparation.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
     }//GEN-LAST:event_jButtonPlanifierMouseClicked
-
-    private void jButtonPlanifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlanifierActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jButtonPlanifierActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,6 +6,7 @@
 package gestioncompetences;
 
 import gestionFichiers.lecteur;
+import gestionFichiers.writer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -214,6 +215,23 @@ public class MissionPlanifiee extends MissionModifiable {
             }
         }
         return null;
+    }
+
+    @Override
+    public void prochainEtat() {
+        try {
+            ArrayList<MissionPlanifiee> missionsPla = lecteur.getMissionsPlanifiee(gestionFichiers.lecteur.cheminMissions);
+            ArrayList<Mission> missions = new ArrayList<>();
+            for (MissionPlanifiee mission : missionsPla) {
+                if (mission.getLibelle().equals(libelle)) {
+                    mission.setEtat("En Cours");
+                }
+                missions.add(mission);
+            }
+            writer.sauvegarderMissions(missions);
+        } catch (IOException ex) {
+            Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="D&#xe9;tails Mission en Cours"/>
+    <Property name="title" type="java.lang.String" value="D&#xe9;tails Mission Planifiee"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -24,12 +24,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -39,20 +39,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="996" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jScrollPane1" pref="702" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabelLibelleMission" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButtonDeleteCompetenceMission" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBoxCompetencesMission" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonAddCompetenceMission" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonSaveCompetencesMission" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonTerminer" min="-2" pref="111" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -63,60 +62,22 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabelLibelleMission" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="354" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButtonSaveCompetencesMission" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonAddCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBoxCompetencesMission" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonDeleteCompetenceMission" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jButtonTerminer" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelLibelleMission" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="200" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="187" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButtonSaveCompetencesMission">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Enregister"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonSaveCompetencesMissionMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonAddCompetenceMission">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Ajouter"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonAddCompetenceMissionMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxCompetencesMission">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="comboBoxCompetencesMissionModel" type="code"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="comboBoxCompetencesMissionModel = new DefaultComboBoxModel&lt;String&gt;(new String [] {});"/>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonDeleteCompetenceMission">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Supprimer"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonDeleteCompetenceMissionMouseClicked"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jButtonDeleteCompetenceMission.setEnabled(false);"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabelLibelleMission">
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -136,12 +97,48 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableCompetencesMissionMouseClicked"/>
+              </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tableCompetencesMissionModel = new DefaultTableModel(&#xd;&#xa;            new Object [][] {},&#xd;&#xa;            new String [] {&#xd;&#xa;                &quot;Identifiant&quot;, &quot;Libell&#xe9; EN&quot;, &quot;Libell&#xe9; FR&quot;, &quot;Nb Requis&quot;&#xd;&#xa;            })&#xd;&#xa;{&#xd;&#xa;                    @Override&#xd;&#xa;        public boolean isCellEditable(int row, int column)&#xd;&#xa;                    {&#xd;&#xa;                        return false;&#xd;&#xa;                    }&#xd;&#xa;                };&#xd;&#xa;"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tableCompetencesMissionModel = new DefaultTableModel(&#xd;&#xa;            new Object [][] {},&#xd;&#xa;            new String [] {&#xd;&#xa;                &quot;Identifiant&quot;, &quot;Libell&#xe9; EN&quot;, &quot;Libell&#xe9; FR&quot;, &quot;Personnel assign&#xe9;&quot;&#xd;&#xa;            })&#xd;&#xa;{&#xd;&#xa;                    @Override&#xd;&#xa;        public boolean isCellEditable(int row, int column)&#xd;&#xa;                    {&#xd;&#xa;                        return false;&#xd;&#xa;                    }&#xd;&#xa;                };"/>
               </AuxValues>
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButtonTerminer">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Terminer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonTerminerMouseClicked"/>
+          </Events>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="jTablePersonnesCompetenceMission">
+              <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="tablePersonnesCompetenceMissionModel" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tablePersonnesCompetenceMissionModel = new DefaultTableModel(              new Object [][] {},              new String [] {                  &quot;Identifiant&quot;, &quot;Nom&quot;, &quot;Pr&#xe9;nom&quot;, &quot;Date d&apos;entr&#xe9;e&quot;              })&#xd;&#xa;{&#xd;&#xa;                    @Override&#xd;&#xa;        public boolean isCellEditable(int row, int column)&#xd;&#xa;                    {&#xd;&#xa;                        return false;&#xd;&#xa;                    }&#xd;&#xa;                };&#xd;&#xa;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Affectations"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

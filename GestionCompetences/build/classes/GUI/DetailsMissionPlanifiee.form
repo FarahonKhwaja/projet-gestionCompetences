@@ -132,6 +132,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Commencer"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonCommencerMouseClicked"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -148,7 +151,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tablePersonnesCompetenceMissionModel = new DefaultTableModel(              new Object [][] {},              new String [] {                  &quot;Identifiant&quot;, &quot;Nom&quot;, &quot;Pr&#xe9;nom&quot;, &quot;Date d&apos;entr&#xe9;e&quot;              });"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="tablePersonnesCompetenceMissionModel = new DefaultTableModel(              new Object [][] {},              new String [] {                  &quot;Identifiant&quot;, &quot;Nom&quot;, &quot;Pr&#xe9;nom&quot;, &quot;Date d&apos;entr&#xe9;e&quot;              })&#xd;&#xa;{&#xd;&#xa;                    @Override&#xd;&#xa;        public boolean isCellEditable(int row, int column)&#xd;&#xa;                    {&#xd;&#xa;                        return false;&#xd;&#xa;                    }&#xd;&#xa;                };&#xd;&#xa;"/>
               </AuxValues>
             </Component>
           </SubComponents>

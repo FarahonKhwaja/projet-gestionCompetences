@@ -6,8 +6,11 @@
 package gestioncompetences;
 
 import gestionFichiers.lecteur;
+import gestionFichiers.writer;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,6 +44,23 @@ public class MissionPreparation extends MissionModifiable {
             }
         }
         return null;
+    }
+
+    @Override
+    public void prochainEtat() {
+        try {
+            ArrayList<MissionPreparation> missionsPrep = lecteur.getMissionsPreparation(gestionFichiers.lecteur.cheminMissions);
+            ArrayList<Mission> missions = new ArrayList<>();
+            for (MissionPreparation mission : missionsPrep) {
+                if (mission.getLibelle().equals(this.libelle)) {
+                    mission.setEtat("Planifiée");
+                }
+                missions.add(mission);
+            }
+            writer.sauvegarderMissions(missions);
+        } catch (IOException ex) {
+            Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

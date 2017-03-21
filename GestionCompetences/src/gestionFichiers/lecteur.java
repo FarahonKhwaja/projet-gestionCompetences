@@ -138,16 +138,6 @@ public class lecteur {
 
     /**
      *
-     * @return l'idenfiant du dernier membre du personnel dans le CSV
-     * @throws IOException
-     */
-    public static int getDernierIdPersonnel() throws IOException {
-        ArrayList<Personne> personnel = gestionFichiers.lecteur.getPersonnel(cheminPersonnel);
-        return personnel.size();
-    }
-
-    /**
-     *
      * @param chemin correspond au chemin du CSV.
      * @return une ArrayList contenant toutes les missions du CSV
      * @throws IOException
@@ -384,6 +374,27 @@ public class lecteur {
      * @throws IOException
      */
     public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsParMission(String chemin) throws IOException {
+        HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
+        String chaine;
+        int i = 0;
+        BufferedReader fichier = new BufferedReader(new FileReader(chemin));
+        while (((chaine = fichier.readLine()) != null)) { //pour chaque compétence
+            HashMap<String, ArrayList<Integer>> affectations = new HashMap<>();
+            String[] infos = chaine.split(";");
+            if (affectationsMission.get(infos[0]) != null) {
+                affectations = affectationsMission.get(infos[0]);
+            }
+            ArrayList<Integer> personnes = new ArrayList<>();
+            for (int j = 2; j < infos.length; j++) {
+                personnes.add(Integer.parseInt(infos[j]));
+            }
+            affectations.put(infos[1], personnes);
+            affectationsMission.put(infos[0], affectations);
+        }
+        return affectationsMission;
+    }
+
+    public static HashMap<String, HashMap<String, ArrayList<Integer>>> lireFichierAffectationsDefParMission(String chemin) throws IOException {
         HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
         String chaine;
         int i = 0;

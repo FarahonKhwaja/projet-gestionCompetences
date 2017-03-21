@@ -15,10 +15,11 @@ import java.util.logging.Logger;
  *
  * @author Entrax
  */
-public class MissionModifiable extends Mission {
+public abstract class MissionModifiable extends Mission {
 
     protected String nbRequis;
     protected HashMap<Competence, Integer> personnelRequis = new HashMap<>();
+
     /**
      *
      * @param libelle
@@ -31,7 +32,7 @@ public class MissionModifiable extends Mission {
         super(libelle, dateDebut, duree, etat);
         this.nbRequis = nbRequis;
     }
-    
+
     public MissionModifiable(String libelle, String dateDebut, String duree, String etat) {
         super(libelle, dateDebut, duree, etat);
         this.nbRequis = "0";
@@ -76,5 +77,8 @@ public class MissionModifiable extends Mission {
             }
         }
     }
+
+    @Override
+    public abstract void prochainEtat();
 
 }

@@ -10,10 +10,8 @@ import gestioncompetences.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,12 +21,19 @@ import javax.swing.table.DefaultTableModel;
 public class DetailsMissionEnCours extends javax.swing.JFrame {
 
     private static String libelle, dateDebut, duree, etat;
-    private MissionPreparation mission;
+    private final MissionEnCours mission;
 
-    private final HashMap<String, HashMap<String, Integer>> competencesMission = lecteur.getCompetencesParMission(lecteur.cheminCompetencesMission);
+    private HashMap<Competence, ArrayList<Personne>> affectationsCompetencesMission = new HashMap<>();
+    private HashMap<String, HashMap<String, ArrayList<Integer>>> affectationsMission = new HashMap<>();
 
     /**
      * Creates new form DetailsMissionPreparation
+     *
+     * @param libelle
+     * @param dateDebut
+     * @param duree
+     * @param etat
+     * @throws java.io.IOException
      */
     public DetailsMissionEnCours(String libelle, String dateDebut, String duree, String etat) throws IOException {
         initComponents();
@@ -38,21 +43,38 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
         DetailsMissionEnCours.etat = etat;
         jLabelLibelleMission.setText(libelle);
 
-        MissionPreparation m = MissionPreparation.getMissionByLibelle(libelle);
+        MissionEnCours m = MissionEnCours.getMissionByLibelle(libelle);
         if (m == null) {
-            this.mission = new MissionPreparation(libelle, dateDebut, duree, etat, "0");
+            HashMap<Competence, ArrayList<Personne>> personelRequis = new HashMap<>();
+            this.mission = new MissionEnCours(libelle, dateDebut, duree, etat, personelRequis);
         } else {
-            this.mission = new MissionPreparation(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getNbRequis());
+            this.mission = new MissionEnCours(m.getLibelle(), m.getDateDebut(), m.getDuree(), m.getEtat(), m.getAffectationDefinitive());
         }
 
-        this.mission.addCompetence(competencesMission);
-        HashMap<Competence, Integer> competenceMission = new HashMap<>();
-        competenceMission = this.mission.getPersonnelRequis();
-        for (Competence cp : competenceMission.keySet()) {
-            tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), competenceMission.get(cp)});
+        affectationsMission = lecteur.getAffectationsParMission(lecteur.cheminAffectationsMission);
+        HashMap<String, ArrayList<Integer>> libCompetences = affectationsMission.get(this.mission.getLibelle());
+        if (libCompetences != null) {
+            for (String competenceMission : libCompetences.keySet()) {
+                try {
+                    Competence competence;
+                    competence = Competence.getCompetenceById(competenceMission);
+                    ArrayList<Personne> personnes = new ArrayList<>();
+                    for (int idPersonne : libCompetences.get(competenceMission)) {
+                        personnes.add(Personne.getPersonneById(idPersonne));
+                    }
+                    affectationsCompetencesMission.put(competence, personnes);
+                } catch (IOException ex) {
+                    Logger.getLogger(MissionPlanifiee.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        for (Competence competence : lecteur.getCompetences(lecteur.cheminCompetences)) {
-            comboBoxCompetencesMissionModel.addElement(competence.toString());
+
+        for (Competence cp : affectationsCompetencesMission.keySet()) {
+            int nb = 0;
+            if (affectationsCompetencesMission.get(cp) != null) {
+                nb = affectationsCompetencesMission.get(cp).size();
+            }
+            tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), nb});
         }
     }
 
@@ -66,17 +88,12 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButtonSaveCompetencesMission = new javax.swing.JButton();
-        jButtonAddCompetenceMission = new javax.swing.JButton();
-        comboBoxCompetencesMissionModel = new DefaultComboBoxModel<String>(new String [] {});
-        jComboBoxCompetencesMission = new javax.swing.JComboBox<>();
-        jButtonDeleteCompetenceMission = new javax.swing.JButton();
         jLabelLibelleMission = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableCompetencesMissionModel = new DefaultTableModel(
             new Object [][] {},
             new String [] {
-                "Identifiant", "Libellé EN", "Libellé FR", "Nb Requis"
+                "Identifiant", "Libellé EN", "Libellé FR", "Personnel assigné"
             })
             {
                 @Override
@@ -86,127 +103,121 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
                 }
             };
             jTableCompetencesMission = new javax.swing.JTable();
+            jButtonTerminer = new javax.swing.JButton();
+            jScrollPane1 = new javax.swing.JScrollPane();
+            tablePersonnesCompetenceMissionModel = new DefaultTableModel(              new Object [][] {},              new String [] {                  "Identifiant", "Nom", "Prénom", "Date d'entrée"              })
+            {
+                @Override
+                public boolean isCellEditable(int row, int column)
+                {
+                    return false;
+                }
+            };
+            jTablePersonnesCompetenceMission = new javax.swing.JTable();
+            jLabel1 = new javax.swing.JLabel();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-            setTitle("Détails Mission en Cours");
-
-            jButtonSaveCompetencesMission.setText("Enregister");
-            jButtonSaveCompetencesMission.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    jButtonSaveCompetencesMissionMouseClicked(evt);
-                }
-            });
-
-            jButtonAddCompetenceMission.setText("Ajouter");
-            jButtonAddCompetenceMission.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    jButtonAddCompetenceMissionMouseClicked(evt);
-                }
-            });
-
-            jComboBoxCompetencesMission.setModel(comboBoxCompetencesMissionModel);
-
-            jButtonDeleteCompetenceMission.setText("Supprimer");
-            jButtonDeleteCompetenceMission.setEnabled(false);
-            jButtonDeleteCompetenceMission.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    jButtonDeleteCompetenceMissionMouseClicked(evt);
-                }
-            });
+            setTitle("Détails Mission Planifiee");
 
             jTableCompetencesMission.setAutoCreateRowSorter(true);
             jTableCompetencesMission.setModel(tableCompetencesMissionModel);
+            jTableCompetencesMission.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jTableCompetencesMissionMouseClicked(evt);
+                }
+            });
             jScrollPane2.setViewportView(jTableCompetencesMission);
+
+            jButtonTerminer.setText("Terminer");
+            jButtonTerminer.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jButtonTerminerMouseClicked(evt);
+                }
+            });
+
+            jTablePersonnesCompetenceMission.setAutoCreateRowSorter(true);
+            jTablePersonnesCompetenceMission.setModel(tablePersonnesCompetenceMissionModel);
+            jScrollPane1.setViewportView(jTablePersonnesCompetenceMission);
+
+            jLabel1.setText("Affectations");
 
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
             jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabelLibelleMission)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonDeleteCompetenceMission)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBoxCompetencesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonAddCompetenceMission)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonSaveCompetencesMission)))
+                            .addComponent(jButtonTerminer, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(0, 0, Short.MAX_VALUE)))
                     .addContainerGap())
             );
             jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabelLibelleMission)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonTerminer)
+                        .addComponent(jLabelLibelleMission))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonSaveCompetencesMission)
-                        .addComponent(jButtonAddCompetenceMission)
-                        .addComponent(jComboBoxCompetencesMission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonDeleteCompetenceMission))
-                    .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addGap(40, 40, 40))
             );
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             );
             layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             );
 
             pack();
         }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSaveCompetencesMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveCompetencesMissionMouseClicked
+    private void jTableCompetencesMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCompetencesMissionMouseClicked
         // TODO add your handling code here:
-        for (Iterator<Competence> iterator = this.mission.getPersonnelRequis().keySet().iterator(); iterator.hasNext();) {
-            Competence cp = iterator.next();
-            iterator.remove();
-        }
-        for (int i = 0; i < tableCompetencesMissionModel.getRowCount(); i++) {
-            Competence cp = new Competence(tableCompetencesMissionModel.getValueAt(i, 0).toString(),
-                    tableCompetencesMissionModel.getValueAt(i, 1).toString(),
-                    tableCompetencesMissionModel.getValueAt(i, 2).toString());
-            this.mission.addCompetence(cp, Integer.parseInt(tableCompetencesMissionModel.getValueAt(i, 3).toString()));
-        }
-        HashMap<String, Integer> idCompetences = new HashMap<>();
-        for (Competence cp : this.mission.getPersonnelRequis().keySet()) {
-            idCompetences.put(cp.getIdCompetence(), this.mission.getPersonnelRequis().get(cp));
-        }
-        competencesMission.put(this.mission.getLibelle(), idCompetences);
 
+        String idComp = tableCompetencesMissionModel.getValueAt(jTableCompetencesMission.getSelectedRow(), 0).toString();
+        //Affichage du personnel de la mission
+        while (tablePersonnesCompetenceMissionModel.getRowCount() != 0) {
+            tablePersonnesCompetenceMissionModel.removeRow(0);
+        }
+        Competence cp;
+        ArrayList<Personne> personnel = new ArrayList<>();
         try {
-            gestionFichiers.writer.sauvegarderCompetencesMissionPreparation(competencesMission);
+            cp = Competence.getCompetenceById(idComp);
+            for (Competence comp : affectationsCompetencesMission.keySet()) {
+                if (comp.getIdCompetence().equals(cp.getIdCompetence())) {
+                    personnel = affectationsCompetencesMission.get(comp);
+                }
+            }
+            for (Personne pers : personnel) {
+                tablePersonnesCompetenceMissionModel.addRow(new Object[]{pers.getId(), pers.getNom(), pers.getPrenom(), pers.getDateEntree()});
+            }
         } catch (IOException ex) {
             Logger.getLogger(DetailsMissionEnCours.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_jTableCompetencesMissionMouseClicked
 
-        this.dispose();
-    }//GEN-LAST:event_jButtonSaveCompetencesMissionMouseClicked
-
-    private void jButtonAddCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddCompetenceMissionMouseClicked
+    private void jButtonTerminerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTerminerMouseClicked
         // TODO add your handling code here:
-        Competence cp = new Competence(comboBoxCompetencesMissionModel.getSelectedItem().toString());
-        tableCompetencesMissionModel.addRow(new Object[]{cp.getIdCompetence(), cp.getNomEN(), cp.getNomFR(), "0"});
-    }//GEN-LAST:event_jButtonAddCompetenceMissionMouseClicked
 
-    private void jButtonDeleteCompetenceMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeleteCompetenceMissionMouseClicked
-        // TODO add your handling code here:
-        if (jTableCompetencesMission.getSelectedRow() != -1) {
-            tableCompetencesMissionModel.removeRow(jTableCompetencesMission.getSelectedRow());
-        }
-    }//GEN-LAST:event_jButtonDeleteCompetenceMissionMouseClicked
+    }//GEN-LAST:event_jButtonTerminerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -235,6 +246,12 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -249,15 +266,15 @@ public class DetailsMissionEnCours extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAddCompetenceMission;
-    private javax.swing.JButton jButtonDeleteCompetenceMission;
-    private javax.swing.JButton jButtonSaveCompetencesMission;
-    private javax.swing.JComboBox<String> jComboBoxCompetencesMission;
+    private javax.swing.JButton jButtonTerminer;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelLibelleMission;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableCompetencesMission;
+    private javax.swing.JTable jTablePersonnesCompetenceMission;
     // End of variables declaration//GEN-END:variables
     DefaultTableModel tableCompetencesMissionModel;
-    DefaultComboBoxModel<String> comboBoxCompetencesMissionModel;
+    DefaultTableModel tablePersonnesCompetenceMissionModel;
 }

@@ -102,9 +102,11 @@ public class MainMenu extends javax.swing.JFrame {
 
                     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                     setTitle("Gestion Personnel");
-                    addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                            formFocusGained(evt);
+                    addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+                        public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                            formWindowGainedFocus(evt);
+                        }
+                        public void windowLostFocus(java.awt.event.WindowEvent evt) {
                         }
                     });
 
@@ -539,13 +541,6 @@ public class MainMenu extends javax.swing.JFrame {
         }*/
     }//GEN-LAST:event_detailsCompetenceBoutonMouseClicked
 
-    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        // TODO add your handling code here:
-        //missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
-        //personnel = gestionFichiers.lecteur.getPersonnel(gestionFichiers.lecteur.cheminPersonnel);
-        //competences = gestionFichiers.lecteur.getCompetences(gestionFichiers.lecteur.cheminCompetences);
-    }//GEN-LAST:event_formFocusGained
-
     private void jButtonRefreshMissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonRefreshMissionMouseClicked
         // TODO add your handling code here:
         while (tableMissionModel.getRowCount() != 0) {
@@ -561,6 +556,22 @@ public class MainMenu extends javax.swing.JFrame {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonRefreshMissionMouseClicked
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        while (tableMissionModel.getRowCount() != 0) {
+            tableMissionModel.removeRow(0);
+        }
+        try {
+            missions = gestionFichiers.lecteur.getMissions(gestionFichiers.lecteur.cheminMissions);
+            for (Mission miss : missions) {
+                System.out.println(miss.getEtat());
+                tableMissionModel.addRow(new Object[]{miss.getLibelle(), miss.getDateDebut(), miss.getDuree(), miss.getEtat()});
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
